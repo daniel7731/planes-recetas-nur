@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanesRecetas.webapi", "PlanesRecetas.webapi.csproj", "{2F58FC5B-BB9C-4011-9EAC-7A8D49B28744}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanesRecetas.domain", "..\PlanesRecetas.domain\PlanesRecetas.domain.csproj", "{A1FEFCB9-DCF9-9286-C0ED-0A05CB87A847}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanesRecetas.application", "..\PlanesRecetas.application\PlanesRecetas.application.csproj", "{BF02334F-D916-C623-C97D-3E1F63A983CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanesRecetas.infraestructure", "..\PlanesRecetas.infraestructure\PlanesRecetas.infraestructure.csproj", "{99E22E74-CF99-426F-AEFF-847392260CDC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		..\joseco.ddd.core\src\Joseco.DDD.Core\bin\Debug\net8.0\Joseco.DDD.Core.dll = ..\joseco.ddd.core\src\Joseco.DDD.Core\bin\Debug\net8.0\Joseco.DDD.Core.dll
+		..\PlanesRecetas.domain\planes-y-recetas.JPG = ..\PlanesRecetas.domain\planes-y-recetas.JPG
+		..\script.sql = ..\script.sql
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F58FC5B-BB9C-4011-9EAC-7A8D49B28744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F58FC5B-BB9C-4011-9EAC-7A8D49B28744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F58FC5B-BB9C-4011-9EAC-7A8D49B28744}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F58FC5B-BB9C-4011-9EAC-7A8D49B28744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1FEFCB9-DCF9-9286-C0ED-0A05CB87A847}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1FEFCB9-DCF9-9286-C0ED-0A05CB87A847}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1FEFCB9-DCF9-9286-C0ED-0A05CB87A847}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1FEFCB9-DCF9-9286-C0ED-0A05CB87A847}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF02334F-D916-C623-C97D-3E1F63A983CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF02334F-D916-C623-C97D-3E1F63A983CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF02334F-D916-C623-C97D-3E1F63A983CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF02334F-D916-C623-C97D-3E1F63A983CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E22E74-CF99-426F-AEFF-847392260CDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E22E74-CF99-426F-AEFF-847392260CDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E22E74-CF99-426F-AEFF-847392260CDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E22E74-CF99-426F-AEFF-847392260CDC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FFA435F-7207-4EA2-B922-48067CE3E69F}
+	EndGlobalSection
+EndGlobal

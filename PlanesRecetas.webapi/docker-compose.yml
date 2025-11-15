@@ -1,0 +1,35 @@
+services:
+  api:
+    image: ikaru773/planesrecetaswebapi
+    container_name: api_planes_receta
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=appservice;User Id=sa;Password=Password12345;TrustServerCertificate=True;"
+    depends_on:
+      - sqlserver
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: db-sqlserver
+    networks:
+      - app-network-public
+    restart: always
+    env_file:
+      - sqlserver.env
+      - sapassword.env
+    ports:
+      - '1433:1433'
+    volumes:
+      - sql-server-data:/var/opt/mssql/
+volumes:
+ sql-server-data:
+    driver: local
+  # The rest of your volumes were removed as they conflicted with standard SQL Server paths
+  # If you need them, they must be defined here with the correct syntax:
+  # sqldata:
+  # sqllog:
+  # sqlbackup:
+networks:
+  app-network-public:
+    driver: bridge 
