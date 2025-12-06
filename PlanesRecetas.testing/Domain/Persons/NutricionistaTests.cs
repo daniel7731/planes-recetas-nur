@@ -63,8 +63,7 @@ namespace PlanesRecetas.testing.Domain.Persons
             );
 
             // Assert
-            // 1. Verificar el Id de la clase base (AggregateRoot)
-           // nutricionista.Id.Should().Be(IdEsperado);
+         
             Assert.Equal(nutricionista.Nombre, NombreEsperado);
           // 2. Verificar las propiedades específicas de Nutricionista
             Assert.Equal(ActivoEsperado, ActivoEsperado);
@@ -91,8 +90,8 @@ namespace PlanesRecetas.testing.Domain.Persons
             // Los DateTime deben ser DateTime.MinValue
             Assert.Equal(DateTime.MinValue, nutricionista.FechaCreacion);
 
-            // El Id debe ser Guid.Empty
-            //Assert.Equal(Guid.Empty, nutricionista.Id);
+       
+         
         }
     }
 }
