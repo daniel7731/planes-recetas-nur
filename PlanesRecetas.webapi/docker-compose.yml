@@ -11,7 +11,7 @@ services:
       - sqlserver
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: db-sqlserver
+    container_name: sqlserver
     networks:
       - app-network-public
     restart: always
@@ -22,6 +22,12 @@ services:
       - '1433:1433'
     volumes:
       - sql-server-data:/var/opt/mssql/
+    user: "0"
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Password12345", "-Q", "select 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 volumes:
  sql-server-data:
     driver: local

@@ -32,5 +32,13 @@ namespace PlanesRecetas.domain.Persons
             Altura= altura;
             Peso= peso;
         }
+        public Paciente(Guid id, String nombre, String apellido, DateTime fechaNacimiento, Decimal peso, Decimal altura) : base(id)
+        {
+            Nombre = nombre;
+            Apellido = apellido;
+            FechaNacimiento = fechaNacimiento;
+            Altura = altura;
+            Peso = peso;
+        }
     }
 }

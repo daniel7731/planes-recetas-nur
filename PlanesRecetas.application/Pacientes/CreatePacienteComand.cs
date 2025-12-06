@@ -16,5 +16,13 @@ namespace PlanesRecetas.application.Pacientes
         public Decimal Peso { get; set; }
         public Decimal Altura { get; set; }
         
+        public CreatePacienteComand(string nombre, string apellido, DateTime fechaNacimiento, Decimal peso, Decimal altura)
+        {
+            Nombre = nombre;
+            Apellido = apellido;
+            FechaNacimiento = fechaNacimiento;
+            Peso = peso;
+            Altura = altura;
+        }
     }
 }
