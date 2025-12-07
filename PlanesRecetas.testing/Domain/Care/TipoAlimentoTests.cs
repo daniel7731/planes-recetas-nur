@@ -28,7 +28,7 @@ namespace PlanesRecetas.testing.Domain.Care
 
             // Note: The provided constructor public TipoAlimento(int id ,string nombre) => Nombre = nombre; 
             // does *not* set 'Id', so we expect 'Id' to be its default value (0).
-            Assert.Equal(0, tipoAlimento.Id);
+            Assert.Equal(expectedId, tipoAlimento.Id);
         }
 
         // --- 2. Test Parameterless Constructor ---

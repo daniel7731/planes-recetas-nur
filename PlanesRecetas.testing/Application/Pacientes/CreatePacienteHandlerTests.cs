@@ -36,7 +36,9 @@ namespace PlanesRecetas.testing.Application.Paciente
         {
             // Arrange
             // 1. Create el comando
+            Guid guid = Guid.NewGuid();
             var command = new CreatePacienteComand(
+                guid : guid,
                 nombre: "Juan",
                 apellido: "Perez",
                 fechaNacimiento: new DateTime(1990, 5, 15), 
@@ -46,14 +48,13 @@ namespace PlanesRecetas.testing.Application.Paciente
 
 
             // 2. Set up a placeholder for the Paciente object that will be passed to AddAsync
-            PlanesRecetas.domain.Persons.Paciente capturedPaciente = new PlanesRecetas.domain.Persons.Paciente(
-                    command.Nombre, command.Apellido, command.FechaNacimiento, command.Peso, command.Altura);
+            PlanesRecetas.domain.Persons.Paciente capturedPaciente = null;
        
             // 3. Configure the mock repository to capture the Paciente object passed to AddAsync
             _mockPacienteRepository
                 .Setup(r => r.AddAsync(It.IsAny<PlanesRecetas.domain.Persons.Paciente>()))
                 .Callback<PlanesRecetas.domain.Persons.Paciente>(p => capturedPaciente = p) 
-                .Returns( Task.FromResult(capturedPaciente.Id));
+                .Returns( Task.FromResult(guid));
 
             // Act
             // Call the handler's Handle method
@@ -63,7 +64,7 @@ namespace PlanesRecetas.testing.Application.Paciente
             // Assert
             // 1. Verify the result is successful and contains a Guid
             Assert.True(result.IsSuccess);
- 
+            Assert.NotEqual(Guid.Empty, result.Value);
             // 2. Verify the Paciente object was created correctly
             Assert.NotNull(capturedPaciente);
             Assert.Equal(command.Nombre, capturedPaciente.Nombre);
@@ -71,7 +72,7 @@ namespace PlanesRecetas.testing.Application.Paciente
             Assert.Equal(command.FechaNacimiento, capturedPaciente.FechaNacimiento);
             Assert.Equal(command.Peso, capturedPaciente.Peso);
             Assert.Equal(command.Altura, capturedPaciente.Altura);
-
+            Assert.Equal(command.Guid, capturedPaciente.Id);
 
             // 3. Verify that AddAsync was called exactly once with the created Paciente object
             _mockPacienteRepository.Verify(

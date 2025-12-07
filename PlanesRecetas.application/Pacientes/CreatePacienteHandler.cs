@@ -23,7 +23,7 @@ namespace PlanesRecetas.application.Pacientes
         async Task<Result<Guid>> IRequestHandler<CreatePacienteComand, Result<Guid>>.Handle(CreatePacienteComand request, CancellationToken cancellationToken)
         {
            // throw new NotImplementedException();
-           var paciente = new Paciente(request.Nombre, request.Apellido, 
+           var paciente = new Paciente(request.Guid,request.Nombre, request.Apellido, 
                request.FechaNacimiento, request.Peso, request.Altura);
            await _pacienteRepository.AddAsync(paciente);
            await _unitOfWork.CommitAsync(cancellationToken);

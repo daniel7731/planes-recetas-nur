@@ -27,6 +27,8 @@ namespace PlanesRecetas.webapi.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateNutricionista([FromBody] CreateNutricionistaComand request)
         {
+            Guid guid = Guid.NewGuid();
+            request.Guid= guid;
             var result = await _mediator.Send(request);
 
             return Ok(result);

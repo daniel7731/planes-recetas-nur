@@ -18,9 +18,11 @@ namespace PlanesRecetas.webapi.Controllers
         {
             _mediator = mediator;
         }
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<IActionResult> CreatePaciente([FromBody] CreatePacienteComand request)
         {
+            Guid guid = Guid.NewGuid();
+            request.Guid = guid;
             var result = await _mediator.Send(request);
 
             return Ok(result);

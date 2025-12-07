@@ -23,7 +23,7 @@ namespace PlanesRecetas.application.Medicos
 
         async Task<Result<Guid>> IRequestHandler<CreateNutricionistaComand, Result<Guid>>.Handle(CreateNutricionistaComand request, CancellationToken cancellationToken)
         {
-            var nutricionista = new Nutricionista(request.Nombre,request.Activo,request.FechaCreacion);
+            var nutricionista = new Nutricionista(request.Guid, request.Nombre,request.Activo,request.FechaCreacion);
             await _nutricionistaRepository.AddAsync(nutricionista);
             await _unitOfWork.CommitAsync(cancellationToken);
             return Result.Success(nutricionista.Id);
