@@ -1,0 +1,744 @@
+{
+	"info": {
+		"_postman_id": "a9efeb66-6593-4f01-97c7-2b2f04f72967",
+		"name": "PlanesRecetasApi",
+		"description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50622686",
+		"_collection_link": "https://daniel-roman-terrazas-1400697.postman.co/workspace/Daniel-Roman-Terrazas's-Workspa~5fbb4e21-a5ed-4ca2-89c9-878f5ca367ab/collection/50622686-a9efeb66-6593-4f01-97c7-2b2f04f72967?action=share&source=collection_link&creator=50622686"
+	},
+	"item": [
+		{
+			"name": "Categoria/GetAll",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"   ",
+							"});",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    const body = pm.response.json();",
+							"    pm.expect(body.length).to.greaterThan(0);",
+							"});",
+							"pm.test(\"Response body contains expected data\", function () {",
+							"     const body = pm.response.json();",
+							"     console.log(body);",
+							"     pm.expect(body).to.be.an('array');",
+							"    ",
+							"    // Optional: Log the length of the array to the Console",
+							"    if (Array.isArray(body)) {",
+							"        console.log(`Response body is an array with ${body.length} items.`);",
+							"    }",
+							"});",
+							"pm.test(\"First item has required attributes (id, nombre, tipoAlimentoId)\", function () {",
+							"  ",
+							"    const body = pm.response.json();",
+							"    ",
+							"   ",
+							"    pm.expect(body).to.be.an('array', 'Response body must be an array');",
+							"    pm.expect(body.length, 'Response array must not be empty').to.be.above(0);",
+							"",
+							"    // Get the first item in the array",
+							"    const firstItem = body[0];",
+							"    ",
+							"    console.log(\"Checking first item:\", firstItem);",
+							"",
+							"    pm.expect(firstItem).to.have.property('id').that.is.a('string');",
+							"    ",
+							"    pm.expect(firstItem).to.have.property('nombre').that.is.a('string');",
+							"    ",
+							"    pm.expect(firstItem).to.have.property('tipoAlimentoId').that.is.a('number');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/{{baseUrl}}/Categoria/GetAll",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{baseUrl}}",
+						"Categoria",
+						"GetAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nutricionistas/GetAll",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"   ",
+							"});",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    const body = pm.response.json();",
+							"    pm.expect(body.length).to.greaterThan(0);",
+							"});",
+							"pm.test(\"Response body contains expected data\", function () {",
+							"     const body = pm.response.json();",
+							"     console.log(body);",
+							"     pm.expect(body).to.be.an('array');",
+							"    ",
+							"    // Optional: Log the length of the array to the Console",
+							"    if (Array.isArray(body)) {",
+							"        console.log(`Response body is an array with ${body.length} items.`);",
+							"    }",
+							"});",
+							"pm.test(\"First item has required attributes (id, nombre, fechaCreacion, tipoAlimentoId)\", function () {",
+							"  ",
+							"    const body = pm.response.json();",
+							"    ",
+							"   ",
+							"    pm.expect(body).to.be.an('array', 'Response body must be an array');",
+							"    pm.expect(body.length, 'Response array must not be empty').to.be.above(0);",
+							"",
+							"    // Get the first item in the array",
+							"    const firstItem = body[0];",
+							"    ",
+							"    console.log(\"Checking first item:\", firstItem);",
+							"",
+							"    pm.expect(firstItem).to.have.property('id').that.is.a('string');",
+							"    ",
+							"    pm.expect(firstItem).to.have.property('nombre').that.is.a('string');",
+							"    pm.expect(firstItem).to.have.property('fechaCreacion').that.is.a('string');",
+							"    pm.expect(firstItem).to.have.property('activo').that.is.a('boolean');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/{{baseUrl}}/Nutricionistas/GetAll",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{baseUrl}}",
+						"Nutricionistas",
+						"GetAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Paciente/GetAll",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"   ",
+							"});",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    const body = pm.response.json();",
+							"    pm.expect(body.length).to.greaterThan(0);",
+							"});",
+							"pm.test(\"Response body contains expected data\", function () {",
+							"     const body = pm.response.json();",
+							"     console.log(body);",
+							"     pm.expect(body).to.be.an('array');",
+							"    ",
+							"    // Optional: Log the length of the array to the Console",
+							"    if (Array.isArray(body)) {",
+							"        console.log(`Response body is an array with ${body.length} items.`);",
+							"    }",
+							"});",
+							"pm.test(\"First item has required attributes (id, nombre,apellido, fechaNacimiento, peso, altura)\", function () {",
+							"  ",
+							"    const body = pm.response.json();",
+							"    ",
+							"   ",
+							"    pm.expect(body).to.be.an('array', 'Response body must be an array');",
+							"    pm.expect(body.length, 'Response array must not be empty').to.be.above(0);",
+							"",
+							"    // Get the first item in the array",
+							"    const firstItem = body[0];",
+							"    ",
+							"    console.log(\"Checking first item:\", firstItem);",
+							"",
+							"    pm.expect(firstItem).to.have.property('id').that.is.a('string');   ",
+							"    pm.expect(firstItem).to.have.property('nombre').that.is.a('string');",
+							"    pm.expect(firstItem).to.have.property('apellido').that.is.a('string');",
+							"    pm.expect(firstItem).to.have.property('fechaNacimiento').that.is.a('string');",
+							"    pm.expect(firstItem).to.have.property('peso').that.is.a('number');",
+							"    pm.expect(firstItem).to.have.property('altura').that.is.a('number');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/{{baseUrl}}/Paciente/GetAll",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{baseUrl}}",
+						"Paciente",
+						"GetAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tiempo/GetAll",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"   ",
+							"});",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    const body = pm.response.json();",
+							"    pm.expect(body.length).to.greaterThan(0);",
+							"});",
+							"pm.test(\"Response body contains expected data\", function () {",
+							"     const body = pm.response.json();",
+							"     console.log(body);",
+							"     pm.expect(body).to.be.an('array');",
+							"    ",
+							"    // Optional: Log the length of the array to the Console",
+							"    if (Array.isArray(body)) {",
+							"        console.log(`Response body is an array with ${body.length} items.`);",
+							"    }",
+							"});",
+							"pm.test(\"First item has required attributes (id, nombre)\", function () {",
+							"  ",
+							"    const body = pm.response.json();",
+							"    ",
+							"   ",
+							"    pm.expect(body).to.be.an('array', 'Response body must be an array');",
+							"    pm.expect(body.length, 'Response array must not be empty').to.be.above(0);",
+							"",
+							"    // Get the first item in the array",
+							"    const firstItem = body[0];",
+							"    ",
+							"    console.log(\"Checking first item:\", firstItem);",
+							"",
+							"    pm.expect(firstItem).to.have.property('id').that.is.a('number');   ",
+							"    pm.expect(firstItem).to.have.property('nombre').that.is.a('string');",
+							"",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/{{baseUrl}}/Tiempo/GetAll",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{baseUrl}}",
+						"Tiempo",
+						"GetAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TipoAlimento/GetAll",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"   ",
+							"});",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    const body = pm.response.json();",
+							"    pm.expect(body.length).to.greaterThan(0);",
+							"});",
+							"pm.test(\"Response body contains expected data\", function () {",
+							"     const body = pm.response.json();",
+							"     console.log(body);",
+							"     pm.expect(body).to.be.an('array');",
+							"    ",
+							"    // Optional: Log the length of the array to the Console",
+							"    if (Array.isArray(body)) {",
+							"        console.log(`Response body is an array with ${body.length} items.`);",
+							"    }",
+							"});",
+							"pm.test(\"First item has required attributes (id, nombre)\", function () {",
+							"  ",
+							"    const body = pm.response.json();",
+							"    ",
+							"   ",
+							"    pm.expect(body).to.be.an('array', 'Response body must be an array');",
+							"    pm.expect(body.length, 'Response array must not be empty').to.be.above(0);",
+							"",
+							"    // Get the first item in the array",
+							"    const firstItem = body[0];",
+							"    ",
+							"    console.log(\"Checking first item:\", firstItem);",
+							"",
+							"    pm.expect(firstItem).to.have.property('id').that.is.a('number');   ",
+							"    pm.expect(firstItem).to.have.property('nombre').that.is.a('string');",
+							"",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/{{baseUrl}}/TipoAlimento/GetAll",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{baseUrl}}",
+						"TipoAlimento",
+						"GetAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unidad/GetAll",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"   ",
+							"});",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    const body = pm.response.json();",
+							"    pm.expect(body.length).to.greaterThan(0);",
+							"});",
+							"pm.test(\"Response body contains expected data\", function () {",
+							"     const body = pm.response.json();",
+							"     console.log(body);",
+							"     pm.expect(body).to.be.an('array');",
+							"    ",
+							"    // Optional: Log the length of the array to the Console",
+							"    if (Array.isArray(body)) {",
+							"        console.log(`Response body is an array with ${body.length} items.`);",
+							"    }",
+							"});",
+							"pm.test(\"First item has required attributes (id, nombre,simbolo)\", function () {",
+							"  ",
+							"    const body = pm.response.json();",
+							"    ",
+							"   ",
+							"    pm.expect(body).to.be.an('array', 'Response body must be an array');",
+							"    pm.expect(body.length, 'Response array must not be empty').to.be.above(0);",
+							"",
+							"    // Get the first item in the array",
+							"    const firstItem = body[0];",
+							"    ",
+							"    console.log(\"Checking first item:\", firstItem);",
+							"",
+							"    pm.expect(firstItem).to.have.property('id').that.is.a('number');   ",
+							"    pm.expect(firstItem).to.have.property('nombre').that.is.a('string');",
+							"    pm.expect(firstItem).to.have.property('simbolo').that.is.a('string');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/{{baseUrl}}/Unidad/GetAll",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{baseUrl}}",
+						"Unidad",
+						"GetAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nutricionistas/CreateNutricionista",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							"pm.test(\"Response body contains expected data\", function () {",
+							"    const body = pm.response.json();",
+							"",
+							"    console.log(\"Checking body:\", body);",
+							"    pm.expect(body).to.have.property('value').that.is.a('string');   ",
+							"    pm.expect(body).to.have.property('isSuccess').that.is.a('boolean');",
+							"    pm.expect(body).to.have.property('isFailure').that.is.a('boolean');",
+							"    pm.expect(body).to.have.property('error').that.is.an('object');",
+							"    pm.expect(body.isSuccess).to.be.true;",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// 1. Define the new values\r",
+							"const nombre = `Medico-${Math.floor(Math.random() * 10000)}`;\r",
+							"const fechaCreacion = new Date().toISOString();\r",
+							"// Note: You might want to generate a proper GUID/UUID instead of '0000-0000-0000-0000;'\r",
+							"const gui = '3fa85f64-5717-4562-b3fc-2c963f66afa6'; \r",
+							"\r",
+							"// 2. Get the current raw body as a string\r",
+							"const currentBody = pm.request.body.raw;\r",
+							"\r",
+							"// 3. Parse the JSON string into a JavaScript object\r",
+							"const bodyObject = JSON.parse(currentBody);\r",
+							"\r",
+							"// 4. Update the desired properties in the JavaScript object\r",
+							"bodyObject.nombre = nombre;\r",
+							"bodyObject.activo = true;\r",
+							"bodyObject.fechaCreacion = fechaCreacion;\r",
+							"bodyObject.guid = gui;\r",
+							"\r",
+							"console.log(bodyObject);\r",
+							"// 5. Convert the updated object back to a JSON string\r",
+							"const updatedBody = JSON.stringify(bodyObject);\r",
+							"\r",
+							"// 6. Set the raw property of the request body to the new JSON string\r",
+							"pm.request.body.raw = updatedBody;\r",
+							"\r",
+							"// Optional: Log the final body to confirm the changes\r",
+							"console.log('--- Updated Request Body ---');\r",
+							"console.log(pm.request.body.raw);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"\",\n  \"activo\": true,\n  \"guid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"fechaCreacion\": \"2025-12-12T02:53:18.927Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/{{baseUrl}}/Nutricionistas/CreateNutricionista",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{baseUrl}}",
+						"Nutricionistas",
+						"CreateNutricionista"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Paciente/CreatePaciente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							"pm.test(\"Response body contains expected data\", function () {",
+							"    const body = pm.response.json();",
+							"",
+							"    console.log(\"Checking body:\", body);",
+							"    pm.expect(body).to.have.property('value').that.is.a('string');   ",
+							"    pm.expect(body).to.have.property('isSuccess').that.is.a('boolean');",
+							"    pm.expect(body).to.have.property('isFailure').that.is.a('boolean');",
+							"    pm.expect(body).to.have.property('error').that.is.an('object');",
+							"    pm.expect(body.isSuccess).to.be.true;",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// 1. Define the new values\r",
+							"const nombre = `Paciente-${Math.floor(Math.random() * 10000)}`;\r",
+							"const fechaCreacion = new Date().toISOString();\r",
+							"// Note: You might want to generate a proper GUID/UUID instead of '0000-0000-0000-0000;'\r",
+							"const gui = '3fa85f64-5717-4562-b3fc-2c963f66afa6'; \r",
+							"\r",
+							"// 2. Get the current raw body as a string\r",
+							"const currentBody = pm.request.body.raw;\r",
+							"\r",
+							"// 3. Parse the JSON string into a JavaScript object\r",
+							"const bodyObject = JSON.parse(currentBody);\r",
+							"\r",
+							"// 4. Update the desired properties in the JavaScript object\r",
+							"bodyObject.nombre = nombre;\r",
+							"bodyObject.apellido = \"\";\r",
+							"bodyObject.peso  = 100;\r",
+							"bodyObject.altura =160;\r",
+							"bodyObject.fechaNacimiento = fechaCreacion;\r",
+							"bodyObject.guid = gui;\r",
+							"\r",
+							"console.log(bodyObject);\r",
+							"// 5. Convert the updated object back to a JSON string\r",
+							"const updatedBody = JSON.stringify(bodyObject);\r",
+							"\r",
+							"// 6. Set the raw property of the request body to the new JSON string\r",
+							"pm.request.body.raw = updatedBody;\r",
+							"\r",
+							"// Optional: Log the final body to confirm the changes\r",
+							"console.log('--- Updated Request Body ---');\r",
+							"console.log(pm.request.body.raw);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"guid\": \"\",\n  \"nombre\": \"\",\n  \"apellido\": \"\",\n  \"fechaNacimiento\": \"2025-12-15T13:57:46.096Z\",\n  \"peso\": 100,\n  \"altura\": 150\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/{{baseUrl}}/Paciente/CreatePaciente",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{baseUrl}}",
+						"Paciente",
+						"CreatePaciente"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": ""
+		},
+		{
+			"key": "host",
+			"value": ""
+		},
+		{
+			"key": "port",
+			"value": ""
+		},
+		{
+			"key": "test2nombre",
+			"value": ""
+		},
+		{
+			"key": "test2activo",
+			"value": ""
+		},
+		{
+			"value": ""
+		}
+	]
+}
