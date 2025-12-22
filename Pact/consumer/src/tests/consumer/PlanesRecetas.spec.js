@@ -37,9 +37,9 @@ describe('El API de Planes recetas', () => {
                     expect(response).to.be.not.null;
                     expect(response).to.be.a.string;
                     expect(response).to.deep.equal(responseUnidadesList);
-                    expect(response.value).to.be.an('array');
-                    expect(response.value).to.have.lengthOf(4);
-                    const values = response.value.map((unidad) => unidad.nombre);
+                    expect(response).to.be.an('array');
+                    expect(response).to.have.lengthOf(4);
+                    const values = response.map((unidad) => unidad.nombre);
                     expect(values).to.include('Kilogramos');
 
                 });
