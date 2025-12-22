@@ -1,0 +1,78 @@
+{
+  "consumer": {
+    "name": "consumer-planes-y-recetas"
+  },
+  "interactions": [
+    {
+      "description": "Un body vacío",
+      "providerStates": [
+        {
+          "name": "realizar una consulta de unidades"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/Unidad/GetAll"
+      },
+      "response": {
+        "body": {
+          "value": [
+            {
+              "id": 1,
+              "nombre": "Gramos",
+              "simbolo": "g"
+            },
+            {
+              "id": 2,
+              "nombre": "Kilogramos",
+              "simbolo": "kg"
+            },
+            {
+              "id": 4,
+              "nombre": "Litro",
+              "simbolo": "L"
+            },
+            {
+              "id": 3,
+              "nombre": "Mililitro",
+              "simbolo": "Ml"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
+    }
+  ],
+  "metadata": {
+    "pact-js": {
+      "version": "13.2.0"
+    },
+    "pactRust": {
+      "ffi": "0.4.22",
+      "models": "1.2.3"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "planes-recetas"
+  }
+}
