@@ -6,7 +6,9 @@ services:
       - "8080:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
-      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=appservice;User Id=sa;Password=Password12345;TrustServerCertificate=True;"
+      ConnectionStrings__DefaultConnection: ${DB_CONNECTION_STRING}
+    networks:
+      - app-network-public  # 
     depends_on:
       - sqlserver
   sqlserver:
