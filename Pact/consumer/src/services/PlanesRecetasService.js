@@ -19,4 +19,16 @@ export class PlanesRecetasService {
                 });
         });
     }
+    
+    createPaciente(paciente) {
+        return new Promise((resolve, reject) => {
+            axios.post(this.baseUrl + '/api/Paciente/CreatePaciente', paciente)
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
 }

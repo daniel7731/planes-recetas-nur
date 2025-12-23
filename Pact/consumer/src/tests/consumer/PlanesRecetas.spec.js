@@ -2,7 +2,9 @@ import { MatchersV3, PactV3 } from "@pact-foundation/pact";
 import { describe, it } from "mocha";
 import { PlanesRecetasService } from "../../services/PlanesRecetasService.js";
 import { expect } from "chai";
-import { crearItemRequestBody, crearItemResponse, responseUnidadesList } from "../PactResponsesUnidades.js";
+import { responseUnidadesList } from "../PactResponsesUnidades.js";
+import { postResponseSuccess} from "../PactResponsePost.js";
+import { generatePacienteDataFaker } from "../PactResponsePaciente.js";
 const { like } = MatchersV3;
 
 describe('El API de Planes recetas', () => {
@@ -46,39 +48,41 @@ describe('El API de Planes recetas', () => {
             });
         });
     });
-    /*describe('Agregar un item', () => {
-        it('retorna un id de item ya creado', () => {
+    describe('Crear un paciente', () => {
+        it('retorna objeto response con la id, generado y a boolean field isSuccess', () => {
             //Arrange
-            provider.given('crear item')
-                .uponReceiving('datos para crear un item')
+            const paciente = generatePacienteDataFaker();
+            console.log(paciente);
+            provider.given('crear paciente')
+                .uponReceiving('datos para crear un paciente')
                 .withRequest({
                     method: 'POST',
-                    path: '/api/Item',
+                    path: '/api/Paciente/CreatePaciente',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: crearItemRequestBody
+                    body: paciente
                 }).willRespondWith({
                     status: 200,
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: like(crearItemResponse)
+                    body: like(postResponseSuccess)
                 });
             return provider.executeTest(async mockServer => {
                 // Act
-                PlanesRecetasService = new ItemService(mockServer.url);
-                return PlanesRecetasService.createItem(crearItemRequestBody).then((response) => {
+                planesRecetasService = new PlanesRecetasService(mockServer.url);
+                return planesRecetasService.createPaciente(paciente).then((response) => {
                     //Assert
                     expect(response).to.be.not.null;
                     expect(response).to.be.a.string;
-                    expect(response).to.deep.equal(crearItemResponse);
-                    expect(response.value).to.equal(crearItemRequestBody.id);
+                    expect(response).to.deep.equal(postResponseSuccess);
+                    expect(response.isSuccess).to.equal(true);
                 });
             });
 
         })
-    });*/
+    });
 });
 
 

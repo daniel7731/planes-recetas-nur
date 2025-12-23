@@ -56,6 +56,114 @@
         },
         "status": 200
       }
+    },
+    {
+      "description": "datos para crear un item",
+      "providerStates": [
+        {
+          "name": "crear item"
+        }
+      ],
+      "request": {
+        "body": {
+          "altura": 207,
+          "apellido": "Fahey",
+          "fechaNacimiento": "1979-02-13T02:13:15.345Z",
+          "guid": "8602be2e-317d-45ec-8507-ec1efde79289",
+          "nombre": "Layne",
+          "peso": 103
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "POST",
+        "path": "/api/Paciente/CreatePaciente"
+      },
+      "response": {
+        "body": {
+          "error": {
+            "code": "",
+            "description": "",
+            "structuredMessage": "",
+            "type": 0
+          },
+          "isFailure": false,
+          "isSuccess": true,
+          "value": ""
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "datos para crear un paciente",
+      "providerStates": [
+        {
+          "name": "crear paciente"
+        }
+      ],
+      "request": {
+        "body": {
+          "altura": 197,
+          "apellido": "Thompson",
+          "fechaNacimiento": "1972-12-21T07:33:23.199Z",
+          "guid": "8b3f55f3-a0fb-4b60-9569-3e0d4225045c",
+          "nombre": "Devon",
+          "peso": 128
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "POST",
+        "path": "/api/Paciente/CreatePaciente"
+      },
+      "response": {
+        "body": {
+          "error": {
+            "code": "",
+            "description": "",
+            "structuredMessage": "",
+            "type": 0
+          },
+          "isFailure": false,
+          "isSuccess": true,
+          "value": ""
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
     }
   ],
   "metadata": {
