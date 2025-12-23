@@ -19,6 +19,18 @@ export class PlanesRecetasService {
                 });
         });
     }
+
+    getTiempoAll(){
+        return new Promise((resolve, reject) => {
+            axios.get(this.baseUrl + '/api/Tiempo/GetAll')
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
     
     createPaciente(paciente) {
         return new Promise((resolve, reject) => {

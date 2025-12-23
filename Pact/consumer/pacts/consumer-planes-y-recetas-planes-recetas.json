@@ -7,6 +7,60 @@
       "description": "Un body vacío",
       "providerStates": [
         {
+          "name": "realizar una consulta de tiempo"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/Tiempo/GetAll"
+      },
+      "response": {
+        "body": [
+          {
+            "id": 1,
+            "nombre": "Breaskfast"
+          },
+          {
+            "id": 5,
+            "nombre": "Dinner"
+          },
+          {
+            "id": 4,
+            "nombre": "HalfAfternoon"
+          },
+          {
+            "id": 2,
+            "nombre": "HalfMorning"
+          },
+          {
+            "id": 3,
+            "nombre": "Lunch"
+          }
+        ],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "Un body vacío",
+      "providerStates": [
+        {
           "name": "realizar una consulta de unidades"
         }
       ],
@@ -120,12 +174,12 @@
       ],
       "request": {
         "body": {
-          "altura": 197,
-          "apellido": "Thompson",
-          "fechaNacimiento": "1972-12-21T07:33:23.199Z",
-          "guid": "8b3f55f3-a0fb-4b60-9569-3e0d4225045c",
-          "nombre": "Devon",
-          "peso": 128
+          "altura": 185,
+          "apellido": "Walker",
+          "fechaNacimiento": "1987-06-18T16:06:23.271Z",
+          "guid": "ba6efef8-7a57-4ace-9af8-06c5cf33f19c",
+          "nombre": "Chris",
+          "peso": 74
         },
         "headers": {
           "Content-Type": "application/json"

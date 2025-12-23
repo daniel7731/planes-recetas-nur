@@ -3,6 +3,7 @@ import { describe, it } from "mocha";
 import { PlanesRecetasService } from "../../services/PlanesRecetasService.js";
 import { expect } from "chai";
 import { responseUnidadesList } from "../PactResponsesUnidades.js";
+import { reponsesTiempo} from "../PactResponsesTiempo.js";
 import { postResponseSuccess} from "../PactResponsePost.js";
 import { generatePacienteDataFaker } from "../PactResponsePaciente.js";
 const { like } = MatchersV3;
@@ -48,6 +49,41 @@ describe('El API de Planes recetas', () => {
             });
         });
     });
+
+    describe('obtener lista de tiempo de comidas', () => {
+        it('retorna una lista de tiempo', () => {
+            //Arrange
+            provider.given('realizar una consulta de tiempo')
+                .uponReceiving('Un body vacío')
+                .withRequest({
+                    method: 'GET',
+                    path: '/api/Tiempo/GetAll'
+                }).willRespondWith({
+                    status: 200,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: like(reponsesTiempo)
+                });
+            return provider.executeTest(async mockServer => {
+                // Act
+                planesRecetasService = new PlanesRecetasService(mockServer.url);
+                return planesRecetasService.getTiempoAll().then((response) => {
+                    // Assert
+
+                    expect(response).to.be.not.null;
+                    expect(response).to.be.a.string;
+                    expect(response).to.deep.equal(reponsesTiempo);
+                    expect(response).to.be.an('array');
+                    expect(response).to.have.lengthOf(5);
+                    const values = response.map((tiempo) => tiempo.nombre);
+                    expect(values).to.include('Breaskfast');
+
+                });
+            });
+        });
+    });
+
     describe('Crear un paciente', () => {
         it('retorna objeto response con la id, generado y a boolean field isSuccess', () => {
             //Arrange
