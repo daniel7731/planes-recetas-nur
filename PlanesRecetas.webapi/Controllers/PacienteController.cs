@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PlanesRecetas.application.Pacientes;
 using PlanesRecetas.application.Pacientes.PlanesRecetas.application.Persons;
+using PlanesRecetas.webapi.Parameters.Persons;
 using System;
 
 namespace PlanesRecetas.webapi.Controllers
@@ -19,11 +20,19 @@ namespace PlanesRecetas.webapi.Controllers
             _mediator = mediator;
         }
         [HttpPost("[action]")]
-        public async Task<IActionResult> CreatePaciente([FromBody] CreatePacienteComand request)
+        public async Task<IActionResult> CreatePaciente([FromBody] CreatePacienteParameter request)
         {
             Guid guid = Guid.NewGuid();
-            request.Guid = guid;
-            var result = await _mediator.Send(request);
+            //request.Guid = guid;
+            CreatePacienteComand createPaciente = new CreatePacienteComand(
+                guid,
+                request.Nombre,
+                request.Apellido,
+                request.FechaNacimiento,
+                request.Peso,
+                request.Altura
+                );
+            var result = await _mediator.Send(createPaciente);
 
             return Ok(result);
         }

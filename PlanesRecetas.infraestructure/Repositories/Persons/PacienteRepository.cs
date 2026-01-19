@@ -19,15 +19,7 @@
            await _dbContext.Paciente.AddAsync(entity);
         }
 
-        public Task DeleteAsync(Guid id)
-        {
-            var entity = _dbContext.Paciente.FirstOrDefault(x => x.Id == id);
-            if (entity!= null) {
-                _dbContext.Paciente.Remove(entity);
-            }
-            return Task.CompletedTask;
-           
-        }
+      
 
         public Task<bool> ExistsAsync(Guid id)
         {

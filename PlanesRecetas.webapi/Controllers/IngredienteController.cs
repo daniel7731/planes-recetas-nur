@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PlanesRecetas.application.Care;
+using PlanesRecetas.webapi.Parameters.Care;
 
 namespace PlanesRecetas.webapi.Controllers
 {
@@ -16,9 +17,19 @@ namespace PlanesRecetas.webapi.Controllers
             _mediator = mediator;
         }
         [HttpPost("[action]")]
-        public async Task<IActionResult> CreateIngrediente([FromBody] CreateIngredienteCommand request, CancellationToken ct)
+        public async Task<IActionResult> CreateIngrediente([FromBody] CreateIngredienteParamater request, CancellationToken ct)
         {
-            var result = await _mediator.Send(request, ct);
+            Guid guid = Guid.NewGuid();
+            CreateIngredienteCommand createIngrediente = new CreateIngredienteCommand
+            {
+                Id = guid,
+                Calorias = request.Calorias,
+                Nombre = request.Nombre,
+                CantidadValor = request.CantidadValor,
+                CategoriaId = request.CategoriaId,
+                UnidadId = request.UnidadId
+            };
+            var result = await _mediator.Send(createIngrediente, ct);
 
             return Ok(result);
         }

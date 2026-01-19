@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Joseco.DDD.Core.Abstractions;
 using PlanesRecetas.domain.Metrics;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace PlanesRecetas.domain.Care
 {
     public class Ingrediente : AggregateRoot
     {
         public Decimal Calorias { get; set; }
-        public String Nombre { get; set; }  
+        public String Nombre { get; set; }
+        [NotMapped]
         public Categoria? Categoria { get; set; }    
         public Guid CategoriaId {
             get; set;

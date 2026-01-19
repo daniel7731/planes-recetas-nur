@@ -22,11 +22,7 @@ namespace PlanesRecetas.application.Medicos
            "No nutricionista was found in the system.",
            ErrorType.NotFound
        );
-       public static readonly Error PacientesNotFound = new(
-            "Pacientes.NotFound",
-            "No Pacientes were found in the system.",
-            ErrorType.NotFound
-        );
+      
         public static readonly Error PacienteNotFound = new(
            "Paciente.NotFound",
            "No Paciente was found in the system.",

@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PlanesRecetas.webapi.Parameters.Doctors;
 
 namespace PlanesRecetas.webapi.Controllers
 {
@@ -25,11 +26,17 @@ namespace PlanesRecetas.webapi.Controllers
             _mediator = mediator;
         }
         [HttpPost("[action]")]
-        public async Task<IActionResult> CreateNutricionista([FromBody] CreateNutricionistaComand request)
+        public async Task<IActionResult> CreateNutricionista([FromBody] CreateNutricionistaParameter request)
         {
             Guid guid = Guid.NewGuid();
-            request.Guid= guid;
-            var result = await _mediator.Send(request);
+           // request.Guid= guid;
+           CreateNutricionistaComand createNutricionista = new CreateNutricionistaComand(
+                guid,
+                request.Nombre,
+                request.Activo,
+                request.FechaCreacion
+                );
+            var result = await _mediator.Send(createNutricionista);
 
             return Ok(result);
         }

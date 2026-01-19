@@ -33,6 +33,7 @@ builder.Services.AddScoped<IUnidadRepository, UnidadRepository>();
 builder.Services.AddScoped<IIngredienteRepository, IngredienteRepository>();
 builder.Services.AddScoped<ITiempoRepository, TiempoRepository>();
 builder.Services.AddScoped<IRecetaRepository, RecetaRepository>();
+//builder.Services.AddScoped<IDietaRepository, DietaRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

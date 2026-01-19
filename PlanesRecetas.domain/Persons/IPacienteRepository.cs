@@ -12,7 +12,6 @@ namespace PlanesRecetas.domain.Persons
         List<Paciente> GetAll();
         Task<Paciente?> GetByEmailAsync(string email);
         Task UpdateAyscn(Paciente paciente);
-        Task DeleteAsync(Guid id);
         Task<bool> ExistsAsync(Guid id);
        
     }
