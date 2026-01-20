@@ -31,6 +31,29 @@ export class PlanesRecetasService {
                 });
         });
     }
+
+    getCategoriaAll(){
+        return new Promise((resolve, reject) => {
+            axios.get(this.baseUrl + '/api/Categoria/GetAll')
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
+    getNutricionistaAll(){
+        return new Promise((resolve, reject) => {
+            axios.get(this.baseUrl + '/api/Nutricionistas/GetAll')
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
     
     createPaciente(paciente) {
         return new Promise((resolve, reject) => {

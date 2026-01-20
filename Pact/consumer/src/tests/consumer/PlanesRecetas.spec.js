@@ -3,6 +3,8 @@ import { describe, it } from "mocha";
 import { PlanesRecetasService } from "../../services/PlanesRecetasService.js";
 import { expect } from "chai";
 import { responseUnidadesList } from "../PactResponsesUnidades.js";
+import { responseCategoryList } from "../PactResponseCategoria.js";
+import { responseNutricionistaList } from "../PactResponseNutricionistas.js";
 import { reponsesTiempo} from "../PactResponsesTiempo.js";
 import { postResponseSuccess} from "../PactResponsePost.js";
 import { generatePacienteDataFaker } from "../PactResponsePaciente.js";
@@ -44,6 +46,74 @@ describe('El API de Planes recetas', () => {
                     expect(response).to.have.lengthOf(4);
                     const values = response.map((unidad) => unidad.nombre);
                     expect(values).to.include('Kilogramos');
+
+                });
+            });
+        });
+    });
+
+    describe('obtener lista de categorias', () => {
+        it('retorna una lista de categorias', () => {
+            //Arrange
+            provider.given('realizar una consulta de categorias')
+                .uponReceiving('Un body vacío')
+                .withRequest({
+                    method: 'GET',
+                    path: '/api/Categoria/GetAll'
+                }).willRespondWith({
+                    status: 200,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: like(responseUnidadesList)
+                });
+            return provider.executeTest(async mockServer => {
+                // Act
+                planesRecetasService = new PlanesRecetasService(mockServer.url);
+                return planesRecetasService.getCategoriaAll().then((response) => {
+                    // Assert
+
+                    expect(response).to.be.not.null;
+                    expect(response).to.be.a.string;
+                    expect(response).to.deep.equal(responseCategoryList);
+                    expect(response).to.be.an('array');
+                    expect(response).to.not.be.empty;
+                    const names = response.map(item => item.nombre);
+                    expect(names).to.include('Verdura de raíz');
+                    expect(names).to.include('Arroz');
+
+                });
+            });
+        });
+    });
+
+    describe('obtener lista de nutricionistas', () => {
+        it('retorna una lista de nutricionistas', () => {
+            //Arrange
+            provider.given('realizar una consulta de nutricionistas')
+                .uponReceiving('Un body vacío')
+                .withRequest({
+                    method: 'GET',
+                    path: '/api/Nutricionistas/GetAll'
+                }).willRespondWith({
+                    status: 200,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: like(responseNutricionistaList)
+                });
+            return provider.executeTest(async mockServer => {
+                // Act
+                planesRecetasService = new PlanesRecetasService(mockServer.url);
+                return planesRecetasService.getNutricionistaAll().then((response) => {
+                    // Assert
+
+                    expect(response).to.be.not.null;
+                    expect(response).to.be.a.string;
+                    expect(response).to.deep.equal(responseNutricionistaList);
+                    expect(response).to.be.an('array');
+                    expect(response).to.not.be.empty;
+                   
 
                 });
             });
