@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="RabbitMQ\" />
   </ItemGroup>
 
 </Project>

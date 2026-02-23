@@ -22,13 +22,14 @@ namespace PlanesRecetas.webapi.ControllersP
         public async Task<IActionResult> CreatePlanAlimentario([FromBody] CreatePlanAlimentarioParameter request)
         {
             Guid planGuid = Guid.NewGuid(); int days = 0;
-            List<CreateDietaComand> dietas= request.Dietas.Select(dt => {
+            List<CreateDietaComand> dietas = request.Dietas.Select(dt =>
+            {
                 Guid dietaID = Guid.NewGuid();
                 CreateDietaComand dietacomand = new CreateDietaComand
                 {
                     FechaConsumo = request.FechaInicio.AddDays(days),
-                    Id =dietaID,
-                    PlanId = planGuid               
+                    Id = dietaID,
+                    PlanId = planGuid
                 };
                 int orden = 0;
                 List<DietaRecetaComand> platillos = dt.Recetas.Select(r =>
@@ -44,15 +45,16 @@ namespace PlanesRecetas.webapi.ControllersP
                     return dietaReceta;
 
 
-                } ).ToList();
+                }).ToList();
                 dietacomand.Platillos = platillos;
                 days++;
-            return dietacomand;}).ToList();
-          
+                return dietacomand;
+            }).ToList();
+
             CreatePlanAlimentacionComand createPlanAlimentario = new CreatePlanAlimentacionComand
             {
                 Id = planGuid,
-                PacienteId =  request.PacienteId,
+                PacienteId = request.PacienteId,
                 NutricionistaId = request.NutricionistaId,
                 Dieta = dietas,
                 FechaInicio = request.FechaInicio,
@@ -60,7 +62,15 @@ namespace PlanesRecetas.webapi.ControllersP
             };
             var result = await _mediator.Send(createPlanAlimentario);
             return Ok(result);
-            
+
+        }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetPlanAlimentario(Guid id)
+        {
+            GetPlanAlimentaryQuery query = new GetPlanAlimentaryQuery(id);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+
         }
     }
 }

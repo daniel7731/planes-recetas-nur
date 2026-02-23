@@ -16,6 +16,8 @@ COPY ["PlanesRecetas.webapi/PlanesRecetas.webapi.csproj", "PlanesRecetas.webapi/
 COPY ["PlanesRecetas.application/PlanesRecetas.application.csproj", "PlanesRecetas.application/"]
 COPY ["PlanesRecetas.domain/PlanesRecetas.domain.csproj", "PlanesRecetas.domain/"]
 COPY ["PlanesRecetas.infraestructure/PlanesRecetas.infraestructure.csproj", "PlanesRecetas.infraestructure/"]
+COPY ["PlanesRecetas.testing/PlanesRecetas.testing.csproj","PlanesRecetas.testing/"]
+COPY ["Pact","Pact/"] 
 RUN dotnet restore "./PlanesRecetas.webapi/PlanesRecetas.webapi.csproj"
 COPY . .
 WORKDIR "/src/PlanesRecetas.webapi"

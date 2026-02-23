@@ -10,8 +10,8 @@ namespace PlanesRecetas.domain.Plan
     public class PlanAlimentacion : AggregateRoot
     {
        
-        public Paciente Paciente { get; set; }
-        public Nutricionista Nutricionista { get; set; }
+        public Guid PacienteId { get; set; }
+        public Guid NutricionistaId { get; set; }
         public List<Dieta> Dietas { get; set; }
         public DateTime FechaInicio { get; private set; }
         public DateTime FechaFin { get; private set; }
@@ -26,10 +26,10 @@ namespace PlanesRecetas.domain.Plan
 
         protected PlanAlimentacion() { }
 
-        public PlanAlimentacion(Guid id, Paciente paciente, Nutricionista nutricionista, DateTime fechaInicio , int duracion):base(id)
+        public PlanAlimentacion(Guid id, Guid paciente, Guid nutricionista, DateTime fechaInicio , int duracion):base(id)
         {
-            Paciente = paciente;
-            Nutricionista = nutricionista;
+            PacienteId = paciente;
+            NutricionistaId = nutricionista;
             SetFechaInicio(fechaInicio, duracion);
             Dietas = new List<Dieta>();
         }

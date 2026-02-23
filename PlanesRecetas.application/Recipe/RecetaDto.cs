@@ -14,6 +14,7 @@ namespace PlanesRecetas.application.Recipe
         [Required(ErrorMessage = "el nombre de la receta es obligatorio")]
         [StringLength(150, ErrorMessage = "El nombre no puede exceder los 150 caracteres")]
         public string Nombre { get; set; }
+        public string Instrucciones { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "Debe seleccionar un tiempo de comida válido")]
         public int TiempoId { get; set; }

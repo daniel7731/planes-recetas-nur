@@ -9,10 +9,13 @@ namespace PlanesRecetas.domain.Plan
 {
     public interface IDietaRepository : IRepository<Dieta>
     {
-        List<Dieta> GetAll();
+        List<Dieta> GetDietasPlan(Guid planId);
+      
         Task UpdateAsync(Dieta dieta);
         Task DeleteAsync(Guid id);
         Task<bool> ExistsAsync(Guid id);
         Task AddDietaReceta(Dieta dieta, DietaReceta dietaReceta);
+
+        List<DietaReceta> GetDietaRecetas(Guid dietaId);
     }
 }

@@ -224,10 +224,6 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NutricionistaId");
-
-                    b.HasIndex("PacienteId");
-
                     b.ToTable("PlanAlimentacion");
                 });
 
@@ -334,7 +330,7 @@ namespace PlanesRecetas.infraestructure.Migrations
             modelBuilder.Entity("PlanesRecetas.domain.Plan.DietaReceta", b =>
                 {
                     b.HasOne("PlanesRecetas.domain.Plan.Dieta", "Dieta")
-                        .WithMany()
+                        .WithMany("Platillos")
                         .HasForeignKey("DietaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -348,25 +344,6 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.Navigation("Dieta");
 
                     b.Navigation("Receta");
-                });
-
-            modelBuilder.Entity("PlanesRecetas.domain.Plan.PlanAlimentacion", b =>
-                {
-                    b.HasOne("PlanesRecetas.domain.Persons.Nutricionista", "Nutricionista")
-                        .WithMany()
-                        .HasForeignKey("NutricionistaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PlanesRecetas.domain.Persons.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Nutricionista");
-
-                    b.Navigation("Paciente");
                 });
 
             modelBuilder.Entity("PlanesRecetas.domain.Recipe.Ingrediente", b =>
@@ -416,6 +393,11 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.Navigation("Ingrediente");
 
                     b.Navigation("Receta");
+                });
+
+            modelBuilder.Entity("PlanesRecetas.domain.Plan.Dieta", b =>
+                {
+                    b.Navigation("Platillos");
                 });
 
             modelBuilder.Entity("PlanesRecetas.domain.Plan.PlanAlimentacion", b =>

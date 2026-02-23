@@ -30,12 +30,12 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
             // Nota: Se asume que existen las entidades Paciente y Nutricionista en tu dominio
             builder.HasOne<Paciente>()
                 .WithMany()
-                .HasForeignKey(x => x.Paciente.Id)
+                .HasForeignKey(x => x.PacienteId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne<Nutricionista>()
                 .WithMany()
-                .HasForeignKey(x => x.Nutricionista.Id)
+                .HasForeignKey(x => x.NutricionistaId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
 

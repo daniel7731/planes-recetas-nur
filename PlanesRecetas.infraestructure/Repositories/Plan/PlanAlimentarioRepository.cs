@@ -37,11 +37,11 @@ namespace PlanesRecetas.infraestructure.Repositories.Plan
         }
         public Task<PlanAlimentacion?> GetByNutricionistaIdAsync(Guid nutricionistaId)
         {
-            return Task.FromResult(_dbContext.PlanAlimentacion.FirstOrDefault(i => i.Nutricionista.Id == nutricionistaId));
+            return Task.FromResult(_dbContext.PlanAlimentacion.FirstOrDefault(i => i.NutricionistaId == nutricionistaId));
         }
         public Task<PlanAlimentacion?> GetByPacienteIdAsync(Guid pacienteId)
         {
-            return Task.FromResult(_dbContext.PlanAlimentacion.FirstOrDefault(i => i.Paciente.Id == pacienteId));
+            return Task.FromResult(_dbContext.PlanAlimentacion.FirstOrDefault(i => i.PacienteId== pacienteId));
         }
 
 

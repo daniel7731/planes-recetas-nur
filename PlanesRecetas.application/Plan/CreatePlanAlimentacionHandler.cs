@@ -48,8 +48,8 @@ namespace PlanesRecetas.application.Plan
 
             var planAlimentacion = new PlanAlimentacion(
                 planId,
-                paciente1,
-                nutricionista1,
+                pacienteId,
+                nutricionistaId,
                 request.FechaInicio,
                 request.DuracionDias
             );
