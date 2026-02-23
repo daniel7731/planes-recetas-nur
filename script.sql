@@ -4,13 +4,13 @@ CREATE TABLE TipoAlimento (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Nombre NVARCHAR(50) NOT NULL
 );
-CREATE TABLE Unidad (
+CREATE TABLE UnidadMedida (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Nombre NVARCHAR(50) NOT NULL,
     Simbolo NVARCHAR(10) NOT NULL
 );
 -- Insert basic units
-INSERT INTO Unidad (Nombre, Simbolo)
+INSERT INTO UnidadMedida (Nombre, Simbolo)
 VALUES
 ('Gramos', 'g'),
 ('Kilogramos', 'kg'),
@@ -67,12 +67,13 @@ CREATE TABLE Ingrediente (
     CategoriaId UNIQUEIDENTIFIER NOT NULL,
     UnidadId INT NOT NULL,
     FOREIGN KEY (CategoriaId) REFERENCES Categoria(Id),
-    FOREIGN KEY (UnidadId) REFERENCES Unidad(Id)
+    FOREIGN KEY (UnidadId) REFERENCES UnidadMedida(Id)
 );
 
 CREATE TABLE Receta (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     Nombre NVARCHAR(150) NOT NULL,
+    Instrucciones NVARCHAR(MAX) NOT NULL,
     TiempoId INT NOT NULL,
     CONSTRAINT FK_Receta_Tiempo
         FOREIGN KEY (TiempoId) REFERENCES Tiempo(Id)
@@ -88,22 +89,7 @@ CREATE TABLE RecetaIngrediente (
     CONSTRAINT FK_RecetaIngrediente_Ingrediente
         FOREIGN KEY (IngredienteId) REFERENCES Ingrediente(Id)
 );
-CREATE TABLE Dieta (
-    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    Nombre NVARCHAR(150) NOT NULL,
-    FechaConsumo DATETIME NOT NULL
-);
 
-CREATE TABLE DietaReceta (
-    ID INT IDENTITY(1,2) PRIMARY KEY,
-    DietaId   UNIQUEIDENTIFIER NOT NULL,
-    RecetaId  UNIQUEIDENTIFIER NOT NULL,
-    Orden INT NULL,
-    CONSTRAINT FK_DietaReceta_Dieta
-        FOREIGN KEY (DietaId) REFERENCES Dieta(Id) ON DELETE CASCADE,
-    CONSTRAINT FK_DietaReceta_Receta
-        FOREIGN KEY (RecetaId) REFERENCES Receta(Id)
-);
 CREATE TABLE PlanAlimentacion (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
 
@@ -122,18 +108,26 @@ CREATE TABLE PlanAlimentacion (
     CONSTRAINT CK_PlanAlimentacion_Duracion
         CHECK (FechaFin > FechaInicio AND DATEDIFF(DAY, FechaInicio, FechaFin) IN (15, 30))
 );
-
-CREATE TABLE PlanAlimentacionDieta (
-    ID INT IDENTITY(1,1) PRIMARY KEY,
+CREATE TABLE Dieta (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    FechaConsumo DATETIME NOT NULL,
     PlanAlimentacionId UNIQUEIDENTIFIER NOT NULL,
-    DietaId            UNIQUEIDENTIFIER NOT NULL, 
-    Orden INT NULL,
-    FechaProgramada DATE NULL,
-    CONSTRAINT FK_PlanAlimentacionDieta_Plan
-        FOREIGN KEY (PlanAlimentacionId) REFERENCES PlanAlimentacion(Id) ON DELETE CASCADE,
+    CONSTRAINT FK_Dieta_PlanAlimentacion
+        FOREIGN KEY (PlanAlimentacionId) REFERENCES PlanAlimentacion(Id) ON DELETE CASCADE
+);
 
-    CONSTRAINT FK_PlanAlimentacionDieta_Dieta
-        FOREIGN KEY (DietaId) REFERENCES Dieta(Id)
+CREATE TABLE DietaReceta (
+    ID INT IDENTITY(1,2) PRIMARY KEY,
+    DietaId   UNIQUEIDENTIFIER NOT NULL,
+    RecetaId  UNIQUEIDENTIFIER NOT NULL,
+    TiempoId  INT NOT NULL, 
+    Orden INT NULL,
+    CONSTRAINT FK_DietaReceta_Dieta
+        FOREIGN KEY (DietaId) REFERENCES Dieta(Id) ON DELETE CASCADE,
+    CONSTRAINT FK_DietaReceta_Receta
+        FOREIGN KEY (RecetaId) REFERENCES Receta(Id),   
+    CONSTRAINT FK_DietaReceta_Tiempo REFERENCES Tiempo(Id)
+
 );
 INSERT INTO Categoria (Id, Nombre, TipoAlimentoId)
 VALUES

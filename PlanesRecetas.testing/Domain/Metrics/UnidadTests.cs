@@ -26,7 +26,7 @@ namespace PlanesRecetas.testing.Domain.Metrics
             string expectedSimbolo = "kg";*/
 
             // Act
-            var unidad = new Unidad(expectedId, expectedNombre, expectedSimbolo);
+            var unidad = new UnidadMedida(expectedId, expectedNombre, expectedSimbolo);
 
             // Assert
             Assert.Equal(expectedId, unidad.Id);

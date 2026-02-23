@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PlanesRecetas.domain.Care;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PlanesRecetas.domain.Recipe;
 
 namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
 {
@@ -20,18 +15,17 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
             builder.Property(x => x.Calorias).HasColumnType("decimal(10,2)").IsRequired();
             builder.Property(x => x.CantidadValor).HasColumnType("decimal(10,2)").IsRequired();
 
+            // FK should point to CategoriaId (not Id)
             builder.HasOne(x => x.Categoria)
                        .WithMany()
-                       .HasForeignKey(x => x.Id)
+                       .HasForeignKey(x => x.CategoriaId)
                        .OnDelete(DeleteBehavior.Restrict);
 
+            // FK should point to UnidadId
             builder.HasOne(x => x.Unidad)
                        .WithMany()
-                       .HasForeignKey(x => x.Unidad.Id)
+                       .HasForeignKey(x => x.UnidadId)
                        .OnDelete(DeleteBehavior.Restrict);
-          
-
-
         }
     }
 }

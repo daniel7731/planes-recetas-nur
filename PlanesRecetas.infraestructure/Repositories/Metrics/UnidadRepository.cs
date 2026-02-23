@@ -19,29 +19,40 @@ namespace PlanesRecetas.infraestructure.Repositories.Metrics
             _dbContext = dbContext;
         }
 
-        public Task AddAsync(Unidad entity)
+        public Task AddAsync(UnidadMedida entity)
         {
-            _dbContext.Unidad.Add(entity);
+            _dbContext.UnidadMedida.Add(entity);
             return Task.CompletedTask;
         }
 
-        public List<Unidad> GetAll()
+        public List<UnidadMedida> GetAll()
         {
-            return _dbContext.Unidad.AsNoTracking()
+            return _dbContext.UnidadMedida.AsNoTracking()
                        .OrderBy(x => x.Nombre)
                        .ToList();
         }
 
-        public Task<Unidad?> GetByIdAsync(Guid id, bool readOnly = false)
+        public Task<UnidadMedida?> GetByIdAsync(Guid id, bool readOnly = false)
         {
             return null;
         }
 
-        public async Task<Unidad?> GetUnidad(int id)
+        public async Task<UnidadMedida?> GetByIdAsync(int id, CancellationToken ct = default)
         {
-            return await _dbContext.Unidad
+            return await _dbContext.UnidadMedida.FirstOrDefaultAsync(x => x.Id == id, ct);
+        }
+
+        public async Task<UnidadMedida?> GetUnidad(int id)
+        {
+            return await _dbContext.UnidadMedida
                 .AsNoTracking()                
                 .SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public Task UpdateAsync(UnidadMedida unidad, CancellationToken ct = default)
+        {
+            _dbContext.UnidadMedida.Update(unidad);
+            return Task.CompletedTask;
         }
     }
 }

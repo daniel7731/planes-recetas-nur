@@ -1,8 +1,9 @@
 ﻿using Joseco.DDD.Core.Abstractions;
 using Moq;
-using PlanesRecetas.application.Care;
+using PlanesRecetas.application.Recipe;
 using PlanesRecetas.domain.Care;
 using PlanesRecetas.domain.Metrics;
+using PlanesRecetas.domain.Recipe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,14 +62,14 @@ namespace PlanesRecetas.testing.Application.Care
 
             _unidadRepoMock
                 .Setup(r => r.GetUnidad(unidadId))
-                .ReturnsAsync(new domain.Metrics.Unidad(unidadId, "Gramos", "g"));
+                .ReturnsAsync(new domain.Metrics.UnidadMedida(unidadId, "Gramos", "g"));
 
-            domain.Care.Ingrediente capturedIngrediente = null;
+            Ingrediente capturedIngrediente = null;
 
             // Setup the mock repository to capture the entity passed to AddAsync
             _ingredienteRepoMock
-                .Setup(r => r.AddAsync(It.IsAny<domain.Care.Ingrediente>()))
-                .Callback<domain.Care.Ingrediente>(i => capturedIngrediente = i)
+                .Setup(r => r.AddAsync(It.IsAny<Ingrediente>()))
+                .Callback<Ingrediente>(i => capturedIngrediente = i)
                 .Returns(Task.CompletedTask);
 
             // Act
@@ -90,7 +91,7 @@ namespace PlanesRecetas.testing.Application.Care
             // 3. Verify interaction with dependencies
             _categoriaRepoMock.Verify(r => r.GetByIdAsync(categoriaId, It.IsAny<bool>()), Times.Once);
             _unidadRepoMock.Verify(r => r.GetUnidad(unidadId), Times.Once);
-            _ingredienteRepoMock.Verify(r => r.AddAsync(It.IsAny<domain.Care.Ingrediente>()), Times.Once);
+            _ingredienteRepoMock.Verify(r => r.AddAsync(It.IsAny<Ingrediente>()), Times.Once);
             _unitOfWorkMock.Verify(u => u.CommitAsync(It.IsAny<CancellationToken>()), Times.Once);
         }
 
@@ -118,7 +119,7 @@ namespace PlanesRecetas.testing.Application.Care
             // Assert
             Assert.True(result.IsFailure);
             Assert.Contains("Category with Id", result.Error.Description);
-            _ingredienteRepoMock.Verify(r => r.AddAsync(It.IsAny<domain.Care.Ingrediente>()), Times.Never);
+            _ingredienteRepoMock.Verify(r => r.AddAsync(It.IsAny<Ingrediente>()), Times.Never);
             _unitOfWorkMock.Verify(u => u.CommitAsync(It.IsAny<CancellationToken>()), Times.Never);
         }
     }

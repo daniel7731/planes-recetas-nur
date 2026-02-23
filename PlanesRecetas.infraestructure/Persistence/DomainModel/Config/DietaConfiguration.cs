@@ -8,7 +8,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using PlanesRecetas.domain.Care;
+    using PlanesRecetas.domain.Plan;
 
     public class DietaConfiguration : IEntityTypeConfiguration<Dieta>
     {
@@ -21,10 +21,6 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
             builder.HasKey(d => d.Id);
 
             // Configuración de Propiedades
-            builder.Property(d => d.Nombre)
-                .IsRequired()
-                .HasMaxLength(150);
-
             builder.Property(d => d.FechaConsumo)
                 .IsRequired()
                 .HasColumnType("DATETIME");

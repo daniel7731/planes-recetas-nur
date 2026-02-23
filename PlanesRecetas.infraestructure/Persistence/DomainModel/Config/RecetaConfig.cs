@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PlanesRecetas.domain.Care;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PlanesRecetas.domain.Recipe;
 
 namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
 {
@@ -25,6 +20,11 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
                     .IsRequired()
                     .HasMaxLength(150);
 
+            // Instrucciones is optional
+            builder.Property(r => r.Instrucciones)
+                    .HasMaxLength(1000)
+                    .IsRequired(false);
+
             builder.Property(r => r.TiempoId)
                     .IsRequired();
 
@@ -36,11 +36,8 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
                     .HasForeignKey(r => r.TiempoId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-       
-
-            // --- Ignored Properties ---
-            builder.Ignore(r => r.IngredienteIds); // No mapea propiedad calculada/transitoria
-            builder.Ignore(r => r.CalcularCalorias()); // Evita errores si se usa como propiedad
+        
+           
         }
     }
 }

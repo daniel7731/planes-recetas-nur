@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PlanesRecetas.application.Care;
-using PlanesRecetas.webapi.Parameters.Care;
+using PlanesRecetas.application.Recipe;
+using PlanesRecetas.webapi.Parameters.Recipe;
 
 namespace PlanesRecetas.webapi.Controllers
 {

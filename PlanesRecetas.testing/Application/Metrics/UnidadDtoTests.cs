@@ -22,7 +22,7 @@ namespace PlanesRecetas.testing.Application.Metrics
         public void UnidadDto_ValidData_ShouldNotHaveErrors()
         {
             // Arrange
-            var dto = new UnidadDto
+            var dto = new UnidadMedidaDto
             {
                 Id = 1,
                 Nombre = "Kilogramos",
@@ -42,7 +42,7 @@ namespace PlanesRecetas.testing.Application.Metrics
         public void UnidadDto_RequiredFields_ShouldReturnErrors(string nombre, string simbolo, string memberName)
         {
             // Arrange
-            var dto = new UnidadDto { Nombre = nombre, Simbolo = simbolo };
+            var dto = new UnidadMedidaDto { Nombre = nombre, Simbolo = simbolo };
 
             // Act
             var errors = ValidateModel(dto);
@@ -55,7 +55,7 @@ namespace PlanesRecetas.testing.Application.Metrics
         public void UnidadDto_SimboloTooLong_ShouldReturnError()
         {
             // Arrange - El límite en SQL es NVARCHAR(10)
-            var dto = new UnidadDto
+            var dto = new UnidadMedidaDto
             {
                 Nombre = "Mililitros",
                 Simbolo = "ML-EXTRA-LONG"

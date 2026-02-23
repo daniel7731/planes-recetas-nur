@@ -1,6 +1,7 @@
 ﻿using Moq;
 using PlanesRecetas.application.Care;
-using PlanesRecetas.domain.Care;
+using PlanesRecetas.application.Recipe;
+using PlanesRecetas.domain.Recipe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,16 +25,16 @@ namespace PlanesRecetas.testing.Application.Care
         public async Task Handle_Should_ReturnSuccess_WhenIngredientesExist()
         {
             // Arrange
-            var ingredientesEntities = new List<domain.Care.Ingrediente>
+            var ingredientesEntities = new List<Ingrediente>
         {
-            new domain.Care.Ingrediente(
+            new domain.Recipe.Ingrediente(
                 Guid.NewGuid(),
                 150.5m,
                 "Pechuga de Pollo",
                 Guid.NewGuid(),
                 100,
                 1),
-            new domain.Care.Ingrediente(
+            new domain.Recipe.Ingrediente(
                 Guid.NewGuid(),
                 52.0m,
                 "Manzana",
@@ -73,7 +74,7 @@ namespace PlanesRecetas.testing.Application.Care
             // Arrange
             _ingredienteRepositoryMock
                 .Setup(repo => repo.GetAll())
-                .Returns(new List<domain.Care.Ingrediente>()); // Lista instanciada pero vacía
+                .Returns(new List<Ingrediente>()); // Lista instanciada pero vacía
 
             var query = new GetAllIngredientesQuery();
 
@@ -91,7 +92,7 @@ namespace PlanesRecetas.testing.Application.Care
             // Arrange
             _ingredienteRepositoryMock
                 .Setup(repo => repo.GetAll())
-                .Returns((List<domain.Care.Ingrediente>?)null); // Retorno nulo
+                .Returns((List<Ingrediente>?)null); // Retorno nulo
 
             var query = new GetAllIngredientesQuery();
 

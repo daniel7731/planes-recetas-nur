@@ -7,11 +7,15 @@ using PlanesRecetas.application.Pacientes;
 using PlanesRecetas.domain.Care;
 using PlanesRecetas.domain.Metrics;
 using PlanesRecetas.domain.Persons;
+using PlanesRecetas.domain.Plan;
+using PlanesRecetas.domain.Recipe;
 using PlanesRecetas.infraestructure.Persistence;
 using PlanesRecetas.infraestructure.Persistence.DomainModel;
 using PlanesRecetas.infraestructure.Repositories.Care;
 using PlanesRecetas.infraestructure.Repositories.Metrics;
 using PlanesRecetas.infraestructure.Repositories.Persons;
+using PlanesRecetas.infraestructure.Repositories.Plan;
+using PlanesRecetas.infraestructure.Repositories.Recipe;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,7 +37,8 @@ builder.Services.AddScoped<IUnidadRepository, UnidadRepository>();
 builder.Services.AddScoped<IIngredienteRepository, IngredienteRepository>();
 builder.Services.AddScoped<ITiempoRepository, TiempoRepository>();
 builder.Services.AddScoped<IRecetaRepository, RecetaRepository>();
-//builder.Services.AddScoped<IDietaRepository, DietaRepository>();
+builder.Services.AddScoped<IDietaRepository, DietaRepository>();
+builder.Services.AddScoped<IPlanAlimentacionRepository, PlanAlimentarioRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

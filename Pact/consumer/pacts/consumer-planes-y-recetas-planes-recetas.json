@@ -286,12 +286,12 @@
       ],
       "request": {
         "body": {
-          "altura": 201,
-          "apellido": "Spinka",
-          "fechaNacimiento": "1957-11-09T15:56:01.202Z",
-          "guid": "1f26ce52-2816-4c2f-81a2-cddd4d8c732c",
-          "nombre": "Gino",
-          "peso": 108
+          "altura": 198,
+          "apellido": "Collins",
+          "fechaNacimiento": "2004-06-20T11:56:16.066Z",
+          "guid": "41357cec-71d9-4b69-9205-2083abdce7d2",
+          "nombre": "Braulio",
+          "peso": 56
         },
         "headers": {
           "Content-Type": "application/json"

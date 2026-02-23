@@ -12,29 +12,29 @@ namespace PlanesRecetas.testing.Application.Metrics
     public class GetAllUnidadesQueryHandlerTests
     {
         private readonly Mock<IUnidadRepository> _unidadRepositoryMock;
-        private readonly GetAllUnidadesQueryHandler _handler;
+        private readonly GetAllUnidadesMedidaQueryHandler _handler;
 
         public GetAllUnidadesQueryHandlerTests()
         {
             _unidadRepositoryMock = new Mock<IUnidadRepository>();
-            _handler = new GetAllUnidadesQueryHandler(_unidadRepositoryMock.Object);
+            _handler = new GetAllUnidadesMedidaQueryHandler(_unidadRepositoryMock.Object);
         }
 
         [Fact]
         public async Task Handle_Should_ReturnSuccess_WhenUnidadesExist()
         {
             // Arrange
-            var unidadesEntities = new List<domain.Metrics.Unidad>
+            var unidadesEntities = new List<domain.Metrics.UnidadMedida>
         {
-            new domain.Metrics.Unidad(1, "Gramos", "g"),
-            new domain.Metrics.Unidad(2, "Mililitros", "ml")
+            new domain.Metrics.UnidadMedida(1, "Gramos", "g"),
+            new domain.Metrics.UnidadMedida(2, "Mililitros", "ml")
         };
 
             _unidadRepositoryMock
                 .Setup(repo => repo.GetAll())
                 .Returns(unidadesEntities);
 
-            var query = new GetAllUnidadesQuery();
+            var query = new GetAllUnidadesMedidaQuery();
 
             // Act
             var result = await _handler.Handle(query, CancellationToken.None);
@@ -58,9 +58,9 @@ namespace PlanesRecetas.testing.Application.Metrics
             // Arrange
             _unidadRepositoryMock
                 .Setup(repo => repo.GetAll())
-                .Returns(new List<domain.Metrics.Unidad>());
+                .Returns(new List<domain.Metrics.UnidadMedida>());
 
-            var query = new GetAllUnidadesQuery();
+            var query = new GetAllUnidadesMedidaQuery();
 
             // Act
             var result = await _handler.Handle(query, CancellationToken.None);
@@ -76,9 +76,9 @@ namespace PlanesRecetas.testing.Application.Metrics
             // Arrange
             _unidadRepositoryMock
                 .Setup(repo => repo.GetAll())
-                .Returns((List<domain.Metrics.Unidad>?)null);
+                .Returns((List<domain.Metrics.UnidadMedida>?)null);
 
-            var query = new GetAllUnidadesQuery();
+            var query = new GetAllUnidadesMedidaQuery();
 
             // Act
             var result = await _handler.Handle(query, CancellationToken.None);

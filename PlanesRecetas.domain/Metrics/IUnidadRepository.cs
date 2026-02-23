@@ -8,10 +8,14 @@ using System.Threading.Tasks;
 
 namespace PlanesRecetas.domain.Metrics
 {
-    public interface IUnidadRepository : IRepository<Unidad>
+    public interface IUnidadRepository : IRepository<UnidadMedida>
     {
    
-        List<Unidad> GetAll();
-        Task<Unidad?> GetUnidad(int id);
+        List<UnidadMedida> GetAll();
+        Task<UnidadMedida?> GetUnidad(int id);
+        Task AddAsync(UnidadMedida unidad);
+
+        Task<UnidadMedida?> GetByIdAsync(int id, CancellationToken ct = default);
+        Task UpdateAsync(UnidadMedida unidad, CancellationToken ct = default);
     }
 }

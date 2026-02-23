@@ -1,5 +1,6 @@
 ﻿using PlanesRecetas.domain.Care;
 using PlanesRecetas.domain.Metrics;
+using PlanesRecetas.domain.Recipe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +21,13 @@ namespace PlanesRecetas.testing.Domain.Care
 
         // Objetos de prueba
         private readonly Categoria MockCategoria;
-        private readonly Unidad MockUnidad;
+        private readonly domain.Metrics.UnidadMedida MockUnidad;
 
         public IngredienteTests()
         {
             // Inicializar mocks para los tests
             MockCategoria = new Categoria(TestCategoriaId, "Grasas", 1);
-            MockUnidad = new Unidad(TestUnidadId, "Cuchara", "Cda");
+            MockUnidad = new domain.Metrics.UnidadMedida(TestUnidadId, "Cuchara", "Cda");
         }
 
         // --- 1. Test de Constructor por Defecto ---
@@ -47,7 +48,7 @@ namespace PlanesRecetas.testing.Domain.Care
             Assert.Equal(0, ingrediente.UnidadId);
             // La colección debe ser inicializada si se espera que no sea nula.
             // En este caso, el constructor por defecto no la inicializa explícitamente, por lo que se espera null.
-            Assert.Null(ingrediente.Recetas);
+           
         }
 
         // --- 2. Test de Constructor Solo con ID ---

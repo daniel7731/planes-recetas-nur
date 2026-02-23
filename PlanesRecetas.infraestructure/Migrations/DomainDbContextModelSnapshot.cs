@@ -42,61 +42,6 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.ToTable("Categoria");
                 });
 
-            modelBuilder.Entity("PlanesRecetas.domain.Care.Ingrediente", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Calorias")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("CantidadValor")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("CategoriaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UnidadId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoriaId");
-
-                    b.HasIndex("UnidadId");
-
-                    b.ToTable("Ingrediente");
-                });
-
-            modelBuilder.Entity("PlanesRecetas.domain.Care.Receta", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("IngredienteIds")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TiempoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TiempoId");
-
-                    b.ToTable("Receta");
-                });
-
             modelBuilder.Entity("PlanesRecetas.domain.Care.Tiempo", b =>
                 {
                     b.Property<int>("Id")
@@ -131,7 +76,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.ToTable("TipoAlimento");
                 });
 
-            modelBuilder.Entity("PlanesRecetas.domain.Metrics.Unidad", b =>
+            modelBuilder.Entity("PlanesRecetas.domain.Metrics.UnidadMedida", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,7 +94,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Unidad");
+                    b.ToTable("UnidadMedida");
                 });
 
             modelBuilder.Entity("PlanesRecetas.domain.Persons.Nutricionista", b =>
@@ -211,17 +156,157 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.ToTable("Paciente", (string)null);
                 });
 
-            modelBuilder.Entity("RecetaIngrediente", b =>
+            modelBuilder.Entity("PlanesRecetas.domain.Plan.Dieta", b =>
                 {
-                    b.Property<Guid>("IngredientesId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("RecetasId")
+                    b.Property<DateTime>("FechaConsumo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PlanAlimentacionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("IngredientesId", "RecetasId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("RecetasId");
+                    b.HasIndex("PlanAlimentacionId");
+
+                    b.ToTable("Dieta");
+                });
+
+            modelBuilder.Entity("PlanesRecetas.domain.Plan.DietaReceta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("DietaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("Orden")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("RecetaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("TiempoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DietaId");
+
+                    b.HasIndex("RecetaId");
+
+                    b.ToTable("DietaReceta");
+                });
+
+            modelBuilder.Entity("PlanesRecetas.domain.Plan.PlanAlimentacion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("FechaFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("NutricionistaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PacienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NutricionistaId");
+
+                    b.HasIndex("PacienteId");
+
+                    b.ToTable("PlanAlimentacion");
+                });
+
+            modelBuilder.Entity("PlanesRecetas.domain.Recipe.Ingrediente", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Calorias")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CantidadValor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("CategoriaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UnidadId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.HasIndex("UnidadId");
+
+                    b.ToTable("Ingrediente");
+                });
+
+            modelBuilder.Entity("PlanesRecetas.domain.Recipe.Receta", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Instrucciones")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TiempoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TiempoId");
+
+                    b.ToTable("Receta");
+                });
+
+            modelBuilder.Entity("PlanesRecetas.domain.Recipe.RecetaIngrediente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal?>("CantidadValor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("IngredienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RecetaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IngredienteId");
+
+                    b.HasIndex("RecetaId");
 
                     b.ToTable("RecetaIngrediente");
                 });
@@ -237,7 +322,54 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.Navigation("Tipo");
                 });
 
-            modelBuilder.Entity("PlanesRecetas.domain.Care.Ingrediente", b =>
+            modelBuilder.Entity("PlanesRecetas.domain.Plan.Dieta", b =>
+                {
+                    b.HasOne("PlanesRecetas.domain.Plan.PlanAlimentacion", null)
+                        .WithMany("Dietas")
+                        .HasForeignKey("PlanAlimentacionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PlanesRecetas.domain.Plan.DietaReceta", b =>
+                {
+                    b.HasOne("PlanesRecetas.domain.Plan.Dieta", "Dieta")
+                        .WithMany()
+                        .HasForeignKey("DietaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PlanesRecetas.domain.Recipe.Receta", "Receta")
+                        .WithMany()
+                        .HasForeignKey("RecetaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dieta");
+
+                    b.Navigation("Receta");
+                });
+
+            modelBuilder.Entity("PlanesRecetas.domain.Plan.PlanAlimentacion", b =>
+                {
+                    b.HasOne("PlanesRecetas.domain.Persons.Nutricionista", "Nutricionista")
+                        .WithMany()
+                        .HasForeignKey("NutricionistaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PlanesRecetas.domain.Persons.Paciente", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Nutricionista");
+
+                    b.Navigation("Paciente");
+                });
+
+            modelBuilder.Entity("PlanesRecetas.domain.Recipe.Ingrediente", b =>
                 {
                     b.HasOne("PlanesRecetas.domain.Care.Categoria", "Categoria")
                         .WithMany()
@@ -245,7 +377,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PlanesRecetas.domain.Metrics.Unidad", "Unidad")
+                    b.HasOne("PlanesRecetas.domain.Metrics.UnidadMedida", "Unidad")
                         .WithMany()
                         .HasForeignKey("UnidadId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -256,7 +388,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.Navigation("Unidad");
                 });
 
-            modelBuilder.Entity("PlanesRecetas.domain.Care.Receta", b =>
+            modelBuilder.Entity("PlanesRecetas.domain.Recipe.Receta", b =>
                 {
                     b.HasOne("PlanesRecetas.domain.Care.Tiempo", "Tiempo")
                         .WithMany()
@@ -267,19 +399,28 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.Navigation("Tiempo");
                 });
 
-            modelBuilder.Entity("RecetaIngrediente", b =>
+            modelBuilder.Entity("PlanesRecetas.domain.Recipe.RecetaIngrediente", b =>
                 {
-                    b.HasOne("PlanesRecetas.domain.Care.Ingrediente", null)
+                    b.HasOne("PlanesRecetas.domain.Recipe.Ingrediente", "Ingrediente")
                         .WithMany()
-                        .HasForeignKey("IngredientesId")
+                        .HasForeignKey("IngredienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PlanesRecetas.domain.Care.Receta", null)
+                    b.HasOne("PlanesRecetas.domain.Recipe.Receta", "Receta")
                         .WithMany()
-                        .HasForeignKey("RecetasId")
+                        .HasForeignKey("RecetaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Ingrediente");
+
+                    b.Navigation("Receta");
+                });
+
+            modelBuilder.Entity("PlanesRecetas.domain.Plan.PlanAlimentacion", b =>
+                {
+                    b.Navigation("Dietas");
                 });
 #pragma warning restore 612, 618
         }

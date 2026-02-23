@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using PlanesRecetas.domain.Care;
 using PlanesRecetas.domain.Metrics;
 using PlanesRecetas.domain.Persons;
+using PlanesRecetas.domain.Plan;
+using PlanesRecetas.domain.Recipe;
 using PlanesRecetas.infraestructure.Persistence.DomainModel.Config;
 using System;
 using System.Collections.Generic;
@@ -19,9 +21,15 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel
         public DbSet<Nutricionista> Nutricionista { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<TipoAlimento> TipoAlimento { get; set; }
-        public DbSet<Unidad> Unidad { get; set; }
-        public DbSet<Ingrediente> Ingrediente{ get; set; }
+        public DbSet<UnidadMedida> UnidadMedida { get; set; }
+        public DbSet<Ingrediente> Ingrediente { get; set; }
+        public DbSet<Dieta> Dieta { get; set; }
+        public DbSet<PlanAlimentacion> PlanAlimentacion { get; set; }  
         public DbSet<Receta> Receta { get; set; }
+        public DbSet<RecetaIngrediente> RecetaIngrediente { get; set; }
+
+        public DbSet<DietaReceta> DietaReceta { get; set; }
+
         public DbSet<Tiempo> Tiempo { get; set; }
         public DomainDbContext(DbContextOptions<DomainDbContext> options) : base(options)
         {
@@ -35,10 +43,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel
             modelBuilder.ApplyConfiguration(new PacienteConfig());
             modelBuilder.Ignore<DomainEvent>();
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Receta>()
-                  .HasMany(e => e.Ingredientes)
-                  .WithMany(e => e.Recetas)
-                  .UsingEntity("RecetaIngrediente");
-        } 
+          
+        }
     }
 }
