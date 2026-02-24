@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Joseco.DDD.Core.Abstractions;
 using PlanesRecetas.domain.Persons;
+using PlanesRecetas.domain.Plan.Events;
 namespace PlanesRecetas.domain.Plan
 {
     public class PlanAlimentacion : AggregateRoot
@@ -32,6 +33,7 @@ namespace PlanesRecetas.domain.Plan
             NutricionistaId = nutricionista;
             SetFechaInicio(fechaInicio, duracion);
             Dietas = new List<Dieta>();
+            AddDomainEvent(new PlanAlimentacionCreadoEvent(Id, PacienteId, NutricionistaId, FechaInicio,duracion));
         }
         public void SetFechaInicio(DateTime fechaInicio , int duracion)
         {

@@ -43,7 +43,34 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel
             modelBuilder.ApplyConfiguration(new PacienteConfig());
             modelBuilder.Ignore<DomainEvent>();
             base.OnModelCreating(modelBuilder);
-          
+
+            modelBuilder.Entity<UnidadMedida>().HasData(
+            new { Id = 1, Nombre = "Gramos", Simbolo = "g" },
+            new { Id = 2, Nombre = "Kilogramos", Simbolo = "kg" },
+            new { Id = 3, Nombre = "Mililitro", Simbolo = "Ml" },
+            new { Id = 4, Nombre = "Litro", Simbolo = "L" }
+    );
+
+            // 2. Seed TipoAlimento
+            modelBuilder.Entity<TipoAlimento>().HasData(
+                new { Id = 1, Nombre = "Verdura" },
+                new { Id = 2, Nombre = "Fruta" },
+                new { Id = 3, Nombre = "FrutoSeco" },
+                new { Id = 4, Nombre = "CarneRoja" },
+                new { Id = 5, Nombre = "CarneBlanca" },
+                new { Id = 6, Nombre = "Grano" },
+                new { Id = 7, Nombre = "Carbohidrato" }
+            );
+
+            // 3. Seed Tiempo
+            modelBuilder.Entity<Tiempo>().HasData(
+                new { Id = 1, Nombre = "Breakfast" }, // Fixed typo from 'Breaskfast'
+                new { Id = 2, Nombre = "HalfMorning" },
+                new { Id = 3, Nombre = "Lunch" },
+                new { Id = 4, Nombre = "HalfAfternoon" },
+                new { Id = 5, Nombre = "Dinner" }
+            );
+
         }
     }
 }

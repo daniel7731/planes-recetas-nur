@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace PlanesRecetas.infraestructure.Migrations
 {
     /// <inheritdoc />
@@ -237,6 +239,43 @@ namespace PlanesRecetas.infraestructure.Migrations
                         principalTable: "Receta",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tiempo",
+                columns: new[] { "Id", "Nombre" },
+                values: new object[,]
+                {
+                    { 1, "Breakfast" },
+                    { 2, "HalfMorning" },
+                    { 3, "Lunch" },
+                    { 4, "HalfAfternoon" },
+                    { 5, "Dinner" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TipoAlimento",
+                columns: new[] { "Id", "Nombre" },
+                values: new object[,]
+                {
+                    { 1, "Verdura" },
+                    { 2, "Fruta" },
+                    { 3, "FrutoSeco" },
+                    { 4, "CarneRoja" },
+                    { 5, "CarneBlanca" },
+                    { 6, "Grano" },
+                    { 7, "Carbohidrato" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UnidadMedida",
+                columns: new[] { "Id", "Nombre", "Simbolo" },
+                values: new object[,]
+                {
+                    { 1, "Gramos", "g" },
+                    { 2, "Kilogramos", "kg" },
+                    { 3, "Mililitro", "Ml" },
+                    { 4, "Litro", "L" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -1,0 +1,3 @@
+#build the image
+docker build -t ikaru773/planesrecetaswebapi:latest -f PlanesRecetas.webapi/Dockerfile .
+#

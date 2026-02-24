@@ -16,6 +16,7 @@ namespace PlanesRecetas.application.Pacientes
         public DateTime FechaNacimiento { get; set; }
         public Decimal Peso { get; set; }
         public Decimal Altura { get; set; }
+        public CreatePacienteComand() { }
         [JsonConstructor]
         public CreatePacienteComand(Guid guid, string nombre, string apellido, DateTime fechaNacimiento, Decimal peso, Decimal altura)
         {
