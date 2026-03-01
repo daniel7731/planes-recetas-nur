@@ -19,10 +19,7 @@ namespace PlanesRecetas.domain.Plan
 
         public int DuracionDias
         {
-            get
-            {
-                return (int)(FechaFin - FechaInicio).TotalDays;
-            }
+            get; set;
         }
 
         protected PlanAlimentacion() { }
@@ -33,7 +30,7 @@ namespace PlanesRecetas.domain.Plan
             NutricionistaId = nutricionista;
             SetFechaInicio(fechaInicio, duracion);
             Dietas = new List<Dieta>();
-            AddDomainEvent(new PlanAlimentacionCreadoEvent(Id, PacienteId, NutricionistaId, FechaInicio,duracion));
+            AddDomainEvent(new PlanCreated(Id, PacienteId, NutricionistaId, FechaInicio,duracion));
         }
         public void SetFechaInicio(DateTime fechaInicio , int duracion)
         {

@@ -17,8 +17,7 @@ namespace PlanesRecetasWorkerService
         private readonly IRabbitMQConnection _rabbit;
      
         private readonly RabbitMQSettings _options;
-        public Worker(IConfiguration configuration , IMediator mediator , ILogger<Worker> logger, IRabbitMQConnection rabbit)
-        {
+        public Worker(IConfiguration configuration , IMediator mediator , ILogger<Worker> logger, IRabbitMQConnection rabbit){
             _logger = logger;
             _options = configuration.GetSection("RabbitMQ").Get<RabbitMQSettings>()
                    ?? new RabbitMQSettings();
@@ -41,6 +40,7 @@ namespace PlanesRecetasWorkerService
 
                     var message = JsonSerializer.Deserialize<string>(messageString);
                     _logger.LogInformation("Received message: {Message}", message);
+                    
                     var paciente = JsonSerializer.Deserialize<PacienteCreatedMessage>(
                     message,
                     new JsonSerializerOptions

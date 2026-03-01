@@ -15,13 +15,26 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
         public void Configure(EntityTypeBuilder<Categoria> builder)
         {
             builder.ToTable("Categoria");
-            builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Nombre).HasMaxLength(100).IsRequired();
-            builder.Property(i => i.TipoAlimentoId).HasColumnName("TipoAlimentoId");
-            builder.HasOne<TipoAlimento>("_tipo") // Use the backing field or property as a parameter
-            .WithMany()
-            .HasForeignKey(c => c.TipoAlimentoId);
+            // Primary Key
+            builder.HasKey(c => c.Id);
+
+            builder.Property(c => c.Id)
+                   .IsRequired();
+
+            // Properties
+            builder.Property(c => c.Nombre)
+                   .HasMaxLength(100)
+                   .IsRequired();
+
+            builder.Property(c => c.TipoAlimentoId)
+                   .IsRequired();
+
+            // Relationship
+            builder.HasOne(c => c.TipoAlimento)
+                   .WithMany(t => t.Categorias)
+                   .HasForeignKey(c => c.TipoAlimentoId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

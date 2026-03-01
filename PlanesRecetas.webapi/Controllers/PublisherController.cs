@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Joseco.Communication.External.Contracts.Services;
+using Microsoft.AspNetCore.Mvc;
+using PlanesRecetas.application.Pacientes.Evento;
+using PlanesRecetas.webapi.Controllers;
 using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
@@ -10,8 +13,17 @@ public class PublisherController : ControllerBase
 {
     private readonly string _hostname = "localhost";
     private readonly string _queueName = "hello-quee";
+    private SenderTest sender;
+    private PacienteSender pacienteSender;
+    private readonly IExternalPublisher _externalPublisher;
+    public PublisherController(IExternalPublisher externalPublisher)
+    {
+        _externalPublisher = externalPublisher;
+        sender = new SenderTest(externalPublisher);
+        pacienteSender = new PacienteSender(externalPublisher);
 
-    [HttpPost("publish")]
+    }
+    [HttpPost("[action]")]
     public async Task<IActionResult> PublishMessage([FromBody] object messageData)
     {
         var factory = new ConnectionFactory() { HostName = _hostname, 
@@ -52,6 +64,23 @@ public class PublisherController : ControllerBase
                                  body: body);
         }
 
+        return Ok(new { status = "Message sent to RabbitMQ", data = messageData });
+    }
+    [HttpPost("[action]")]
+    public async Task<IActionResult> PublishMessageTest([FromBody] TestMessage messageData) { 
+        // Implement other properties and methods as needed
+        Guid guid = Guid.NewGuid();
+        messageData.Id = guid;
+        await sender.SendMessageAsync(messageData);
+        return Ok(new { status = "Message sent to RabbitMQ", data = messageData });
+    }
+    [HttpPost("[action]")]
+    public async Task<IActionResult> PublishMessagePacienteTest([FromBody] PacienteCreated messageData)
+    {
+        // Implement other properties and methods as needed
+        Guid guid = Guid.NewGuid();
+        messageData.Id = guid;
+        await pacienteSender.SendMessageAsync(messageData);
         return Ok(new { status = "Message sent to RabbitMQ", data = messageData });
     }
 }

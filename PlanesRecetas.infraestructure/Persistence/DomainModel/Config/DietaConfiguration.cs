@@ -17,13 +17,22 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
             // Nombre de la tabla
             builder.ToTable("Dieta");
 
-            // Llave Primaria
             builder.HasKey(d => d.Id);
 
-            // Configuración de Propiedades
+            builder.Property(d => d.Id)
+                   .IsRequired();
+
             builder.Property(d => d.FechaConsumo)
-                .IsRequired()
-                .HasColumnType("DATETIME");
+                   .IsRequired()
+                   .HasColumnType("datetime");
+
+            builder.Property(d => d.PlanAlimentacionId)
+                   .IsRequired();
+
+            builder.HasOne(d => d.PlanAlimentacion)
+                   .WithMany(p => p.Dietas)
+                   .HasForeignKey(d => d.PlanAlimentacionId)
+                   .OnDelete(DeleteBehavior.Cascade);   
         }
     }
 }

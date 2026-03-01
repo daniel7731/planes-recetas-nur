@@ -1,13 +1,11 @@
-﻿using Joseco.DDD.Core.Abstractions;
+﻿using Joseco.Outbox.Contracts.Model;
+using Joseco.Outbox.Contracts.Service;
+using Joseco.DDD.Core.Abstractions;
 using Joseco.DDD.Core.Results;
 using MediatR;
 using PlanesRecetas.domain.Persons;
 using PlanesRecetas.domain.Plan;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PlanesRecetas.domain.Plan.Events;
 
 namespace PlanesRecetas.application.Plan
 {
@@ -18,14 +16,16 @@ namespace PlanesRecetas.application.Plan
         private readonly IPacienteRepository _pacienteRepository;
         private readonly INutricionistaRepository _nutricionistaRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IOutboxService<DomainEvent> _outboxService;
         public CreatePlanAlimentacionHandler(IPlanAlimentacionRepository planAlimentacionRepository , IDietaRepository dietaRepository , IPacienteRepository pacienteRepository ,
-            INutricionistaRepository nutricionistaRepository , IUnitOfWork unitOfWork)
+            INutricionistaRepository nutricionistaRepository , IOutboxService<DomainEvent> outboxService,  IUnitOfWork unitOfWork)
         {
             _planAlimentacionRepository = planAlimentacionRepository;
             _dietaRepository = dietaRepository;
             _pacienteRepository = pacienteRepository;
             _nutricionistaRepository = nutricionistaRepository;
             _unitOfWork = unitOfWork;
+            _outboxService = outboxService;
         }
 
         public async Task<Result<Guid>> Handle(CreatePlanAlimentacionComand request, CancellationToken cancellationToken)
@@ -62,7 +62,7 @@ namespace PlanesRecetas.application.Plan
 
                 d.Platillos.ForEach(async p =>
                 {
-                    DietaReceta dietaReceta = new DietaReceta { 
+                    DietaReceta dietaReceta = new () { 
                     Orden = p.Orden,
                     RecetaId = p.RecetaId,
                     TiempoId = p.TiempoId,
@@ -70,6 +70,11 @@ namespace PlanesRecetas.application.Plan
                     await _dietaRepository.AddDietaReceta(dieta,dietaReceta); 
                 });
             });
+            var outboxMessage = new OutboxMessage<DomainEvent>(new PlanCreated(planAlimentacion.Id, planAlimentacion.PacienteId, planAlimentacion.NutricionistaId,
+                planAlimentacion.FechaInicio, planAlimentacion.DuracionDias));
+            await _outboxService.AddAsync(new OutboxMessage<DomainEvent>(new 
+                PlanCreated(planAlimentacion.Id, planAlimentacion.PacienteId, planAlimentacion.NutricionistaId,
+                planAlimentacion.FechaInicio, planAlimentacion.DuracionDias)));  
             await _unitOfWork.CommitAsync(cancellationToken);
             return Result.Success(planAlimentacion.Id);
         }

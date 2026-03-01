@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanesRecetas.application", "..\PlanesRecetas.application\PlanesRecetas.application.csproj", "{BF02334F-D916-C623-C97D-3E1F63A983CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanesRecetas.infraestructure", "..\PlanesRecetas.infraestructure\PlanesRecetas.infraestructure.csproj", "{99E22E74-CF99-426F-AEFF-847392260CDC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BF02334F-D916-C623-C97D-3E1F63A983CA} = {BF02334F-D916-C623-C97D-3E1F63A983CA}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject

@@ -1,36 +1,20 @@
-using Microsoft.EntityFrameworkCore;
-using PlanesRecetas.application.Pacientes;
-using PlanesRecetas.domain.Persons;
-using PlanesRecetas.infraestructure.Messaging;
-using PlanesRecetas.infraestructure.Persistence.DomainModel;
-using PlanesRecetas.infraestructure.Repositories.Persons;
-using PlanesRecetasWorkerService;
+using Joseco.DDD.Core.Abstractions;
+using Joseco.Outbox.EFCore;
+using Microsoft.Extensions.DependencyInjection;
+using Nur.Store2025.Observability;
+using PlanesRecetas.application;
+using PlanesRecetas.infraestructure;
 
 var builder = Host.CreateApplicationBuilder(args);
-builder.Services.Configure<RabbitMQSettings>(
-    builder.Configuration.GetSection("RabbitMQ"));
-builder.Services.AddDbContext<DomainDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")
-));
-builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
+string serviceName = "planes-recetas.worker-service";
 
-builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
-builder.Services.AddSingleton<IRabbitMQConnection, RabbitMQConnection>();
-builder.Services.AddHostedService<Worker>();
+builder.UseLogging(serviceName, builder.Configuration);
 
-var app = builder.Build();
+builder.Services.AddAplication()
+.AddInfrastructure(builder.Configuration, builder.Environment, serviceName);
 
-using (var scope = app.Services.CreateScope())
-{
-    var rabbit = scope.ServiceProvider.GetRequiredService<IRabbitMQConnection>()
-        as RabbitMQConnection;
+builder.Services.AddOutboxBackgroundService<DomainEvent>();
 
-    await rabbit!.InitializeAsync();
-}
-
-await app.RunAsync();
-
-
+var host = builder.Build();
+host.Run();

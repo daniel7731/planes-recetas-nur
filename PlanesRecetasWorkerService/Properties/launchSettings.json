@@ -8,5 +8,8 @@
         "DOTNET_ENVIRONMENT": "Development"
       }
     }
+  },
+  "DataBaseSettings": {
+    "ConnectionString": "Server=DESKTOP-087TVGU\\SQLEXPRESS;Database=appservice;User Id=sa;Password=Password12345;TrustServerCertificate=True;"
   }
 }

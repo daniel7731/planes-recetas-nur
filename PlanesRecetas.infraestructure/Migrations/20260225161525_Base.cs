@@ -13,18 +13,41 @@ namespace PlanesRecetas.infraestructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "outbox");
+
             migrationBuilder.CreateTable(
                 name: "Nutricionista",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
                     FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Nutricionista", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "outboxMessage",
+                schema: "outbox",
+                columns: table => new
+                {
+                    outboxId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    processed = table.Column<bool>(type: "bit", nullable: false),
+                    processedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    correlationId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    traceId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    spanId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_outboxMessage", x => x.outboxId);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,27 +69,12 @@ namespace PlanesRecetas.infraestructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlanAlimentacion",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PacienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NutricionistaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlanAlimentacion", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Tiempo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,7 +87,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,12 +100,79 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Simbolo = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Simbolo = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UnidadMedida", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlanAlimentacion",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PacienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    NutricionistaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FechaInicio = table.Column<DateTime>(type: "DATE", nullable: false),
+                    FechaFin = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DuracionDias = table.Column<int>(type: "int", nullable: false, computedColumnSql: "DATEDIFF(DAY, [FechaInicio], [FechaFin])", stored: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlanAlimentacion", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlanAlimentacion_Nutricionista_NutricionistaId",
+                        column: x => x.NutricionistaId,
+                        principalTable: "Nutricionista",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PlanAlimentacion_Paciente_PacienteId",
+                        column: x => x.PacienteId,
+                        principalTable: "Paciente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Receta",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Instrucciones = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    TiempoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Receta", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Receta_Tiempo_TiempoId",
+                        column: x => x.TiempoId,
+                        principalTable: "Tiempo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categoria",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    TipoAlimentoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categoria", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categoria_TipoAlimento_TipoAlimentoId",
+                        column: x => x.TipoAlimentoId,
+                        principalTable: "TipoAlimento",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,7 +181,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PlanAlimentacionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FechaConsumo = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    FechaConsumo = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,42 +195,31 @@ namespace PlanesRecetas.infraestructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Receta",
+                name: "Ingrediente",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Instrucciones = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TiempoId = table.Column<int>(type: "int", nullable: false)
+                    Calorias = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CategoriaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UnidadId = table.Column<int>(type: "int", nullable: false),
+                    CantidadValor = table.Column<decimal>(type: "decimal(10,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Receta", x => x.Id);
+                    table.PrimaryKey("PK_Ingrediente", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Receta_Tiempo_TiempoId",
-                        column: x => x.TiempoId,
-                        principalTable: "Tiempo",
+                        name: "FK_Ingrediente_Categoria_CategoriaId",
+                        column: x => x.CategoriaId,
+                        principalTable: "Categoria",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categoria",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TipoAlimentoId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categoria", x => x.Id);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Categoria_TipoAlimento_TipoAlimentoId",
-                        column: x => x.TipoAlimentoId,
-                        principalTable: "TipoAlimento",
+                        name: "FK_Ingrediente_UnidadMedida_UnidadId",
+                        column: x => x.UnidadId,
+                        principalTable: "UnidadMedida",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,7 +227,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("SqlServer:Identity", "1, 2"),
                     DietaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RecetaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TiempoId = table.Column<int>(type: "int", nullable: false),
@@ -184,32 +248,10 @@ namespace PlanesRecetas.infraestructure.Migrations
                         principalTable: "Receta",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Ingrediente",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Calorias = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoriaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UnidadId = table.Column<int>(type: "int", nullable: false),
-                    CantidadValor = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Ingrediente", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ingrediente_Categoria_CategoriaId",
-                        column: x => x.CategoriaId,
-                        principalTable: "Categoria",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Ingrediente_UnidadMedida_UnidadId",
-                        column: x => x.UnidadId,
-                        principalTable: "UnidadMedida",
+                        name: "FK_DietaReceta_Tiempo_TiempoId",
+                        column: x => x.TiempoId,
+                        principalTable: "Tiempo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -222,7 +264,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RecetaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IngredienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CantidadValor = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    CantidadValor = table.Column<decimal>(type: "decimal(10,2)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -299,6 +341,11 @@ namespace PlanesRecetas.infraestructure.Migrations
                 column: "RecetaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DietaReceta_TiempoId",
+                table: "DietaReceta",
+                column: "TiempoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ingrediente_CategoriaId",
                 table: "Ingrediente",
                 column: "CategoriaId");
@@ -307,6 +354,16 @@ namespace PlanesRecetas.infraestructure.Migrations
                 name: "IX_Ingrediente_UnidadId",
                 table: "Ingrediente",
                 column: "UnidadId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlanAlimentacion_NutricionistaId",
+                table: "PlanAlimentacion",
+                column: "NutricionistaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlanAlimentacion_PacienteId",
+                table: "PlanAlimentacion",
+                column: "PacienteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Receta_TiempoId",
@@ -331,10 +388,8 @@ namespace PlanesRecetas.infraestructure.Migrations
                 name: "DietaReceta");
 
             migrationBuilder.DropTable(
-                name: "Nutricionista");
-
-            migrationBuilder.DropTable(
-                name: "Paciente");
+                name: "outboxMessage",
+                schema: "outbox");
 
             migrationBuilder.DropTable(
                 name: "RecetaIngrediente");
@@ -359,6 +414,12 @@ namespace PlanesRecetas.infraestructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tiempo");
+
+            migrationBuilder.DropTable(
+                name: "Nutricionista");
+
+            migrationBuilder.DropTable(
+                name: "Paciente");
 
             migrationBuilder.DropTable(
                 name: "TipoAlimento");

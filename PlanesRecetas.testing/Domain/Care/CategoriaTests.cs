@@ -32,7 +32,7 @@ namespace PlanesRecetas.testing.Domain.Care
             Assert.Equal(TestNombre, categoria.Nombre);
 
             // Check assigned complex object property
-            Assert.Same(mockTipoAlimento, categoria.Tipo);
+            Assert.Same(mockTipoAlimento, categoria.TipoAlimento);
 
             // Check if the scalar FK property is set (it is *not* set by this constructor)
             Assert.Equal(0, categoria.TipoAlimentoId);
@@ -55,11 +55,11 @@ namespace PlanesRecetas.testing.Domain.Care
             Assert.Equal(TestTipoAlimentoId, categoria.TipoAlimentoId);
 
             // Check complex object creation and initialization
-            Assert.NotNull(categoria.Tipo);
-            Assert.Equal(TestTipoAlimentoId, categoria.Tipo.Id);
+            Assert.NotNull(categoria.TipoAlimento);
+            Assert.Equal(TestTipoAlimentoId, categoria.TipoAlimento.Id);
 
             // Check the dummy name assignment in the constructor: new TipoAlimento(tipoAlimentoId,"")
-            Assert.Equal("", categoria.Tipo.Nombre);
+            Assert.Equal("", categoria.TipoAlimento.Nombre);
         }
 
         // --- 3. Test Parameterless Constructor (for ORM/Deserialization) ---

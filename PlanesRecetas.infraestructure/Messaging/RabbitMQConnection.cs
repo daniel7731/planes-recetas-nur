@@ -17,7 +17,7 @@ public class RabbitMQConnection : IRabbitMQConnection
     {
         var factory = new ConnectionFactory
         {
-            HostName = _settings.HostName,
+            HostName = _settings.Host,
             Port = _settings.Port,
             UserName = _settings.UserName,
             Password = _settings.Password,

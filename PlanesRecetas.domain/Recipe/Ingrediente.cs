@@ -4,6 +4,7 @@ using Joseco.DDD.Core.Abstractions;
 using PlanesRecetas.domain.Metrics;
 using System.ComponentModel.DataAnnotations.Schema;
 using PlanesRecetas.domain.Care;
+using PlanesRecetas.application.Recipe.Evento;
 
 namespace PlanesRecetas.domain.Recipe
 {
@@ -26,6 +27,10 @@ namespace PlanesRecetas.domain.Recipe
         public Ingrediente(Guid id) : base(id)
         {
         }
+        public void SetDomainEvent()
+        {
+            AddDomainEvent(new IngredienteCreated(Id, Nombre, Calorias, CategoriaId,UnidadId));      
+        }
         public Ingrediente(Guid id, decimal calorias, string nombre, Categoria categoria, decimal cantidadValor, UnidadMedida unidad) : base(id)
         {
             Calorias = calorias;
@@ -33,6 +38,7 @@ namespace PlanesRecetas.domain.Recipe
             Categoria = categoria;
             CantidadValor = cantidadValor;
             Unidad = unidad;
+
         }
 
         public Ingrediente(Guid id, decimal calorias, string nombre, Guid categoriaId, decimal cantidadValor, int unidadId) : base(id)
@@ -44,6 +50,7 @@ namespace PlanesRecetas.domain.Recipe
             Unidad = new UnidadMedida(unidadId, "", "");
             CategoriaId = categoriaId;
             UnidadId = unidadId;
+
         }
     }
 }

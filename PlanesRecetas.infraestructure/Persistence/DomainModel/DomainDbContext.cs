@@ -1,4 +1,6 @@
 ﻿using Joseco.DDD.Core.Abstractions;
+using Joseco.Outbox.Contracts.Model;
+using Joseco.Outbox.EFCore.Persistence;
 using Microsoft.EntityFrameworkCore;
 using PlanesRecetas.domain.Care;
 using PlanesRecetas.domain.Metrics;
@@ -31,16 +33,16 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel
         public DbSet<DietaReceta> DietaReceta { get; set; }
 
         public DbSet<Tiempo> Tiempo { get; set; }
+        public DbSet<OutboxMessage<DomainEvent>> OutboxMessages { get; internal set; }
+
         public DomainDbContext(DbContextOptions<DomainDbContext> options) : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-            // base.OnModelCreating(modelBuilder);
-
-            modelBuilder.ApplyConfiguration(new PacienteConfig());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.AddOutboxModel<DomainEvent>();
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Ignore<DomainEvent>();
             base.OnModelCreating(modelBuilder);
 

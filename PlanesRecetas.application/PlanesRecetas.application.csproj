@@ -1,20 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pacientes\NewFolder\**" />
-    <EmbeddedResource Remove="Pacientes\NewFolder\**" />
-    <None Remove="Pacientes\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Joseco.Communication.External.Contracts" Version="1.0.1" />
+    <PackageReference Include="Joseco.Outbox.Contracts" Version="1.0.2" />
     <PackageReference Include="MediatR" Version="13.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.22" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.4" />
+    <PackageReference Include="Serilog" Version="4.2.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,14 +1,12 @@
 ﻿using Joseco.DDD.Core.Abstractions;
 using Joseco.DDD.Core.Results;
+using Joseco.Outbox.Contracts.Model;
+using Joseco.Outbox.Contracts.Service;
 using MediatR;
+using PlanesRecetas.application.Recipe.Evento;
 using PlanesRecetas.domain.Care;
 using PlanesRecetas.domain.Metrics;
 using PlanesRecetas.domain.Recipe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlanesRecetas.application.Recipe
 {
@@ -19,17 +17,22 @@ namespace PlanesRecetas.application.Recipe
         private readonly ICategoriaRepository _categoriaRepository;
         private readonly IUnidadRepository _unidadRepository;
         private readonly IUnitOfWork _unitOfWork;
+       // private readonly IOu
+        //private readonly IExternalPublisher _externalPublisher;
+        private readonly IOutboxService<DomainEvent> _outboxService;
 
         public CreateIngredienteCommandHandler(
             IIngredienteRepository ingredienteRepository,
             ICategoriaRepository categoriaRepository,
             IUnidadRepository unidadRepository,
-            IUnitOfWork unitOfWork)
-        {
+            IUnitOfWork unitOfWork , 
+            IOutboxService<DomainEvent> outboxService)        {
             _ingredienteRepository = ingredienteRepository;
             _categoriaRepository = categoriaRepository;
             _unidadRepository = unidadRepository;
             _unitOfWork = unitOfWork;
+            _outboxService = outboxService;
+
         }
 
         public async Task<Result<Guid>> Handle(CreateIngredienteCommand request, CancellationToken cancellationToken)
@@ -49,7 +52,21 @@ namespace PlanesRecetas.application.Recipe
             request.CategoriaId, request.CantidadValor, request.UnidadId);
             ingrediente.Unidad = null;
             ingrediente.Categoria = null;
- 
+            ingrediente.SetDomainEvent();
+            IngredienteMessage ingredienteCreated = new IngredienteMessage
+            {
+                IngredienteId = ingrediente.Id,
+                Nombre = ingrediente.Nombre,
+                Calorias = ingrediente.Calorias,
+                CategoriaId = ingrediente.CategoriaId,
+                UnidadId = ingrediente.UnidadId
+            };
+            var outboxMessage = new OutboxMessage<DomainEvent>
+                (new IngredienteCreated(ingrediente.Id, ingrediente.Nombre,
+                ingrediente.Calorias, ingrediente.CategoriaId, ingrediente.UnidadId));
+           
+            await _outboxService.AddAsync(outboxMessage);
+
             await _ingredienteRepository.AddAsync(ingrediente);
             await _unitOfWork.CommitAsync(cancellationToken);
 

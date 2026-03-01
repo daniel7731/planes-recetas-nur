@@ -44,7 +44,7 @@ namespace PlanesRecetas.application.Plan
            dietas.ForEach(d =>
            {
                 List<DietaReceta> recetas = _dietaRepository.GetDietaRecetas(d.Id);
-                d.Platillos = recetas;
+                d.DietaRecetas = recetas;
            });
             PlanAlimentacionDto dto = new PlanAlimentacionDto
             {
@@ -57,7 +57,7 @@ namespace PlanesRecetas.application.Plan
                      new DietaDto {
                          Id = d.Id,
                          Fecha = d.FechaConsumo,
-                         Recetas = d.Platillos.Select(p => new DietaRecetaDto
+                         Recetas = d.DietaRecetas.Select(p => new DietaRecetaDto
                          {
                           
                              Orden = (int) p.Orden,

@@ -4,40 +4,18 @@ CREATE TABLE TipoAlimento (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Nombre NVARCHAR(50) NOT NULL
 );
+
 CREATE TABLE UnidadMedida (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Nombre NVARCHAR(50) NOT NULL,
     Simbolo NVARCHAR(10) NOT NULL
 );
--- Insert basic units
-INSERT INTO UnidadMedida (Nombre, Simbolo)
-VALUES
-('Gramos', 'g'),
-('Kilogramos', 'kg'),
-('Mililitro', 'Ml'),
-('Litro', 'L');
-
-INSERT INTO TipoAlimento (Nombre)
-VALUES
-('Verdura'),
-('Fruta'),
-('FrutoSeco'),
-('CarneRoja'),
-('CarneBlanca'),
-('Grano'),
-('Carbohidrato');
-CREATE TABLE Tiempo (
-    Id INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre NVARCHAR(50) NOT NULL
+CREATE TABLE Categoria (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Nombre NVARCHAR(100) NOT NULL,
+    TipoAlimentoId INT NOT NULL,
+    FOREIGN KEY (TipoAlimentoId) REFERENCES TipoAlimento(Id)
 );
-
-INSERT INTO Tiempo (Nombre)
-VALUES
-('Breaskfast'),
-('HalfMorning'),
-('Lunch'),
-('HalfAfternoon'),
-('Dinner');
 CREATE TABLE Paciente (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     Nombre NVARCHAR(100) NOT NULL,
@@ -54,12 +32,7 @@ CREATE TABLE Nutricionista (
     FechaCreacion DATETIME2 NOT NULL DEFAULT GETDATE(),
     Activo BIT NOT NULL DEFAULT 1
 );
-CREATE TABLE Categoria (
-    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    Nombre NVARCHAR(100) NOT NULL,
-    TipoAlimentoId INT NOT NULL,
-    FOREIGN KEY (TipoAlimentoId) REFERENCES TipoAlimento(Id)
-);
+
 CREATE TABLE Ingrediente (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     Nombre NVARCHAR(100) NOT NULL,

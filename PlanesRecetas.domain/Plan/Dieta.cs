@@ -13,9 +13,11 @@ namespace PlanesRecetas.domain.Plan
     {
   
         public Guid PlanAlimentacionId { get; set; }
-        public DateTime FechaConsumo { get; set; } 
-       
-        public List<DietaReceta> Platillos { get; set; } = new();
+        public DateTime FechaConsumo { get; set; }
+
+        public ICollection<DietaReceta> DietaRecetas { get; set; }
+        = new List<DietaReceta>();
+        public PlanAlimentacion PlanAlimentacion { get; set; } = null!;
 
         public Dieta(Guid id, DateTime fechaConsumo, Guid planAlimentacionId) : base(id)
         {

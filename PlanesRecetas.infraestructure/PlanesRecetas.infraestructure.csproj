@@ -1,22 +1,51 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0" />
     <PackageReference Include="MediatR" Version="13.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.22">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.22" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.3" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.15.0" />
     <PackageReference Include="RabbitMQ.Client" Version="7.2.0" />
+
+	  
+	<PackageReference Include="Joseco.Communication.External.RabbitMQ" Version="1.0.2" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.4" />
+
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4">
+		<PrivateAssets>all</PrivateAssets>
+		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+
+	<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="9.0.3" />
+	<PackageReference Include="AspNetCore.HealthChecks.UI" Version="9.0.0" />
+	<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
+	<PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="9.0.0" />
+
+	<PackageReference Include="Joseco.Outbox.EFCore" Version="1.0.4" />
+	<PackageReference Include="Joseco.Secrets.HashicorpVault" Version="1.0.0" />
+
+	<PackageReference Include="Nur.Store2025.Access.Catalog" Version="1.0.0" />
+
+	<PackageReference Include="Nur.Store2025.Observability" Version="1.0.0" />
+	<PackageReference Include="Nur.Store2025.Security" Version="1.0.0" />
+
+	<PackageReference Include="Scrutor" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PlanesRecetas.application\PlanesRecetas.application.csproj" />
     <ProjectReference Include="..\PlanesRecetas.domain\PlanesRecetas.domain.csproj" />
   </ItemGroup>
 
@@ -28,7 +57,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="RabbitMQ\Consumers\" />
   </ItemGroup>
 
 </Project>
