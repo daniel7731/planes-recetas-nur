@@ -8,7 +8,7 @@ public class PublishIngredienteCreated : INotificationHandler<OutboxMessage<Ingr
 {
     private readonly IExternalPublisher _publisher;
 
-    private readonly string exchangeName = "ingredient-created";
+    private readonly string exchangeName = "meal-plans";
     public PublishIngredienteCreated(IExternalPublisher publisher) {
         _publisher = publisher;
     }

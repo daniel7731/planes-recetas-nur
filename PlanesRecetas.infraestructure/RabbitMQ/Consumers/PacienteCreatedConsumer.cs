@@ -14,9 +14,9 @@ namespace PlanesRecetas.infraestructure.RabbitMQ.Consumers
             CreatePacienteComand command = new()
             {
                 Guid = message.Id,
-                Nombre = message.Nombre,
-                Apellido = message.Apellido,
-                FechaNacimiento = message.FechaNacimiento,
+                Nombre = message.FirstName,
+                Apellido = message.MiddleName,
+                FechaNacimiento = message.DateOfBirth
 
             };
 

@@ -17,7 +17,7 @@ namespace PlanesRecetas.webapi.Controllers
 
             // By default, the destination always is an Exchange.
             // The destinationName parameter is optinal. If you don't pass any value or pass a null value, the destination name will be the same as the Message type name using the kebab case format.
-            var destinationName = "hello-created"; // This parameter is 
+            var destinationName = "ms-patients-queue"; // This parameter is 
 
             //var declareDestinationFirst = true; // Set to true if you want to declare the exchange before sending the message. This parameter is optional. The default value is false.
 

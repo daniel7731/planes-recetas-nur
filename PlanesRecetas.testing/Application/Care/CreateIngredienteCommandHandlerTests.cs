@@ -1,4 +1,5 @@
 ﻿using Joseco.DDD.Core.Abstractions;
+using Joseco.Outbox.Contracts.Service;
 using Moq;
 using PlanesRecetas.application.Recipe;
 using PlanesRecetas.domain.Care;
@@ -18,6 +19,7 @@ namespace PlanesRecetas.testing.Application.Care
         private readonly Mock<ICategoriaRepository> _categoriaRepoMock;
         private readonly Mock<IUnidadRepository> _unidadRepoMock;
         private readonly Mock<IUnitOfWork> _unitOfWorkMock;
+        private readonly Mock<IOutboxService<DomainEvent>> _outboxService;
         private readonly CreateIngredienteCommandHandler _handler;
 
         public CreateIngredienteCommandHandlerTests()
@@ -26,12 +28,14 @@ namespace PlanesRecetas.testing.Application.Care
             _categoriaRepoMock = new Mock<ICategoriaRepository>();
             _unidadRepoMock = new Mock<IUnidadRepository>();
             _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _outboxService = new Mock<IOutboxService<DomainEvent>>();   
 
             _handler = new CreateIngredienteCommandHandler(
                 _ingredienteRepoMock.Object,
                 _categoriaRepoMock.Object,
                 _unidadRepoMock.Object,
-                _unitOfWorkMock.Object
+                _unitOfWorkMock.Object,
+                _outboxService.Object
             );
         }
 

@@ -8,7 +8,7 @@ public class PublishPlanCreated : INotificationHandler<OutboxMessage<PlanCreated
 {
     private readonly IExternalPublisher _publisher;
 
-    private readonly string exchangeName = "plan-created";
+    private readonly string exchangeName = "meal-plans";
     public PublishPlanCreated(IExternalPublisher publisher) {
         _publisher = publisher;
     }

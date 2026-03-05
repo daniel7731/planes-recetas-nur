@@ -28,7 +28,7 @@ namespace PlanesRecetas.infraestructure.Extensions
                 return services;
             }
             //string exchangeName= "hello-created";
-            string queeName= "hello-quee";
+            string queeName= "ms-patients-queue";
             services.AddRabbitMqConsumer<PacienteCreated, PacienteCreatedConsumer>(queeName);
             //consumer 1
             services.Decorate<IIntegrationMessageConsumer<PacienteCreated>, TracingConsumer<PacienteCreated>>();

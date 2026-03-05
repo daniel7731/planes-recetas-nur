@@ -10,8 +10,14 @@ namespace PlanesRecetas.application.Pacientes.Evento
     public record PacienteCreated : IntegrationMessage
     {
         public Guid Id { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public DateTime FechaNacimiento { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+        public int BloodType { get; set; }
+        public string DocumentNumber { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public string Ocupation { get; set; }
+        public string Religion { get; set; }
+        public string Alergies { get; set; }
     }
 }

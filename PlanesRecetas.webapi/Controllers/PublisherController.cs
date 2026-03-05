@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 public class PublisherController : ControllerBase
 {
     private readonly string _hostname = "localhost";
-    private readonly string _queueName = "hello-quee";
+    private readonly string _queueName = "ms-patients-queue";
     private SenderTest sender;
     private PacienteSender pacienteSender;
     private readonly IExternalPublisher _externalPublisher;
