@@ -1,10 +1,10 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
@@ -14,7 +14,6 @@ COPY ["PlanesRecetas.application/PlanesRecetas.application.csproj", "PlanesRecet
 COPY ["PlanesRecetas.domain/PlanesRecetas.domain.csproj", "PlanesRecetas.domain/"]
 COPY ["PlanesRecetas.infraestructure/PlanesRecetas.infraestructure.csproj", "PlanesRecetas.infraestructure/"]
 COPY ["PlanesRecetas.testing/PlanesRecetas.testing.csproj", "PlanesRecetas.testing/"]
-COPY ["joseco.ddd.core/joseco.ddd.core.csproj", "joseco.ddd.core/"]
 
 # 2. Restore using the WebApi as the entry point
 RUN dotnet restore "PlanesRecetas.webapi/PlanesRecetas.webapi.csproj"
