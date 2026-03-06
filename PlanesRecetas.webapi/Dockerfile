@@ -32,4 +32,9 @@ RUN dotnet publish "PlanesRecetas.webapi.csproj" -c $BUILD_CONFIGURATION -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+# Set environment variables
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ConnectionStrings__DefaultConnection=Server=sqlserver;Database=appservice;User Id=sa;Password=Password12345;TrustServerCertificate=True;
+
 ENTRYPOINT ["dotnet", "PlanesRecetas.webapi.dll"]
