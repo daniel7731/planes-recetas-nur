@@ -1,7 +1,10 @@
+using Joseco.DDD.Core.Abstractions;
+using Joseco.Outbox.EFCore;
 using PlanesRecetas.application;
 using PlanesRecetas.application.Messaging;
 using PlanesRecetas.application.Pacientes.Evento;
 using PlanesRecetas.infraestructure;
+using PlanesRecetas.infraestructure.Consumer;
 using PlanesRecetas.infraestructure.Persistence.DomainModel;
 using PlanesRecetas.webapi;
 using PlanesRecetas.webapi.Extensions;
@@ -13,8 +16,8 @@ string serviceName = "planesrecetas.api";
 
 
 builder.Services.AddAplication()
-    .AddInfrastructure(builder.Configuration, builder.Environment, serviceName)
-    .AddPresentation(builder.Configuration, builder.Environment);
+.AddInfrastructure(builder.Configuration, builder.Environment, serviceName)
+.AddPresentation(builder.Configuration, builder.Environment);
 
 
 var app = builder.Build();

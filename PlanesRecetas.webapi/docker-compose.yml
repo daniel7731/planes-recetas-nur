@@ -60,8 +60,8 @@ services:
       # RabbitMQ (pointing to the rabbitmq container)
       - RabbitMqSettings__Host=rabbitmq
       - RabbitMqSettings__Port=5672
-      - RabbitMqSettings__UserName=guest
-      - RabbitMqSettings__Password=guest
+      - RabbitMqSettings__UserName=admin
+      - RabbitMqSettings__Password=StrongPassword123
       - RabbitMqSettings__QueueName=plan-created
       - RabbitMqSettings__VirtualHost=/
       

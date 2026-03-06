@@ -1,298 +1,277 @@
--- Insert basic units
-INSERT INTO UnidadMedida (Nombre, Simbolo)
-VALUES
-('Gramos', 'g'),
-('Kilogramos', 'kg'),
-('Mililitro', 'Ml'),
-('Litro', 'L');
-
-INSERT INTO TipoAlimento (Nombre)
-VALUES
-('Verdura'),
-('Fruta'),
-('FrutoSeco'),
-('CarneRoja'),
-('CarneBlanca'),
-('Grano'),
-('Carbohidrato');
-CREATE TABLE Tiempo (
-    Id INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre NVARCHAR(50) NOT NULL
-);
-
-INSERT INTO Tiempo (Nombre)
-VALUES
-('Breaskfast'),
-('HalfMorning'),
-('Lunch'),
-('HalfAfternoon'),
-('Dinner');
-
-INSERT INTO Categoria (Id, Nombre, TipoAlimentoId)
-VALUES
--- 1. Verdura
-(NEWID(), 'Verdura fresca', 1),
-(NEWID(), 'Verdura congelada', 1),
-(NEWID(), 'Verdura orgánica', 1),
-(NEWID(), 'Verdura de hoja verde', 1),
-(NEWID(), 'Verdura de raíz', 1),
-
--- 2. Fruta
-(NEWID(), 'Fruta tropical', 2),
-(NEWID(), 'Fruta cítrica', 2),
-(NEWID(), 'Fruta de estación', 2),
-(NEWID(), 'Fruta seca', 2),
-(NEWID(), 'Fruta congelada', 2),
-
--- 3. FrutoSeco
-(NEWID(), 'Nueces', 3),
-(NEWID(), 'Almendras', 3),
-(NEWID(), 'Castañas', 3),
-(NEWID(), 'Pistachos', 3),
-(NEWID(), 'Maní', 3),
-
--- 4. CarneRoja
-(NEWID(), 'Res', 4),
-(NEWID(), 'Cordero', 4),
-(NEWID(), 'Cerdo', 4),
-(NEWID(), 'Carne molida', 4),
-(NEWID(), 'Carne curada', 4),
-
--- 5. CarneBlanca
-(NEWID(), 'Pollo', 5),
-(NEWID(), 'Pavo', 5),
-(NEWID(), 'Conejo', 5),
-(NEWID(), 'Pescado blanco', 5),
-(NEWID(), 'Carne de ave', 5),
-
--- 6. Grano
-(NEWID(), 'Arroz', 6),
-(NEWID(), 'Trigo', 6),
-(NEWID(), 'Avena', 6),
-(NEWID(), 'Cebada', 6),
-(NEWID(), 'Maíz', 6),
-
--- 7. Carbohidrato
-(NEWID(), 'Pan', 7),
-(NEWID(), 'Pasta', 7),
-(NEWID(), 'Cereal', 7),
-(NEWID(), 'Papa', 7),
-(NEWID(), 'Yuca', 7);
-
-ALTER TABLE Ingrediente
-ADD CantidadValor decimal not null default 1;
-
--- #################################################################################
--- # INSERTS DE INGREDIENTES
--- # La Calorias y UnidadId son valores de ejemplo
--- #################################################################################
-
--- Categoría: Verdura de raíz (Id: 63F881A9-B533-410B-BC4C-0093990F9DA1)
-DECLARE @VerduraRaizId UNIQUEIDENTIFIER = '63F881A9-B533-410B-BC4C-0093990F9DA1';
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Zanahoria fresca', 41.00, @VerduraRaizId, 1),
-(NEWID(), 'Remolacha cruda', 43.00, @VerduraRaizId, 1),
-(NEWID(), 'Rábano picante', 48.00, @VerduraRaizId, 1),
-(NEWID(), 'Jengibre (raíz)', 80.00, @VerduraRaizId, 1),
-(NEWID(), 'Nabo cocido', 28.00, @VerduraRaizId, 1),
-(NEWID(), 'Yuca (mandioca)', 160.00, @VerduraRaizId, 1),
-(NEWID(), 'Boniato (camote)', 86.00, @VerduraRaizId, 1),
-(NEWID(), 'Cebolla blanca', 40.00, @VerduraRaizId, 3),
-(NEWID(), 'Puerro', 61.00, @VerduraRaizId, 3),
-(NEWID(), 'Ajo (cabeza)', 149.00, @VerduraRaizId, 3);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('63F881A9-B533-410B-BC4C-0093990F9DA1', 'Verdura de raíz', 1);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('47C51B84-BB85-49F6-96A1-0701D7144A0E', 'Cebada', 6);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('A185F37C-EC77-4037-BF7F-0DF4555E58B9', 'Cereal', 7);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('5F46DCC2-156D-4EC4-8854-0E16FB78308B', 'Arroz', 6);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('313DE149-AA99-48FF-8D2A-1F6A778469AD', 'Cordero', 4);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('3B96F79B-7488-479F-8A43-263EBA3C9077', 'Papa', 7);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('D9128E81-1D35-4418-824D-34432C572DFF', 'Pescado blanco', 5);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('399A37BB-4703-40E1-941F-369B2D51D952', 'Pistachos', 3);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('C8EE09E0-8EEC-4F25-95AF-3AB6235578DA', 'Avena', 6);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('0AC3EC26-2F75-46DC-A13C-3DB9A4CA6AB6', 'Nueces', 3);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('F6FE0472-FDE5-439F-9921-3F7DDBCA926E', 'Maní', 3);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('CB120002-33C9-45EB-B475-437E96E8DA49', 'Carne de ave', 5);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('A22302FA-057B-4603-A68D-49A7816CE1FE', 'Pavo', 5);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('08082E0E-3DB0-4FC5-82AD-6BE43D1D8B96', 'Almendras', 3);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('4F0D9CF1-1805-4F37-BBEF-788144D527BA', 'Verdura congelada', 1);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('B7DC2A55-AC7A-4DDF-A2E0-7BF8D603D660', 'Conejo', 5);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('6C7BCE6B-E56E-482C-8499-7E2CE9FBB7E4', 'Carne molida', 4);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('D6F06539-7E82-40D3-B29F-86B8941375BC', 'Castañas', 3);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('7028B05F-9A06-4DAD-8049-93900C85A4F0', 'Cerdo', 4);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('C3D3C887-A7E8-4679-87BC-956F55401C74', 'Fruta de estación', 2);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('482D1425-CECE-43BE-903C-9896902BAFC1', 'Res', 4);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('6FD10062-3080-4F9F-889D-A5A48688711E', 'Fruta cítrica', 2);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('8B3369CE-284E-46F6-91C6-A6A5789E289B', 'Trigo', 6);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('C0BCE9D3-0E49-4438-B7AF-AC305E6300B0', 'Fruta tropical', 2);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('83F2DEA9-5A6C-43A0-9DAC-B4790611B524', 'Verdura fresca', 1);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('7A487298-591F-4732-BCC6-C155A3CB71BA', 'Yuca', 7);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('D5EE7BF1-C75C-4490-8820-C2CEB374E846', 'Pasta', 7);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('840DCD1D-F4E8-4156-A18C-CEC437D0F805', 'Fruta congelada', 2);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('D8DC275B-FF4F-44ED-A291-DF3ED7CCC760', 'Pollo', 5);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('19596E02-F8CB-443A-B039-E0D86C213E68', 'Maíz', 6);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('C9B6508F-91A3-4A3D-8DF7-E3D3AA7E2F02', 'Fruta seca', 2);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('7C068691-0B72-485B-AA2B-E6D85CE5B656', 'Pan', 7);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('8E0181DA-6328-4BE1-8CD1-E88C29F1B6C2', 'Verdura orgánica', 1);
+INSERT INTO [appservice].[dbo].[Categoria] ([Id], [Nombre], [TipoAlimentoId]) VALUES ('7CE7F003-BCEB-4A9B-B879-EB2DEEBAA373', 'Carne curada', 4);
 
 
--- Categoría: Cebada (Id: 47C51B84-BB85-49F6-96A1-0701D7144A0E)
-DECLARE @CebadaId UNIQUEIDENTIFIER = '47C51B84-BB85-49F6-96A1-0701D7144A0E';
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Cebada perlada', 354.00, @CebadaId, 1),
-(NEWID(), 'Harina de cebada', 345.00, @CebadaId, 1),
-(NEWID(), 'Malta de cebada', 370.00, @CebadaId, 1),
-(NEWID(), 'Cebada en copos', 320.00, @CebadaId, 1),
-(NEWID(), 'Cerveza de cebada (1 lata)', 150.00, @CebadaId, 2),
-(NEWID(), 'Sopa de cebada (ración)', 200.00, @CebadaId, 2),
-(NEWID(), 'Cebada tostada', 380.00, @CebadaId, 1),
-(NEWID(), 'Extracto de malta', 300.00, @CebadaId, 4),
-(NEWID(), 'Granos de cebada integral', 360.00, @CebadaId, 1),
-(NEWID(), 'Pan de cebada (rebanada)', 90.00, @CebadaId, 3);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('A46B3498-1488-4EB8-AA15-0068C4D596F1', 400, 'Estofado de cordero (porción)', '313DE149-AA99-48FF-8D2A-1F6A778469AD', 2, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('EC6B6EAF-54F5-4485-B451-03448A943F74', 366, 'Harina de arroz', '5F46DCC2-156D-4EC4-8854-0E16FB78308B', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('3AC58F2F-734E-46C6-836B-04AF33DECCBD', 354, 'Cebada perlada', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('EE4940B2-B603-4C83-9741-0643511215A0', 140, 'Pavo deshuesado (crudo)', 'A22302FA-057B-4603-A68D-49A7816CE1FE', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('EC0D3448-D9FA-4776-A11F-0749F0325051', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('18A81599-C01A-443F-BC37-07CD62CCA9A5', 135, 'Filete de pavo (cocido)', 'A22302FA-057B-4603-A68D-49A7816CE1FE', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('2CAFBCAC-E4EF-4353-B9AA-07D9D73B3D08', 400, 'Harina de avena', 'C8EE09E0-8EEC-4F25-95AF-3AB6235578DA', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('A5356075-69DE-465A-ACCA-0CD25CA72B81', 330, 'Harina de papa', '3B96F79B-7488-479F-8A43-263EBA3C9077', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('A603D9FD-6BEF-466E-9F0A-0CD9D148BDDA', 110, 'Fletán (halibut)', 'D9128E81-1D35-4418-824D-34432C572DFF', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('C2EFE0AF-1950-42F2-A2FD-0CE6ADCC83A5', 135, 'Hígado de cordero', '313DE149-AA99-48FF-8D2A-1F6A778469AD', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('9DDFF76B-D8C4-450D-AD00-0DDB152CDF91', 150, 'Pavo molido magro', 'A22302FA-057B-4603-A68D-49A7816CE1FE', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('5F46DCC2-156D-4EC4-8854-0E16FB78308B', 220, 'porcion de arroz', '5F46DCC2-156D-4EC4-8854-0E16FB78308B', 1, 220);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('2682A7C3-2972-4A94-9C29-1275A5A125E2', 10, 'Raices rojas', '63F881A9-B533-410B-BC4C-0093990F9DA1', 1, 100);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('0BFD95B9-BB30-493D-AD04-12CD72102366', 340, 'Arroz jazmín crudo', '5F46DCC2-156D-4EC4-8854-0E16FB78308B', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('ABB20811-4D69-4C4D-9AF5-14EA3516CD7B', 166, 'Arroz salvaje cocido', '5F46DCC2-156D-4EC4-8854-0E16FB78308B', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('8742D4E0-382B-47D6-B9E3-1617D57C11AD', 86, 'Boniato (camote)', '63F881A9-B533-410B-BC4C-0093990F9DA1', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('5A8971DA-18AE-44C8-8413-177FE0F6708B', 30, 'Embutido de pavo (rebanada)', 'CB120002-33C9-45EB-B475-437E96E8DA49', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('A2340BA7-6AD4-4A5A-96B1-17F1AA7A0E48', 40, 'Leche de almendra (sin azúcar, vaso)', '08082E0E-3DB0-4FC5-82AD-6BE43D1D8B96', 2, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('175950FB-17FC-42AC-B08A-18EA09184246', 95, 'Rape (cola)', 'D9128E81-1D35-4418-824D-34432C572DFF', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('68A43539-0FD9-430A-A673-19161A744413', 10, 'Zapallo', '4F0D9CF1-1805-4F37-BBEF-788144D527BA', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('499D51B4-8818-4FC4-BE81-19C93512B6A9', 1, 'Ingrendt test 1', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('D5918F21-1388-48FA-8D65-1AFC18767DD5', 562, 'Pistachos crudos (sin cáscara)', '399A37BB-4703-40E1-941F-369B2D51D952', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('B3C1F091-C3A9-492A-A617-1B0791C984DF', 75, 'Papa al vapor', '3B96F79B-7488-479F-8A43-263EBA3C9077', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('6D9FEF9A-0B97-462B-9799-1BAB5B37A436', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('4FCD46F2-68B6-41B4-AB2F-1F10687571B4', 500, 'Maní japonés (con cáscara)', 'F6FE0472-FDE5-439F-9921-3F7DDBCA926E', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('BC099A87-D608-486A-A131-20A70B53BC5E', 320, 'Cebada en copos', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('FC48A715-52EE-44C2-8303-22241102B93B', 1, 'Cebada x', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('31661016-1C2F-49E0-B11B-22434DE2D349', 105, 'Bacalao fresco (cocido)', 'D9128E81-1D35-4418-824D-34432C572DFF', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('E0F38C54-82BB-40DD-A5E3-22716B2E20AD', 100, 'Mantequilla de almendra (cda)', '08082E0E-3DB0-4FC5-82AD-6BE43D1D8B96', 4, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('19B41BF7-CBF2-4F0E-88D5-2293486E3C39', 575, 'Pistachos tostados y salados', '399A37BB-4703-40E1-941F-369B2D51D952', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('F62EAA37-2290-44E8-8966-24CA70D9A96E', 370, 'Maíz molido', 'A185F37C-EC77-4037-BF7F-0DF4555E58B9', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('3E363C48-09FC-4A35-8F18-24F10770B180', 590, 'Almendras laminadas', '08082E0E-3DB0-4FC5-82AD-6BE43D1D8B96', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('084571C3-519B-4809-B95F-2A38B69A1EE0', 1, 'Ingrendt test 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('E18C2364-6CC0-40B9-A0C4-2A5E75014D44', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('05D2D337-16D8-43A9-AB48-2B7D61A2D320', 250, 'Salsa de maní (porción)', 'F6FE0472-FDE5-439F-9921-3F7DDBCA926E', 2, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('01B9DD28-4238-46ED-B97D-2C3332307F04', 339, 'Trigo integral', 'A185F37C-EC77-4037-BF7F-0DF4555E58B9', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('3FA85F64-5717-4562-B3FC-2C963F66AFA6', 110, 'test', '6C7BCE6B-E56E-482C-8499-7E2CE9FBB7E4', 1, 10);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('AC8B7AFF-A871-4271-BAB5-2CB5FA48C4E0', 300, 'Extracto de malta', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 4, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('4593F1F9-EBCE-45DD-8577-2DB912476EF7', 338, 'Centeno en grano', 'A185F37C-EC77-4037-BF7F-0DF4555E58B9', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('35FA6E8E-8217-442A-A376-3179D9E14E1D', 150, 'Alas de pollo (fritas, unidad)', 'CB120002-33C9-45EB-B475-437E96E8DA49', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('E984D4E9-F9D8-46B7-B078-3375237E2865', 149, 'Ajo (cabeza)', '63F881A9-B533-410B-BC4C-0093990F9DA1', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('B02563F3-5AC0-4724-851A-34F038E6181A', 450, 'Granola de avena', 'C8EE09E0-8EEC-4F25-95AF-3AB6235578DA', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('9ABA557F-378F-4ADD-9613-3547D5EF99F1', 130, 'Riñones de cordero', '313DE149-AA99-48FF-8D2A-1F6A778469AD', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('9E4887E1-9191-4D9F-8004-370F6BEE057F', 280, 'Helado de pistacho (taza)', '399A37BB-4703-40E1-941F-369B2D51D952', 2, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('137F99B9-1892-4D8B-AE5B-374000A8609D', 200, 'Muslo de pollo (con piel, asado)', 'CB120002-33C9-45EB-B475-437E96E8DA49', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('F56C77A2-5D9F-415B-8DF4-39DF372072D0', 90, 'Abadejo (cocido)', 'D9128E81-1D35-4418-824D-34432C572DFF', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('9551C29E-7286-4B8D-AAC1-3B517E4006DE', 580, 'Pistachos molidos (harina)', '399A37BB-4703-40E1-941F-369B2D51D952', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('584FB1AC-97D2-423E-940E-3BD2904D087B', 360, 'Granos de cebada integral', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('E2763D60-37F6-4B22-8335-3DE96DC739E5', 80, 'Panga (cocida)', 'D9128E81-1D35-4418-824D-34432C572DFF', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('4D781E95-713E-4B77-BBB8-3E45ADD02D5E', 120, 'Aceite de pistacho (cda)', '399A37BB-4703-40E1-941F-369B2D51D952', 4, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('FEA6F29C-BA79-4928-B698-3F79624A3FE2', 600, 'Harina de almendra', '08082E0E-3DB0-4FC5-82AD-6BE43D1D8B96', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('F6261F8C-04F2-47A2-B8D4-411D69E83457', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('60642821-B6B3-442F-BDFB-4130BD166674', 150, 'Arroz para sushi (cocido)', '5F46DCC2-156D-4EC4-8854-0E16FB78308B', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('15BB3DFF-5CC7-4D79-AC1F-41F16F4F9F7F', 1, 'Ingrendt test 1', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('4BBCF803-0372-4515-B700-42749A77E1BA', 35, 'Galletas de arroz inflado', '5F46DCC2-156D-4EC4-8854-0E16FB78308B', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('39CF5260-C2DE-4C76-9A52-429E9613440C', 20, 'Cereal en caja', 'A185F37C-EC77-4037-BF7F-0DF4555E58B9', 1, 10);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('9B725F6C-7263-4918-B8EF-45E60F7DB85D', 167, 'Hígado de pollo', 'CB120002-33C9-45EB-B475-437E96E8DA49', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('B81BCA56-AA99-4493-821A-46D149023DA0', 579, 'Almendras crudas (enteras)', '08082E0E-3DB0-4FC5-82AD-6BE43D1D8B96', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('C1B572FE-F086-41D0-B0F3-498C36FC536F', 250, 'Papa pre-frita congelada', '3B96F79B-7488-479F-8A43-263EBA3C9077', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('348D47AB-6CE8-40B6-B219-4B757240370F', 205, 'Caballa (en conserva)', 'D9128E81-1D35-4418-824D-34432C572DFF', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('D7F586C8-FBCF-40A8-A30C-51CFF2745371', 1, 'Cebada virtual', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('09103B00-9D4C-49C6-995A-51E8928FF585', 90, 'Lenguado a la plancha', 'D9128E81-1D35-4418-824D-34432C572DFF', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('0E6F9613-7CA8-4D16-ACA9-520C17561219', 87, 'Papa cocida (con piel)', '3B96F79B-7488-479F-8A43-263EBA3C9077', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('69E956B2-565F-4415-A271-542AAF3A2742', 111, 'Arroz integral cocido', '5F46DCC2-156D-4EC4-8854-0E16FB78308B', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('38E19AA6-10BE-4988-AF91-545190DF1990', 90, 'Leche de pistacho (vaso)', '399A37BB-4703-40E1-941F-369B2D51D952', 2, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('B354BFB1-BBD0-476D-9F4B-5464664EF818', 160, 'Yuca (mandioca)', '63F881A9-B533-410B-BC4C-0093990F9DA1', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('18018540-A0EC-4A86-806F-5772F99B58DF', 61, 'Puerro', '63F881A9-B533-410B-BC4C-0093990F9DA1', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('48555EB5-6F17-4321-82AE-5A032A3C6CB5', 150, 'Turrón de pistacho (porción)', '399A37BB-4703-40E1-941F-369B2D51D952', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('819A5089-8949-488B-ACB2-5A6A9732F116', 150, 'Cerveza de cebada (1 lata)', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 2, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('339F2B58-A695-49FA-B82F-5FEA93BCBC8B', 165, 'Pechuga de pollo (sin piel, cocida)', 'CB120002-33C9-45EB-B475-437E96E8DA49', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('6FEB328C-3581-444D-A243-60E8E07ED959', 120, 'Leche de arroz (vaso)', '5F46DCC2-156D-4EC4-8854-0E16FB78308B', 2, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('C8F3360A-AE34-47A3-BAF9-61E279AAE849', 86, 'Merluza (cocida)', 'D9128E81-1D35-4418-824D-34432C572DFF', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('42BFB9AA-C46D-4117-A56E-632A8B16BAF6', 150, 'Hojuelas de maíz (ración)', 'A185F37C-EC77-4037-BF7F-0DF4555E58B9', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('80D53D51-96D7-495C-9DC2-63AE37DE67CA', 585, 'Almendras tostadas con sal', '08082E0E-3DB0-4FC5-82AD-6BE43D1D8B96', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('0666D264-6842-4ECF-AD0C-646EB15B9BB1', 410, 'Muesli con avena', 'C8EE09E0-8EEC-4F25-95AF-3AB6235578DA', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('136E2AEC-02E9-4A3E-913E-65DDE5901C3C', 1, 'Cebada Generica', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('0CF67FC8-BF21-4999-988C-661475261A9A', 380, 'Cebada tostada', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('11B5F177-9DF9-4AF7-BCFB-6964262D5019', 1, 'Cebada xr', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('C5FF1F22-1075-4D6D-8AEF-696B7DB6EF9C', 96, 'Tilapia (filete)', 'D9128E81-1D35-4418-824D-34432C572DFF', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('B37FACA1-86E1-4269-B01B-69AB2EFA0040', 378, 'Mijo', 'A185F37C-EC77-4037-BF7F-0DF4555E58B9', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('4C8825B9-B0FA-4595-A242-6AF8B4B0D41C', 120, 'Dorada (a la sal)', 'D9128E81-1D35-4418-824D-34432C572DFF', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('2EBE85CF-A3DC-4C82-9E6C-6BF65039F5CE', 135, 'Pavo (pechuga, cocida)', 'CB120002-33C9-45EB-B475-437E96E8DA49', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('975B0575-F99A-42A9-BE76-715A509FEA59', 20, 'Lechuga', '83F2DEA9-5A6C-43A0-9DAC-B4790611B524', 1, 5);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('E7D93511-CE8F-4F1F-BF76-72C002406C5C', 1, 'Cebada especial', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('02E196F1-1B17-45FE-9A8F-731651F53F8B', 43, 'Remolacha cruda', '63F881A9-B533-410B-BC4C-0093990F9DA1', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('8373378D-46BA-424B-A521-753A3E1628BD', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('427DF732-0307-4788-BBB9-7681C88E2B6E', 250, 'Paletilla de cordero (cruda)', '313DE149-AA99-48FF-8D2A-1F6A778469AD', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('A7723DEA-D5DF-4DCA-ABFA-768D0F0296A7', 100, 'Raiz seca', '63F881A9-B533-410B-BC4C-0093990F9DA1', 1, 10);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('24E77645-5D8F-4F08-B020-76AB6C73D428', 10, 'Raices verdes', '63F881A9-B533-410B-BC4C-0093990F9DA1', 1, 100);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('5F126608-93E3-4AD0-B240-777B6E0CC6D7', 1, 'Cebada xr', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('398D2C02-7603-4FBF-B81F-78073B22367E', 90, 'Papa dulce (batata) asada', '3B96F79B-7488-479F-8A43-263EBA3C9077', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('10D5C593-C1CA-40C9-A487-790B65CE1CCD', 100, 'Avena instantánea (sobre)', 'A185F37C-EC77-4037-BF7F-0DF4555E58B9', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('B48F2CB9-9BB1-41B7-80C0-795D33739166', 550, 'Chocolate con almendras (barra)', '08082E0E-3DB0-4FC5-82AD-6BE43D1D8B96', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('F49A0893-349D-4D2B-A8DB-7B4088D9CF48', 338, 'Espelta', 'A185F37C-EC77-4037-BF7F-0DF4555E58B9', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('20774D7B-7BF1-4B4C-B4A9-7E17F1509634', 280, 'Pierna de cordero asada', '313DE149-AA99-48FF-8D2A-1F6A778469AD', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('37070AD9-EB9F-4B41-BC98-7E49671FF88B', 1, 'Cebada Generica', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('4FBD58E4-9895-4088-8653-7E517F89A6DC', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('A98F6A71-C06E-4B59-807B-7F46389D50C2', 370, 'Avena cortada (steel-cut)', 'C8EE09E0-8EEC-4F25-95AF-3AB6235578DA', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('04B17D00-1148-44E4-B6A9-815F55E777AD', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('41F248DA-9992-400F-824B-8462FB03F9B8', 120, 'Barra de cereal de avena', 'C8EE09E0-8EEC-4F25-95AF-3AB6235578DA', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('3C8ADDF2-9894-42B0-9047-86029D2BE60C', 370, 'Avena instantánea', 'C8EE09E0-8EEC-4F25-95AF-3AB6235578DA', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('EC83D6D6-24DD-4EF8-A21F-89BA0F07BE3B', 520, 'Snack de maní con miel', 'F6FE0472-FDE5-439F-9921-3F7DDBCA926E', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('418F611F-C6D9-4A28-B1FD-8A0385CBBE77', 587, 'Maní tostado y salado', 'F6FE0472-FDE5-439F-9921-3F7DDBCA926E', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('DE511E70-D867-4D08-8C5E-8A59429390ED', 350, 'Chuleta de cordero (cocida)', '313DE149-AA99-48FF-8D2A-1F6A778469AD', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('01CEE8AD-D60C-43FD-9337-8AB3CC3820F2', 48, 'Rábano picante', '63F881A9-B533-410B-BC4C-0093990F9DA1', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('B15BA40C-10D8-44BA-9ADF-8BE7D76046C1', 1, 'Ingrendt bladimir', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('1B7BCDA4-F957-4CF7-986A-8CA671735DF5', 200, 'Sopa de cebada (ración)', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 2, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('325DF198-21B1-4B33-9E87-9279571A2344', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('40A55F73-494B-432B-A4B9-938DCA1D9244', 180, 'Barra energética con pistachos', '399A37BB-4703-40E1-941F-369B2D51D952', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('7FC9C9A3-AFA8-4952-9186-976D78AC1707', 1, 'Ingrendt test 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('8087B39D-6F60-4F3A-AF18-9B295FEDD4D6', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('39B34FF7-7B3A-43F1-B7D1-9B8D8DA63503', 567, 'Maní crudo', 'F6FE0472-FDE5-439F-9921-3F7DDBCA926E', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('885EFEEB-024D-4E01-8C26-9FF261B8FB53', 345, 'Harina de cebada', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('B031B461-AC43-4F27-91D0-A0A938E9A931', 150, 'Carne de pavo ahumada', 'A22302FA-057B-4603-A68D-49A7816CE1FE', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('40B91082-EB40-4BD4-957E-A105F256D97D', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('739E518A-448B-45E9-8C9E-A21A1A50525B', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('6EE11798-09AF-4F2C-A299-A21BF749161F', 83, 'Puré de papa', '3B96F79B-7488-479F-8A43-263EBA3C9077', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('880F944B-9DC4-4308-83AC-A2AD6C6A4062', 1, 'asad', '63F881A9-B533-410B-BC4C-0093990F9DA1', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('0A66B082-D3C9-4C95-99D7-A2FD3E5F4B03', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('35566955-B8E8-42EF-962D-A3190BC045EC', 1, 'Cebada mediana', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('4F7F1592-8AD0-40DC-98D9-A33CAF68D91B', 50, 'Consomé de pavo (taza)', 'A22302FA-057B-4603-A68D-49A7816CE1FE', 2, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('0A5B2076-F3E6-4AAD-8106-A3C385108531', 371, 'Amaranto (semilla)', 'A185F37C-EC77-4037-BF7F-0DF4555E58B9', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('88CEF06B-ADF4-4802-A9D6-A3CDFB46629B', 120, 'Aceite de maní (cda)', 'F6FE0472-FDE5-439F-9921-3F7DDBCA926E', 4, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('1159F281-612A-4C07-A955-A4EEB8A11CC8', 450, 'Mazapán (porción)', '08082E0E-3DB0-4FC5-82AD-6BE43D1D8B96', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('16D7CC90-88AD-4F7B-A514-A7EF03302E31', 220, 'Brocheta de cordero', '313DE149-AA99-48FF-8D2A-1F6A778469AD', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('A4ED3E9F-63BE-4661-9727-A9B9DB81AAAB', 1, 'Ingrendt test 5', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('C36DAC62-6D53-4FA1-81B0-A9FE742E04AF', 1, 'Cebada x', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('F32C48D8-60B2-440B-A8AD-AAC2F6C04991', 337, 'Carne de pato (asada)', 'CB120002-33C9-45EB-B475-437E96E8DA49', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('79394115-281F-4574-867F-AC119899548A', 1, 'Ingrendt test 1', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('8AB040A4-1F4E-4FFF-824F-ACDC88C27DE7', 570, 'Pistachos verdes (pelados)', '399A37BB-4703-40E1-941F-369B2D51D952', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('4E0F040B-A05A-40B9-B4FC-AD957EA99F64', 180, 'Gajo de papa especiado', '3B96F79B-7488-479F-8A43-263EBA3C9077', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('1238D580-3154-4428-A4CC-AF1B57C2DDE9', 1, 'Ingrendt test 1', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('29B46CBF-8078-45A4-8496-AF3AD75A9EA6', 1, 'Cebada x', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('DA33A6AD-2FA8-4C0F-8034-AFD4015F1E7A', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('52CF20A9-3062-499F-99E9-B1AD960B5364', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('C815BFA5-1C3A-420F-B013-B1EBB8096AF8', 370, 'Malta de cebada', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('C430D1D8-AD26-4AA6-8304-B3B0EE00D60B', 290, 'Lomo de cordero', '313DE149-AA99-48FF-8D2A-1F6A778469AD', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('A8BEA2E8-E92D-4029-95D6-B559DB6D2A42', 389, 'Hojuelas de avena tradicional', 'C8EE09E0-8EEC-4F25-95AF-3AB6235578DA', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('D806FDBE-98AB-4F43-B43F-B5AB5B252C7E', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('58BA849A-FD32-44C5-A321-B70C740A9247', 350, 'Papa deshidratada (copos)', '3B96F79B-7488-479F-8A43-263EBA3C9077', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('3BC78B5B-8A70-480C-A372-B7D150DCE38D', 30, 'Jamón de pavo (rebanada)', 'A22302FA-057B-4603-A68D-49A7816CE1FE', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('C225537E-7A21-47E3-AD91-B944B13AF3A2', 50, 'Galletas de avena (unidad)', 'C8EE09E0-8EEC-4F25-95AF-3AB6235578DA', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('B8B4F105-FF73-4DD1-A0F6-BB0BE28884A0', 110, 'Bombón de maní y chocolate', 'F6FE0472-FDE5-439F-9921-3F7DDBCA926E', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('E4F52E8D-F0F3-4325-AC38-BC2F7FF39E09', 350, 'Arroz basmati crudo', '5F46DCC2-156D-4EC4-8854-0E16FB78308B', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('FFB159FE-23A0-48EE-B019-BCC16963E584', 1, 'Ingrendt test 1', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('73189ACF-C313-44DC-9778-BD3795D134C3', 130, 'Leche de avena (vaso)', 'C8EE09E0-8EEC-4F25-95AF-3AB6235578DA', 2, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('D79EBF22-BBF0-4343-9DB9-BF6953AE83F7', 270, 'Carne picada de cordero', '313DE149-AA99-48FF-8D2A-1F6A778469AD', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('B04DECE2-A916-4C60-9B58-BF76D4A2AFF9', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('103B33E9-F1A3-431C-BF3A-C279926384B7', 380, 'Harina de maní desgrasada', 'F6FE0472-FDE5-439F-9921-3F7DDBCA926E', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('45F81D79-EC4C-4464-94E7-C81405DDC38C', 250, 'Taco de pavo (unidad)', 'A22302FA-057B-4603-A68D-49A7816CE1FE', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('07C33A71-D9A3-48A0-976E-C85A70BD6889', 180, 'Pavo molido', 'CB120002-33C9-45EB-B475-437E96E8DA49', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('6D889111-2AC4-4EA0-AD76-CAFDCE42F11E', 10, 'cordero 2', '313DE149-AA99-48FF-8D2A-1F6A778469AD', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('F2709D22-A084-4801-92A5-CCD25412E8E9', 1, 'Cebada x', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('FA20105E-58BD-4BA2-983C-CEC6FCF75E52', 130, 'Arroz blanco cocido', '5F46DCC2-156D-4EC4-8854-0E16FB78308B', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('D11916B6-2F8D-45F8-BE2D-CED10CEF4D3F', 90, 'Pan de cebada (rebanada)', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('B159EC00-D462-4AF4-B78B-D0714AA29D19', 120, 'Sopa de pollo (taza)', 'CB120002-33C9-45EB-B475-437E96E8DA49', 2, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('6CF080E8-8432-4A1B-9B75-D0ABAEBBDD32', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('B3B271A2-8F23-4840-9B1F-D2B94FAE2346', 1, 'Ingrendt test 1', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('BC4C3944-2ECC-46E2-B4D0-D40F39ADAE62', 480, 'Maní confitado', 'F6FE0472-FDE5-439F-9921-3F7DDBCA926E', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('AA440882-F4C5-426E-ABB0-D4D95A8AE689', 200, 'Pavo mechado (carne oscura)', 'A22302FA-057B-4603-A68D-49A7816CE1FE', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('E29B152B-2A27-4EA0-9CEF-D4DC07F72B77', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('D70553CA-F0D4-4E26-B731-D5BDA3E3432B', 380, 'Costillar de cordero', '313DE149-AA99-48FF-8D2A-1F6A778469AD', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('A73EAB05-AAB0-4865-AC7F-D5E043CEADF9', 1, 'Cebada x', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('4200520D-DCF4-424B-8B07-D9459E3E2F11', 41, 'Zanahoria fresca', '63F881A9-B533-410B-BC4C-0093990F9DA1', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('EC852F5C-9666-482F-A2BD-D952FDC53548', 246, 'Salvado de avena', 'C8EE09E0-8EEC-4F25-95AF-3AB6235578DA', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('4D091F12-1A1D-4EE3-9D80-E2E7F5AC135C', 120, 'Aceite de almendra (cda)', '08082E0E-3DB0-4FC5-82AD-6BE43D1D8B96', 4, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('ECE53D46-E579-4F04-A7C7-E62E51FB6FE3', 70, 'Albóndiga de pavo (unidad)', 'A22302FA-057B-4603-A68D-49A7816CE1FE', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('CD365A29-D84F-4CA1-A854-E6A6887E9DA4', 40, 'Cebolla blanca', '63F881A9-B533-410B-BC4C-0093990F9DA1', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('A723CBEB-2733-4559-8590-E946072010C6', 28, 'Nabo cocido', '63F881A9-B533-410B-BC4C-0093990F9DA1', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('98746E75-69FC-4C53-A7B5-EA56DF561BBD', 80, 'Jengibre (raíz)', '63F881A9-B533-410B-BC4C-0093990F9DA1', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('4983B7D8-DDE7-401F-8BA0-EA734EC02904', 1, 'Ingrendt test 1', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('62511AE8-8BD6-4A2C-9F4F-EBCFE6E34F44', 180, 'Salchicha de pavo (unidad)', 'A22302FA-057B-4603-A68D-49A7816CE1FE', 3, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('CC503E6B-FA7E-430C-9AFD-F16E09485E55', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('C8288377-C283-4DF6-BECF-F25EE64CD15A', 1, 'Ingrendt 2', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 20);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('2403700C-3916-4855-830E-F2687EB0A84F', 93, 'Papa asada', '3B96F79B-7488-479F-8A43-263EBA3C9077', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('D56568E1-EEAF-4D43-9BD5-F2E0B24892C9', 580, 'Granos de almendra (pelados)', '08082E0E-3DB0-4FC5-82AD-6BE43D1D8B96', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('BB2704CA-6B63-4992-8033-F346A14002DF', 342, 'Bulgur', 'A185F37C-EC77-4037-BF7F-0DF4555E58B9', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('F9C2F136-8388-4166-88D3-F66079C6384E', 250, 'Arroz frito (porción)', '5F46DCC2-156D-4EC4-8854-0E16FB78308B', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('C5C6992A-08C3-471B-865F-F67A7EEBE748', 1, 'Cebada Generica', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('92E2A7CA-BBE9-4941-9688-F79C21B07FA0', 230, 'Gallina cocida', 'CB120002-33C9-45EB-B475-437E96E8DA49', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('8AC032D5-7AA2-400B-B0AA-F969FE44A99B', 368, 'Quinoa cruda', 'A185F37C-EC77-4037-BF7F-0DF4555E58B9', 1, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('D45B59F8-A4B1-4F87-B044-FAD5A958EB38', 90, 'Mantequilla de pistacho (cda)', '399A37BB-4703-40E1-941F-369B2D51D952', 4, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('F6576E63-AB6D-4796-BB8B-FB476545EFFD', 1, 'Cebada virtual', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('8D5C9A34-BB53-4B8C-88BF-FC399B1D04B1', 190, 'Mantequilla de maní (2 cdas)', 'F6FE0472-FDE5-439F-9921-3F7DDBCA926E', 4, 1);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('A09925CA-4FAD-42BD-977C-FC965825910C', 1, 'Ingrendt test 3', '47C51B84-BB85-49F6-96A1-0701D7144A0E', 1, 0);
+INSERT INTO [appservice].[dbo].[Ingrediente] ([Id], [Calorias], [Nombre], [CategoriaId], [UnidadId], [CantidadValor]) VALUES ('E6FB9734-804F-45F9-8141-FD18D274BF10', 312, 'Papa frita (patatas fritas)', '3B96F79B-7488-479F-8A43-263EBA3C9077', 1, 1);
+
+INSERT INTO [appservice].[dbo].[Receta] ([Id], [Nombre], [Instrucciones], [TiempoId]) VALUES ('4DE75518-40E0-44B2-AD53-0CB2C53F586B', 'majadito', 'mis intrucciones', 3);
+INSERT INTO [appservice].[dbo].[Receta] ([Id], [Nombre], [Instrucciones], [TiempoId]) VALUES ('0DA59604-552E-468D-9025-4B1AF3B11774', 'string', 'string', 1);
+INSERT INTO [appservice].[dbo].[Receta] ([Id], [Nombre], [Instrucciones], [TiempoId]) VALUES ('AF222307-251E-41E8-B87C-90687F985490', 'asdado en olla', 'mis intrucciones', 3);
+INSERT INTO [appservice].[dbo].[Receta] ([Id], [Nombre], [Instrucciones], [TiempoId]) VALUES ('497B2264-6032-4312-8D61-C83A1D3022E1', 'picante de pollo', 'mis intrucciones', 3);
+INSERT INTO [appservice].[dbo].[Receta] ([Id], [Nombre], [Instrucciones], [TiempoId]) VALUES ('E5D38C52-F49B-4189-AF0B-D8131F77D300', 'picante de pollo', 'mis intrucciones', 3);
+INSERT INTO [appservice].[dbo].[Receta] ([Id], [Nombre], [Instrucciones], [TiempoId]) VALUES ('1C8DD4C3-B1D5-45D0-B672-D86C0721096D', 'majadito', 'mis intrucciones', 3);
 
 
--- Categoría: Cereal (Id: A185F37C-EC77-4037-BF7F-0DF4555E58B9)
-DECLARE @CerealId UNIQUEIDENTIFIER = 'A185F37C-EC77-4037-BF7F-0DF4555E58B9';
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Trigo integral', 339.00, @CerealId, 1),
-(NEWID(), 'Maíz molido', 370.00, @CerealId, 1),
-(NEWID(), 'Centeno en grano', 338.00, @CerealId, 1),
-(NEWID(), 'Avena instantánea (sobre)', 100.00, @CerealId, 3),
-(NEWID(), 'Mijo', 378.00, @CerealId, 1),
-(NEWID(), 'Quinoa cruda', 368.00, @CerealId, 1),
-(NEWID(), 'Bulgur', 342.00, @CerealId, 1),
-(NEWID(), 'Espelta', 338.00, @CerealId, 1),
-(NEWID(), 'Hojuelas de maíz (ración)', 150.00, @CerealId, 1),
-(NEWID(), 'Amaranto (semilla)', 371.00, @CerealId, 1);
+INSERT INTO [appservice].[dbo].[RecetaIngrediente] ([ID], [RecetaId], [IngredienteId], [CantidadValor]) VALUES (4, '1C8DD4C3-B1D5-45D0-B672-D86C0721096D', 'ABB20811-4D69-4C4D-9AF5-14EA3516CD7B', 1);
+INSERT INTO [appservice].[dbo].[RecetaIngrediente] ([ID], [RecetaId], [IngredienteId], [CantidadValor]) VALUES (5, '1C8DD4C3-B1D5-45D0-B672-D86C0721096D', 'B3C1F091-C3A9-492A-A617-1B0791C984DF', 2);
+INSERT INTO [appservice].[dbo].[RecetaIngrediente] ([ID], [RecetaId], [IngredienteId], [CantidadValor]) VALUES (6, '4DE75518-40E0-44B2-AD53-0CB2C53F586B', 'ABB20811-4D69-4C4D-9AF5-14EA3516CD7B', 1);
+INSERT INTO [appservice].[dbo].[RecetaIngrediente] ([ID], [RecetaId], [IngredienteId], [CantidadValor]) VALUES (7, '4DE75518-40E0-44B2-AD53-0CB2C53F586B', 'B3C1F091-C3A9-492A-A617-1B0791C984DF', 2);
+INSERT INTO [appservice].[dbo].[RecetaIngrediente] ([ID], [RecetaId], [IngredienteId], [CantidadValor]) VALUES (8, 'AF222307-251E-41E8-B87C-90687F985490', 'ABB20811-4D69-4C4D-9AF5-14EA3516CD7B', 1);
+INSERT INTO [appservice].[dbo].[RecetaIngrediente] ([ID], [RecetaId], [IngredienteId], [CantidadValor]) VALUES (9, 'AF222307-251E-41E8-B87C-90687F985490', 'B3C1F091-C3A9-492A-A617-1B0791C984DF', 2);
+INSERT INTO [appservice].[dbo].[RecetaIngrediente] ([ID], [RecetaId], [IngredienteId], [CantidadValor]) VALUES (10, 'E5D38C52-F49B-4189-AF0B-D8131F77D300', 'ABB20811-4D69-4C4D-9AF5-14EA3516CD7B', 1);
+INSERT INTO [appservice].[dbo].[RecetaIngrediente] ([ID], [RecetaId], [IngredienteId], [CantidadValor]) VALUES (11, 'E5D38C52-F49B-4189-AF0B-D8131F77D300', 'B3C1F091-C3A9-492A-A617-1B0791C984DF', 2);
+INSERT INTO [appservice].[dbo].[RecetaIngrediente] ([ID], [RecetaId], [IngredienteId], [CantidadValor]) VALUES (12, '497B2264-6032-4312-8D61-C83A1D3022E1', 'ABB20811-4D69-4C4D-9AF5-14EA3516CD7B', 1);
 
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('DE44922E-B41A-46A3-0245-08DE14C94AA7', 'Ariana', 'Grande', '2000-10-26', NULL, NULL, 76, 167);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('D2740F5A-ABE1-4A0B-A300-08DE1746D733', 'Pedro', 'chavez', '2019-10-29', NULL, NULL, 110, 180);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('9F972A0E-3153-4B9B-98CC-08DE181E9EFC', 'juan ', 'carlos duran', '2005-10-31', NULL, NULL, 110, 170);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('7CD40A9B-5BF2-4DBF-B9EE-0C1093B306C0', 'rkar', 'ss', '2026-03-06', NULL, NULL, 0, 0);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('7F1C4C1E-5A54-4C4C-9E15-0C6C1B8D4D55', 'Maria', 'Elena', '1985-11-22', NULL, NULL, 0, 0);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('9D1E822C-FFB9-4009-B16E-0F4259B2FA1A', 'Juan', 'Perez', '2026-01-19', NULL, NULL, 50, 70);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('12B9C6E2-34D7-4FB2-B5D1-119773A6834F', 'string', 'string', '2026-02-19', NULL, NULL, 0, 0);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('E4B8E3D5-63F3-482F-979A-1256427B09E1', 'Chris', 'Walker', '1987-06-18', NULL, NULL, 74, 185);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('C06A5A28-4B9A-4812-BB37-1658BFB58B7E', 'Layne', 'Fahey', '1979-02-13', NULL, NULL, 103, 207);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('8FE998C5-BF70-49F9-BA34-17149B9AEF8D', 'Paciente-5370', '', '2026-01-20', NULL, NULL, 100, 160);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('1183D1B1-6C9A-4264-AFE1-28B020225B39', 'juan', 'calisalla', '2026-02-28', NULL, NULL, 0, 0);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('90EECB08-DA56-48B3-917D-2F80F55701F5', 'string', 'string', '2026-03-06', NULL, NULL, 0, 0);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('A2B10DB8-AAD2-4F62-81FF-309B24B53402', 'Layne', 'Fahey', '1979-02-13', NULL, NULL, 103, 207);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('41234E45-8FD3-4992-A7FF-3330FFEA60AD', 'sir davos', 'villaruel', '2026-03-05', NULL, NULL, 10, 10);
+INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('1C6BBD23-A625-4439-BB7C-34E52B7AE2C2', 'Gino', 'Spinka', '1957-11-09', NULL, NULL, 108, 201);
 
--- Categoría: Arroz (Id: 5F46DCC2-156D-4EC4-8854-0E16FB78308B)
-DECLARE @ArrozId UNIQUEIDENTIFIER = '5F46DCC2-156D-4EC4-8854-0E16FB78308B';
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Arroz blanco cocido', 130.00, @ArrozId, 1),
-(NEWID(), 'Arroz integral cocido', 111.00, @ArrozId, 1),
-(NEWID(), 'Harina de arroz', 366.00, @ArrozId, 1),
-(NEWID(), 'Arroz basmati crudo', 350.00, @ArrozId, 1),
-(NEWID(), 'Arroz jazmín crudo', 340.00, @ArrozId, 1),
-(NEWID(), 'Arroz salvaje cocido', 166.00, @ArrozId, 1),
-(NEWID(), 'Arroz para sushi (cocido)', 150.00, @ArrozId, 1),
-(NEWID(), 'Leche de arroz (vaso)', 120.00, @ArrozId, 2),
-(NEWID(), 'Arroz frito (porción)', 250.00, @ArrozId, 1),
-(NEWID(), 'Galletas de arroz inflado', 35.00, @ArrozId, 3);
-
-
--- Categoría: Cordero (Id: 313DE149-AA99-48FF-8D2A-1F6A778469AD)
-DECLARE @CorderoId UNIQUEIDENTIFIER = '313DE149-AA99-48FF-8D2A-1F6A778469AD';
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Chuleta de cordero (cocida)', 350.00, @CorderoId, 3),
-(NEWID(), 'Pierna de cordero asada', 280.00, @CorderoId, 1),
-(NEWID(), 'Costillar de cordero', 380.00, @CorderoId, 1),
-(NEWID(), 'Paletilla de cordero (cruda)', 250.00, @CorderoId, 1),
-(NEWID(), 'Carne picada de cordero', 270.00, @CorderoId, 1),
-(NEWID(), 'Riñones de cordero', 130.00, @CorderoId, 1),
-(NEWID(), 'Hígado de cordero', 135.00, @CorderoId, 1),
-(NEWID(), 'Estofado de cordero (porción)', 400.00, @CorderoId, 2),
-(NEWID(), 'Lomo de cordero', 290.00, @CorderoId, 1),
-(NEWID(), 'Brocheta de cordero', 220.00, @CorderoId, 3);
-
-
--- Categoría: Papa (Id: 3B96F79B-7488-479F-8A43-263EBA3C9077)
-DECLARE @PapaId UNIQUEIDENTIFIER = '3B96F79B-7488-479F-8A43-263EBA3C9077';
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Papa cocida (con piel)', 87.00, @PapaId, 1),
-(NEWID(), 'Papa frita (patatas fritas)', 312.00, @PapaId, 1),
-(NEWID(), 'Puré de papa', 83.00, @PapaId, 1),
-(NEWID(), 'Papa asada', 93.00, @PapaId, 1),
-(NEWID(), 'Papa dulce (batata) asada', 90.00, @PapaId, 1),
-(NEWID(), 'Papa al vapor', 75.00, @PapaId, 1),
-(NEWID(), 'Harina de papa', 330.00, @PapaId, 1),
-(NEWID(), 'Gajo de papa especiado', 180.00, @PapaId, 1),
-(NEWID(), 'Papa pre-frita congelada', 250.00, @PapaId, 1),
-(NEWID(), 'Papa deshidratada (copos)', 350.00, @PapaId, 1);
-
-
--- Categoría: Pescado blanco (Id: D9128E81-1D35-4418-824D-34432C572DFF)
-DECLARE @PescadoBlancoId UNIQUEIDENTIFIER = 'D9128E81-1D35-4418-824D-34432C572DFF';
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Merluza (cocida)', 86.00, @PescadoBlancoId, 1),
-(NEWID(), 'Bacalao fresco (cocido)', 105.00, @PescadoBlancoId, 1),
-(NEWID(), 'Lenguado a la plancha', 90.00, @PescadoBlancoId, 1),
-(NEWID(), 'Panga (cocida)', 80.00, @PescadoBlancoId, 1),
-(NEWID(), 'Dorada (a la sal)', 120.00, @PescadoBlancoId, 1),
-(NEWID(), 'Fletán (halibut)', 110.00, @PescadoBlancoId, 1),
-(NEWID(), 'Abadejo (cocido)', 90.00, @PescadoBlancoId, 1),
-(NEWID(), 'Tilapia (filete)', 96.00, @PescadoBlancoId, 1),
-(NEWID(), 'Rape (cola)', 95.00, @PescadoBlancoId, 1),
-(NEWID(), 'Caballa (en conserva)', 205.00, @PescadoBlancoId, 1);
-
-
--- Categoría: Pistachos (Id: 399A37BB-4703-40E1-941F-369B2D51D952)
-DECLARE @PistachosId UNIQUEIDENTIFIER = '399A37BB-4703-40E1-941F-369B2D51D952';
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Pistachos crudos (sin cáscara)', 562.00, @PistachosId, 1),
-(NEWID(), 'Pistachos tostados y salados', 575.00, @PistachosId, 1),
-(NEWID(), 'Mantequilla de pistacho (cda)', 90.00, @PistachosId, 4),
-(NEWID(), 'Helado de pistacho (taza)', 280.00, @PistachosId, 2),
-(NEWID(), 'Aceite de pistacho (cda)', 120.00, @PistachosId, 4),
-(NEWID(), 'Pistachos molidos (harina)', 580.00, @PistachosId, 1),
-(NEWID(), 'Leche de pistacho (vaso)', 90.00, @PistachosId, 2),
-(NEWID(), 'Barra energética con pistachos', 180.00, @PistachosId, 3),
-(NEWID(), 'Pistachos verdes (pelados)', 570.00, @PistachosId, 1),
-(NEWID(), 'Turrón de pistacho (porción)', 150.00, @PistachosId, 1);
-
-
--- Categoría: Avena (Id: C8EE09E0-8EEC-4F25-95AF-3AB6235578DA)
-DECLARE @AvenaId UNIQUEIDENTIFIER = 'C8EE09E0-8EEC-4F25-95AF-3AB6235578DA';
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Hojuelas de avena tradicional', 389.00, @AvenaId, 1),
-(NEWID(), 'Harina de avena', 400.00, @AvenaId, 1),
-(NEWID(), 'Avena instantánea', 370.00, @AvenaId, 1),
-(NEWID(), 'Leche de avena (vaso)', 130.00, @AvenaId, 2),
-(NEWID(), 'Salvado de avena', 246.00, @AvenaId, 1),
-(NEWID(), 'Galletas de avena (unidad)', 50.00, @AvenaId, 3),
-(NEWID(), 'Muesli con avena', 410.00, @AvenaId, 1),
-(NEWID(), 'Granola de avena', 450.00, @AvenaId, 1),
-(NEWID(), 'Avena cortada (steel-cut)', 370.00, @AvenaId, 1),
-(NEWID(), 'Barra de cereal de avena', 120.00, @AvenaId, 3);
-
-
--- Categoría: Nueces (Id: 0AC3EC26-2F75-46DC-A13C-3DB9A4CA6AB6)
-DECLARE @NuecesId UNIQUEIDENTIFIER = '0AC3EC26-2F75-46DC-A13C-3DB9A4CA6AB6';
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Nueces de Castilla (enteras)', 654.00, @NuecesId, 1),
-(NEWID(), 'Nuez pecana', 690.00, @NuecesId, 1),
-(NEWID(), 'Nuez de macadamia', 718.00, @NuecesId, 1),
-(NEWID(), 'Nuez de Brasil', 659.00, @NuecesId, 1),
-(NEWID(), 'Mantequilla de nuez (cda)', 100.00, @NuecesId, 4),
-(NEWID(), 'Nuez moscada (molida)', 525.00, @NuecesId, 5), -- UnidadId 5 puede ser gramos pequeños/pizca
-(NEWID(), 'Aceite de nuez (cda)', 120.00, @NuecesId, 4),
-(NEWID(), 'Nueces caramelizadas', 550.00, @NuecesId, 1),
-(NEWID(), 'Tarta de nuez (porción)', 400.00, @NuecesId, 3),
-(NEWID(), 'Nueces troceadas', 654.00, @NuecesId, 1);
-
-
--- Categoría: Maní (Id: F6FE0472-FDE5-439F-9921-3F7DDBCA926E)
-DECLARE @ManiId UNIQUEIDENTIFIER = 'F6FE0472-FDE5-439F-9921-3F7DDBCA926E';
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Maní tostado y salado', 587.00, @ManiId, 1),
-(NEWID(), 'Mantequilla de maní (2 cdas)', 190.00, @ManiId, 4),
-(NEWID(), 'Maní crudo', 567.00, @ManiId, 1),
-(NEWID(), 'Aceite de maní (cda)', 120.00, @ManiId, 4),
-(NEWID(), 'Maní japonés (con cáscara)', 500.00, @ManiId, 1),
-(NEWID(), 'Snack de maní con miel', 520.00, @ManiId, 1),
-(NEWID(), 'Harina de maní desgrasada', 380.00, @ManiId, 1),
-(NEWID(), 'Salsa de maní (porción)', 250.00, @ManiId, 2),
-(NEWID(), 'Bombón de maní y chocolate', 110.00, @ManiId, 3),
-(NEWID(), 'Maní confitado', 480.00, @ManiId, 1);
-
-
--- Categoría: Carne de ave (Id: CB120002-33C9-45EB-B475-437E96E8DA49)
-DECLARE @CarneAveId UNIQUEIDENTIFIER = 'CB120002-33C9-45EB-B475-437E96E8DA49';
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Pechuga de pollo (sin piel, cocida)', 165.00, @CarneAveId, 1),
-(NEWID(), 'Muslo de pollo (con piel, asado)', 200.00, @CarneAveId, 1),
-(NEWID(), 'Pavo (pechuga, cocida)', 135.00, @CarneAveId, 1),
-(NEWID(), 'Alas de pollo (fritas, unidad)', 150.00, @CarneAveId, 3),
-(NEWID(), 'Carne de pato (asada)', 337.00, @CarneAveId, 1),
-(NEWID(), 'Hígado de pollo', 167.00, @CarneAveId, 1),
-(NEWID(), 'Pavo molido', 180.00, @CarneAveId, 1),
-(NEWID(), 'Sopa de pollo (taza)', 120.00, @CarneAveId, 2),
-(NEWID(), 'Gallina cocida', 230.00, @CarneAveId, 1),
-(NEWID(), 'Embutido de pavo (rebanada)', 30.00, @CarneAveId, 3);
-
-
--- Categoría: Pavo (Id: A22302FA-057B-4603-A68D-49A7816CE1FE)
-DECLARE @PavoId UNIQUEIDENTIFIER = 'A22302FA-057B-4603-A68D-49A7816CE1FE';
--- Nota: Dado que 'Pavo' ya se cubrió parcialmente en 'Carne de ave', estos se centran en productos específicos.
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Filete de pavo (cocido)', 135.00, @PavoId, 1),
-(NEWID(), 'Jamón de pavo (rebanada)', 30.00, @PavoId, 3),
-(NEWID(), 'Carne de pavo ahumada', 150.00, @PavoId, 1),
-(NEWID(), 'Salchicha de pavo (unidad)', 180.00, @PavoId, 3),
-(NEWID(), 'Pavo mechado (carne oscura)', 200.00, @PavoId, 1),
-(NEWID(), 'Taco de pavo (unidad)', 250.00, @PavoId, 3),
-(NEWID(), 'Pavo molido magro', 150.00, @PavoId, 1),
-(NEWID(), 'Pavo deshuesado (crudo)', 140.00, @PavoId, 1),
-(NEWID(), 'Consomé de pavo (taza)', 50.00, @PavoId, 2),
-(NEWID(), 'Albóndiga de pavo (unidad)', 70.00, @PavoId, 3);
-
-
--- Categoría: Almendras (Id: 08082E0E-3DB0-4FC5-82AD-6BE43D1D8B96)
-DECLARE @AlmendrasId UNIQUEIDENTIFIER = '08082E0E-3DB0-4FC5-82AD-6BE43D1D8B96';
-INSERT INTO Ingrediente (Id, Nombre, Calorias, CategoriaId, UnidadId) VALUES
-(NEWID(), 'Almendras crudas (enteras)', 579.00, @AlmendrasId, 1),
-(NEWID(), 'Leche de almendra (sin azúcar, vaso)', 40.00, @AlmendrasId, 2),
-(NEWID(), 'Harina de almendra', 600.00, @AlmendrasId, 1),
-(NEWID(), 'Mantequilla de almendra (cda)', 100.00, @AlmendrasId, 4),
-(NEWID(), 'Almendras laminadas', 590.00, @AlmendrasId, 1),
-(NEWID(), 'Almendras tostadas con sal', 585.00, @AlmendrasId, 1),
-(NEWID(), 'Aceite de almendra (cda)', 120.00, @AlmendrasId, 4),
-(NEWID(), 'Mazapán (porción)', 450.00, @AlmendrasId, 1),
-(NEWID(), 'Granos de almendra (pelados)', 580.00, @AlmendrasId, 1),
-(NEWID(), 'Chocolate con almendras (barra)', 550.00, @AlmendrasId, 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('4224DE05-C1B1-424D-4D22-08DE14A4DB50', 'Daniel Roman', '0001-01-01 00:00:00.0000000', 0);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('4CE7D823-87F3-4181-B936-08DE14A787B0', 'Jose Luis', '15:51:11', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('7A918AFC-94BB-46D7-7155-08DE1746E629', 'Jorge Parra', '23:57:10', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('A0C733F5-3F18-4176-114E-08DE181E81FB', 'CARLOS JAVIER', '01:40:34', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('D1F1DEA7-5596-43A9-DAF3-08DE350D21EE', 'Enzo Fernandez', '21:19:05', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('87BA4A90-3EFA-4D27-8692-0BFD86DAF6BD', 'Medico-5211', '03:25:15', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('6C54B71F-4A1B-47C1-ACA4-0CECA607D5EB', 'Medico-892', '21:47:20', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('1C2F7051-D0E9-454D-8653-19542C7AA5BF', 'nan', '02:53:19', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('5A2FE591-701B-4324-ACFE-252DE1EFDD9D', 'string', '02:24:43', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('46D0DFDF-5687-4042-88BA-37E7B2EBBE0B', 'Medico-3422', '14:55:08', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('3237E879-17CD-4F03-A625-41A572DB6BE7', 'Medico-8445', '21:45:21', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('090B93FF-E07C-4187-BFC9-54493B6CDFBF', 'Medico-5910', '21:36:53', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('54F96058-C83F-4681-8D30-65A53CF86BD2', 'string33', '21:37:52', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('8163C819-2F48-47CD-AA47-7BC4C7FF5D98', 'Chef Ranci', '0001-01-01 00:00:00.0000000', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('D3B13C4A-67FA-4FCE-B915-83EB26E1C939', 'Chef Ranci', '18:20:54', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('185132BE-5513-4653-B8B6-93625438D04E', 'palo arguiella', '15:42:05', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('40278D23-3911-48D5-9E6D-9B26DC61E93B', 'Medico-6416', '15:00:41', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('B608BCCE-4290-4789-81E9-CDFA957402BB', 'maria', '16:09:12', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('12BF19A5-B30C-49EE-B75C-D9E8769FB05F', 'Luigui', '16:05:51', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('AB971254-D489-452A-B809-F3D29D7CEB88', 'nan', '02:53:19', 1);
