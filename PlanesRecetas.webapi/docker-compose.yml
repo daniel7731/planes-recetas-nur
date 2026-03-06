@@ -1,19 +1,7 @@
 services:
-  api:
-    image: ikaru773/planesrecetaswebapi
-    container_name: api_planes_receta
-    ports:
-      - "8080:8080"
-    environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
-      ConnectionStrings__DefaultConnection: ${DB_CONNECTION_STRING}
-    networks:
-      - app-network-public  # 
-    depends_on:
-      - sqlserver
-  sqlserver:
+  planes-sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
+    container_name: planes_sqlserver
     networks:
       - app-network-public
     restart: always
@@ -30,6 +18,66 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+  planes-migrate:
+    image: ikaru773/planesrecetaswebapi
+    command: ["dotnet", "PlanesRecetas.WebApi.dll", "--migrate"]
+    depends_on:
+      planes-sqlserver:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DataBaseSettings__ConnectionString=Server=planes-sqlserver;Database=appservice;User Id=sa;Password=Password12345;TrustServerCertificate=True;
+    networks:
+      - app-network-public
+  planes-api:
+    image: ikaru773/planesrecetaswebapi
+    container_name: planes_receta_api
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      
+      # Database Settings (pointing to the sqlserver container)
+      - DataBaseSettings__ConnectionString=Server=planes-sqlserver;Database=appservice;User Id=sa;Password=Password12345;TrustServerCertificate=True;
+      
+      # Serilog
+      - Serilog__MinimumLevel__Default=Information
+      - Serilog__MinimumLevel__Override__Microsoft=Warning
+      - Serilog__MinimumLevel__Override__System=Warning
+      
+      # Vault / Secret Manager (Set to true or false as needed)
+      - UseSecretManager=false
+      
+      # JWT Options
+      - JwtOptions__Lifetime=30
+      - JwtOptions__SecretKey=HL#6j=4;5H{5qZ#M=6J!1[W<YvWdbzEif|M]:ZB<6<{ap^K!@Tg{];OD0E
+      - JwtOptions__ValidAudience=storeApp
+      - JwtOptions__ValidIssuer=identity
+      - JwtOptions__ValidateAudience=true
+      - JwtOptions__ValidateIssuer=true
+      - JwtOptions__ValidateLifetime=true
+      
+      # RabbitMQ (pointing to the rabbitmq container)
+      - RabbitMqSettings__Host=rabbitmq
+      - RabbitMqSettings__Port=5672
+      - RabbitMqSettings__UserName=guest
+      - RabbitMqSettings__Password=guest
+      - RabbitMqSettings__QueueName=plan-created
+      - RabbitMqSettings__VirtualHost=/
+      
+      # Service Registration & Monitoring
+      - ServiceRegistration__ServiceDiscoveryAddress=http://consul:8500
+      - ServiceRegistration__Host=http://api-plan
+      - ServiceRegistration__Port=8090
+      - ServiceRegistration__ServiceId=catalog
+      - Seq__ServerUrl=http://seq:5341
+      - JaegerSettings__Host=jaeger
+      - JaegerSettings__Port=6831
+    networks:
+      - app-network-public  # 
+    depends_on:
+      planes-migrate:
+        condition: service_completed_successfully
 volumes:
  sql-server-data:
     driver: local

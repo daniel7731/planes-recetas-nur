@@ -14,9 +14,9 @@ public static class ApplicationBuilderExtensions
     }
     public static void UseHealthChecks(this WebApplication app)
     {
-        app.MapHealthChecks("/health", new HealthCheckOptions
+        /*app.MapHealthChecks("/health", new HealthCheckOptions
         {
             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-        });
+        });*/
     }
 }

@@ -1,12 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PlanesRecetas.application.Plan;
-using PlanesRecetas.domain.Persons;
-using PlanesRecetas.domain.Plan;
-using PlanesRecetas.domain.Recipe;
 using PlanesRecetas.webapi.Parameters.Plan;
 
-namespace PlanesRecetas.webapi.ControllersP
+namespace PlanesRecetas.webapi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

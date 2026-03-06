@@ -1,4 +1,5 @@
-﻿using Nur.Store2025.Observability.Tracing;
+﻿
+using Nur.Store2025.Observability.Tracing;
 using System.Diagnostics;
 
 namespace PlanesRecetas.webapi.Middleware;

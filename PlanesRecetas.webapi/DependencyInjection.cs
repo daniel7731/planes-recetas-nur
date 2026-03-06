@@ -15,14 +15,14 @@ namespace PlanesRecetas.webapi
             // REMARK: If you want to use Controllers, you'll need this.
             services.AddControllers();
 
-            services.AddExceptionHandler<GlobalExceptionHandler>();
-            services.AddProblemDetails();
+            //services.AddExceptionHandler<GlobalExceptionHandler>();
+            //services.AddProblemDetails();
 
 
-            if (!environment.IsDevelopment())
+            /*if (!environment.IsDevelopment())
             {
                 services.RegisterServiceToServiceDiscovery(configuration);
-            }
+            }*/
 
             return services;
         }
