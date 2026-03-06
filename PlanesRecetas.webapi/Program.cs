@@ -35,9 +35,9 @@ app.UseRouting();
 
 app.UseHealthChecks();
 
-app.UseRequestCorrelationId();
+//app.UseRequestCorrelationId();
 
-app.UseRequestContextLogging();
+//app.UseRequestContextLogging();
 
 //app.UseExceptionHandler();
 
