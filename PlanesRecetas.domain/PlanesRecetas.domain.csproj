@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Joseco.DDD.Core" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Joseco.DDD.Core">
       <HintPath>..\joseco.ddd.core\src\Joseco.DDD.Core\bin\Debug\net8.0\Joseco.DDD.Core.dll</HintPath>
     </Reference>

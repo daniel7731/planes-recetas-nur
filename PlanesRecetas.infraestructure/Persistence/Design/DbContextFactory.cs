@@ -2,22 +2,23 @@
 using Microsoft.EntityFrameworkCore;
 
 using Microsoft.Extensions.Configuration;
+using PlanesRecetas.infraestructure.Persistence.DomainModel;
 
 namespace PlanesRecetas.infraestructure.Persistence.Design;
 
-internal class DbContextFactory : IDesignTimeDbContextFactory<StoredDbContext>
+internal class DbContextFactory : IDesignTimeDbContextFactory<DomainDbContext>
 {
-    public StoredDbContext CreateDbContext(string[] args)
+    public DomainDbContext CreateDbContext(string[] args)
     {
         var configuration = BuildConfiguration();
         DataBaseSettings dataBaseSettings = new();
-        configuration.Bind("DefaultConnection", dataBaseSettings);
+        configuration.Bind("DataBaseSettings", dataBaseSettings);
         var connectionString = dataBaseSettings.ConnectionString;
 
-        var optionsBuilder = new DbContextOptionsBuilder<StoredDbContext>();
+        var optionsBuilder = new DbContextOptionsBuilder<DomainDbContext>();
         optionsBuilder.UseSqlServer(connectionString);
 
-        return new StoredDbContext(optionsBuilder.Options);
+        return new DomainDbContext(optionsBuilder.Options);
     }
 
     private IConfiguration BuildConfiguration()

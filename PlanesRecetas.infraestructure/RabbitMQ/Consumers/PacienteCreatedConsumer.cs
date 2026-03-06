@@ -1,26 +1,35 @@
-﻿using Joseco.Communication.External.Contracts.Services;
+﻿
 using MediatR;
 using PlanesRecetas.application.Pacientes;
 using PlanesRecetas.application.Pacientes.Evento;
 
+
 namespace PlanesRecetas.infraestructure.RabbitMQ.Consumers
 {
     //consume los objetos paciente create desde un cola ver dependencie injection
-    public class PacienteCreatedConsumer(IMediator mediator): 
-        IIntegrationMessageConsumer<PacienteCreated>
+    public class PacienteCreatedConsumer:INotificationHandler<PacienteCreated>
     {
-        public async Task HandleAsync(PacienteCreated message, CancellationToken cancellationToken)
+        private readonly IMediator _mediator;
+
+        public PacienteCreatedConsumer(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        public async Task Handle(PacienteCreated notification, CancellationToken cancellationToken)
         {
             CreatePacienteComand command = new()
             {
-                Guid = message.Id,
-                Nombre = message.FirstName,
-                Apellido = message.MiddleName,
-                FechaNacimiento = message.DateOfBirth
-
+                Guid = notification.Id,
+                Nombre = notification.FirstName,
+                Apellido = notification.MiddleName,
+                FechaNacimiento = notification.DateOfBirth
             };
 
-            await mediator.Send(command, cancellationToken);
+            await _mediator.Send(command, cancellationToken);
         }
     }
+
+
+
 }

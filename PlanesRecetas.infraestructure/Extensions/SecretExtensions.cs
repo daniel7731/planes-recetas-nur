@@ -1,11 +1,9 @@
-﻿using Joseco.Communication.External.RabbitMQ.Services;
-using Joseco.Secrets.Contrats;
+﻿using Joseco.Secrets.Contrats;
 using Joseco.Secrets.HashicorpVault;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Nur.Store2025.Observability.Config;
-using Nur.Store2025.Security.Config;
 using PlanesRecetas.infraestructure.Persistence;
 
 
@@ -25,7 +23,7 @@ public static class SecretExtensions
         if (environment.IsDevelopment() && !useSecretManager)
         {
             configuration
-                .LoadAndRegister<RabbitMqSettings>(services, RabbitMqSettingsSecretName)
+                //.LoadAndRegister<RabbitMqSettings>(services, RabbitMqSettingsSecretName)
                 .LoadAndRegister<DataBaseSettings>(services, DatabaseConnectionStringSecretName)
                 .LoadAndRegister<JwtOptions>(services, JwtOptionsSecretName)
                 .LoadAndRegister<JeagerSettings>(services, JaegerSettingsSecretName);
@@ -33,7 +31,7 @@ public static class SecretExtensions
             return services;
         }
 
-        string? vaultUrl = Environment.GetEnvironmentVariable("VAULT_URL");
+        /*string? vaultUrl = Environment.GetEnvironmentVariable("VAULT_URL");
         string? vaultToken = Environment.GetEnvironmentVariable("VAULT_TOKEN");
 
         if (string.IsNullOrEmpty(vaultUrl) || string.IsNullOrEmpty(vaultToken))
@@ -48,7 +46,7 @@ public static class SecretExtensions
         };
 
         services.AddHashicorpVault(settings)
-            .LoadSecretsFromVault();
+            .LoadSecretsFromVault();*/
 
         return services;
     }
@@ -65,7 +63,7 @@ public static class SecretExtensions
 
         Task[] tasks = [
             LoadAndRegisterAsync<JwtOptions>(secretManager, services, JwtOptionsSecretName, vaultMountPoint),
-            LoadAndRegisterAsync<RabbitMqSettings>(secretManager, services, RabbitMqSettingsSecretName, vaultMountPoint),
+           // LoadAndRegisterAsync<RabbitMqSettings>(secretManager, services, RabbitMqSettingsSecretName, vaultMountPoint),
             LoadAndRegisterAsync<DataBaseSettings>(secretManager, services, DatabaseConnectionStringSecretName, vaultMountPoint),
             LoadAndRegisterAsync<JeagerSettings>(secretManager, services, JaegerSettingsSecretName, vaultMountPoint)
         ];

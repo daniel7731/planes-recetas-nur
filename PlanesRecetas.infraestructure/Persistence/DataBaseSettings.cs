@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PlanesRecetas.infraestructure.Persistence
 {
-    internal class DataBaseSettings
+    public class DataBaseSettings
     {
         public string ConnectionString { get; set; } = string.Empty;
     }

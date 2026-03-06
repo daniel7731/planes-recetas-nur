@@ -1,6 +1,9 @@
 ﻿using Joseco.DDD.Core.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using PlanesRecetas.application.Behaviors;
+using PlanesRecetas.application.Messaging;
+using PlanesRecetas.application.Pacientes;
+using PlanesRecetas.application.Pacientes.Evento;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +23,10 @@ public static class DependencyInjection
         {
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             config.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
+            config.RegisterServicesFromAssembly(typeof(PublishPlanCreated).Assembly);
+            config.RegisterServicesFromAssembly(typeof(PublishIngredienteCreated).Assembly);
+            config.RegisterServicesFromAssembly(typeof(PacienteCreated).Assembly);
         });
-        services.AddMediatR(cfg =>
-        {
-            cfg.RegisterServicesFromAssembly(typeof(PublishPlanCreated).Assembly);
-            cfg.RegisterServicesFromAssembly(typeof(PublishIngredienteCreated).Assembly);
-        });
-  
-
         return services;
     }
 }

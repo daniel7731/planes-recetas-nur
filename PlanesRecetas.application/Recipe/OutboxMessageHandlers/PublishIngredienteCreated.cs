@@ -1,6 +1,7 @@
-﻿using Joseco.Communication.External.Contracts.Services;
+﻿
 using Joseco.Outbox.Contracts.Model;
 using MediatR;
+using PlanesRecetas.application.Messaging;
 using PlanesRecetas.application.Recipe.Evento;
 
 

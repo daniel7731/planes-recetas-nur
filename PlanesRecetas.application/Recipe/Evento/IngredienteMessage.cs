@@ -1,4 +1,4 @@
-﻿using Joseco.Communication.External.Contracts.Message;
+﻿using PlanesRecetas.application.Messaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PlanesRecetas.application.Recipe.Evento
 {
-    public record IngredienteMessage : IntegrationMessage
+    public class IngredienteMessage : IntegrationMessage
     {
         public Guid IngredienteId { get; set; }
        

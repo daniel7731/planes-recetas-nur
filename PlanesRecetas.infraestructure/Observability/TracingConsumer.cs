@@ -1,12 +1,16 @@
-﻿using Joseco.Communication.External.Contracts.Message;
-using Joseco.Communication.External.Contracts.Services;
-using Nur.Store2025.Observability.Tracing;
+﻿using Nur.Store2025.Observability.Tracing;
+using PlanesRecetas.application.Messaging;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PlanesRecetas.infraestructure.Observability
 {
     public class TracingConsumer<TMessage> : IIntegrationMessageConsumer<TMessage>
-        where TMessage : IntegrationMessage
+       where TMessage : IntegrationMessage
     {
         private readonly ITracingProvider _tracingProvider;
         private readonly IIntegrationMessageConsumer<TMessage> _decoratedConsumer;
@@ -26,11 +30,11 @@ namespace PlanesRecetas.infraestructure.Observability
                 _tracingProvider.SetTraceId(activity.TraceId.ToString());
                 _tracingProvider.SetSpanId(activity.SpanId.ToString());
             }
-            if(message.CorrelationId != null)
+            if (message.CorrelationId != null)
                 _tracingProvider.SetCorrelationId(message.CorrelationId);
 
             await _decoratedConsumer.HandleAsync(message, cancellationToken);
 
         }
-    } 
+    }
 }

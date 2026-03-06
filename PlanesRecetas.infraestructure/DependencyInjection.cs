@@ -1,7 +1,8 @@
-﻿using Joseco.Communication.External.RabbitMQ;
+﻿using Inventory.Infrastructure.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Nur.Store2025.Observability;
 using PlanesRecetas.infraestructure.Extensions;
 using System.Reflection;
 
@@ -16,14 +17,11 @@ public static class DependencyInjection
         IHostEnvironment environment,
         string serviceName)
     {
-        services.AddMediatR(config =>
-                config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())
-            );
-        services.AddSecrets(configuration, environment)
-           .AddObservability(environment, serviceName)
-           .AddDatabase()
-           .AddSecurity(environment)
-           .AddRabbitMQ(environment);
+         services.AddSecrets(configuration, environment)
+        .AddObservability(environment, serviceName)
+        .AddDatabase()
+        .AddSecurity(environment)
+        .AddRabbitMQ(configuration,environment);
 
 
         return services;

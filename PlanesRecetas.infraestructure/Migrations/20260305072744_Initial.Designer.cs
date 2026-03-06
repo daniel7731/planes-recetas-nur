@@ -12,8 +12,8 @@ using PlanesRecetas.infraestructure.Persistence.DomainModel;
 namespace PlanesRecetas.infraestructure.Migrations
 {
     [DbContext(typeof(DomainDbContext))]
-    [Migration("20260225161525_Base")]
-    partial class Base
+    [Migration("20260305072744_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

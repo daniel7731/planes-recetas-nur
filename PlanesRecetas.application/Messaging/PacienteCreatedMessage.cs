@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Joseco.Communication.External.Contracts.Message;
+
 namespace PlanesRecetas.application.Messaging
 {
-    public record PacienteCreatedMessage : IntegrationMessage
+    public class PacienteCreatedMessage : IntegrationMessage
     {
+    
+        PacienteCreatedMessage() 
+        {
+        }
         public Guid Id { get; set; }
         public string Nombre { get; set; } = string.Empty;
         public string Apellido { get; set; } = string.Empty;
         public DateTime FechaNacimiento { get; set; }
         public decimal Peso { get; set; }
         public decimal Altura { get; set; }
-        public PacienteCreatedMessage() { 
-        }
+     
     }
 }

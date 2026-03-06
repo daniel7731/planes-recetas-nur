@@ -1,4 +1,6 @@
-﻿using Joseco.Communication.External.Contracts.Message;
+﻿
+using MediatR;
+using PlanesRecetas.application.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +9,10 @@ using System.Threading.Tasks;
 
 namespace PlanesRecetas.application.Pacientes.Evento
 {
-    public record PacienteCreated : IntegrationMessage
+    public class PacienteCreated : IntegrationMessage , INotification
     {
+      
+
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }

@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Nur.Store2025.Access.Catalog.Permissions;
-using Nur.Store2025.Security;
-using Nur.Store2025.Security.Config;
 using PlanesRecetas.infraestructure.Extensions;
 
 namespace PlanesRecetas.infraestructure.Extensions;
@@ -14,8 +11,8 @@ public static class SecurityExtensions
     {
         if (environment is IWebHostEnvironment)
         {
-            var jwtOptions = services.BuildServiceProvider().GetRequiredService<JwtOptions>();
-            services.AddSecurity(jwtOptions, CatalogPermission.PermissionsList);
+           /* var jwtOptions = services.BuildServiceProvider().GetRequiredService<JwtOptions>();
+            services.AddSecurity(jwtOptions, CatalogPermission.PermissionsList);*/
         }
         return services;
     }

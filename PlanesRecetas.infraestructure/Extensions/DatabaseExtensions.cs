@@ -26,18 +26,12 @@ public static class DatabaseExtensions
 {
     public static IServiceCollection AddDatabase(this IServiceCollection services)
     {
-        services.AddDbContext<StoredDbContext>((sp, options) => {
-            var settings = sp.GetRequiredService<DataBaseSettings>();
-            options.UseSqlServer(settings.ConnectionString);
-        });
-
         services.AddDbContext<DomainDbContext>((sp, options) => {
             var settings = sp.GetRequiredService<DataBaseSettings>();
             options.UseSqlServer(settings.ConnectionString);
         });
-
         services.AddScoped<IUnitOfWork, UnitOfWork>()
-            .AddScoped<IDatabase, StoredDbContext>()
+            .AddScoped<IDatabase, DomainDbContext>()
             .AddScoped<IPacienteRepository, PacienteRepository>()
             .AddScoped<INutricionistaRepository, NutricionistaRepository>()
             .AddScoped<ICategoriaRepository, CategoriaRepository>()

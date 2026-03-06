@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace PlanesRecetas.infraestructure.Persistence.DomainModel
 {
-    public class DomainDbContext : DbContext
+    public class DomainDbContext : DbContext , IDatabase
     {
         public DbSet<Paciente> Paciente { get; set; }
         public DbSet<Nutricionista> Nutricionista { get; set; }
@@ -73,6 +73,10 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel
                 new { Id = 5, Nombre = "Dinner" }
             );
 
+        }
+        public void Migrate()
+        {
+            Database.Migrate();
         }
     }
 }

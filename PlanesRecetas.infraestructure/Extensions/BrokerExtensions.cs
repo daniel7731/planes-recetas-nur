@@ -1,14 +1,15 @@
-﻿using Joseco.Communication.External.Contracts.Services;
-using Joseco.Communication.External.RabbitMQ;
-using Joseco.Communication.External.RabbitMQ.Services;
+﻿using MediatR;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PlanesRecetas.application.Messaging;
+using PlanesRecetas.application.Pacientes;
 using PlanesRecetas.application.Pacientes.Evento;
-using PlanesRecetas.domain.Plan.Events;
-using PlanesRecetas.infraestructure.Extensions;
-using PlanesRecetas.infraestructure.Observability;
+using PlanesRecetas.infraestructure.Consumer;
+using PlanesRecetas.infraestructure.Messaging;
 using PlanesRecetas.infraestructure.RabbitMQ.Consumers;
+using PlanesRecetas.infraestructure.RabbitMQ.Publisher;
 
 namespace PlanesRecetas.infraestructure.Extensions
 {
@@ -16,22 +17,15 @@ namespace PlanesRecetas.infraestructure.Extensions
     {
 
         //agregar aqui los consumers
-        public static IServiceCollection AddRabbitMQ(this IServiceCollection services, IHostEnvironment environment)
+        public static IServiceCollection AddRabbitMQ(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
         {
             using var serviceProvider = services.BuildServiceProvider();
-            var rabbitMqSettings = serviceProvider.GetRequiredService<RabbitMqSettings>();
-
+            //var rabbitMqSettings = serviceProvider.GetRequiredService<RabbitMQSettings>();
+            services.Configure<RabbitMQSettings>(configuration.GetSection("RabbitMQSettings"));
             bool isWebApp = environment is IWebHostEnvironment;
-            services.AddRabbitMQ(rabbitMqSettings);
-            if (isWebApp)
-            {
-                return services;
-            }
-            //string exchangeName= "hello-created";
-            string queeName= "ms-patients-queue";
-            services.AddRabbitMqConsumer<PacienteCreated, PacienteCreatedConsumer>(queeName);
-            //consumer 1
-            services.Decorate<IIntegrationMessageConsumer<PacienteCreated>, TracingConsumer<PacienteCreated>>();
+            services.AddScoped<IExternalPublisher, DefaultPublisher>();
+            services.AddScoped< INotificationHandler<PacienteCreated>, PacienteCreatedConsumer>();
+            services.AddHostedService<RabbitTopicWorker<PacienteCreated>>();
 
             return services;
         }

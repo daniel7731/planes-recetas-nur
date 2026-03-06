@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Joseco.Communication.External.Contracts" Version="1.0.1" />
-    <PackageReference Include="Joseco.Outbox.Contracts" Version="1.0.2" />
+    <PackageReference Include="Joseco.Outbox.EFCore" Version="1.0.4" />
     <PackageReference Include="MediatR" Version="13.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.4" />
     <PackageReference Include="Serilog" Version="4.2.0" />

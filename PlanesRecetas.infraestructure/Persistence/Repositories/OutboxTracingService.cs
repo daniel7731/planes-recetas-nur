@@ -2,6 +2,7 @@
 using Joseco.Outbox.Contracts.Service;
 using Nur.Store2025.Observability.Tracing;
 
+
 namespace PlanesRecetas.infraestructure.Persistence.Repositories;
 
 public class OutboxTracingService<T> : IOutboxService<T>

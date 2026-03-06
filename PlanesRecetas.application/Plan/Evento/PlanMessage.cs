@@ -1,4 +1,4 @@
-﻿using Joseco.Communication.External.Contracts.Message;
+﻿using PlanesRecetas.application.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PlanesRecetas.application.Plan.Evento
 {
-    public record PlanMessage : IntegrationMessage
+    public class PlanMessage : IntegrationMessage
     {
         public Guid PlanId { get; set; }    
         public Guid PacienteId { get; set; }

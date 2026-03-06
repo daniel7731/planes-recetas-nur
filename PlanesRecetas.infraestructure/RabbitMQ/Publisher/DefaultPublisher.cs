@@ -1,6 +1,4 @@
 ﻿
-using Joseco.Communication.External.Contracts.Message;
-
 using Microsoft.Extensions.Options;
 using PlanesRecetas.application.Messaging;
 using PlanesRecetas.infraestructure.Messaging;
@@ -10,58 +8,68 @@ using System.Text.Json;
 
 namespace PlanesRecetas.infraestructure.RabbitMQ.Publisher
 {
-    public class DefaultPublisher : IMPublisher 
+    public class DefaultPublisher : IExternalPublisher
     {
         private readonly RabbitMQSettings _settings;
-     
+       
         public DefaultPublisher(IOptions<RabbitMQSettings> options)
         {
-          _settings = options.Value;
-         
+            _settings = options.Value;
         }
-        public async Task PublishAsync<T>(T messageData, string exchangeName, string routingKey) 
+
+        // Implementation for the specific Exchange/RoutingKey version
+        public async Task PublishAsync<T>(T messageData, string exchangeName, string routingKey) where T : IntegrationMessage
         {
-            Console.Write("sending");
             var factory = new ConnectionFactory()
             {
                 HostName = _settings.Host,
                 Port = _settings.Port,
                 UserName = _settings.UserName,
                 Password = _settings.Password,
+                // Ensure Ssl is configured correctly based on your environment
                 Ssl = new SslOption { Enabled = false }
             };
 
-            using (var connection = await factory.CreateConnectionAsync())
-            using (var channel = await connection.CreateChannelAsync())
-            {
-                // 1. Declare the Exchange as "direct" instead of fanout
-           
-                await channel.ExchangeDeclareAsync(
-                    exchange: exchangeName,
-                    type: ExchangeType.Direct, // This enables routing key logic
-                    durable: true);       
+            // Using await for modern RabbitMQ.Client (v7+)
+            using var connection = await factory.CreateConnectionAsync();
+            using var channel = await connection.CreateChannelAsync();
 
-                // 3. Serialize the body
-                var message = JsonSerializer.Serialize(messageData);
-                var body = Encoding.UTF8.GetBytes(message);
+            // 1. Declare the Exchange
+            await channel.ExchangeDeclareAsync(
+                exchange: exchangeName,
+                type: ExchangeType.Topic,
+                durable: true);
 
-                var properties = new BasicProperties { Persistent = true };
+            // 2. Serialize the body
+            var messageJson = JsonSerializer.Serialize(messageData);
+            var body = Encoding.UTF8.GetBytes(messageJson);
 
-                // 4. Publish using the specific routingKey
-                await channel.BasicPublishAsync(
-                    exchange: exchangeName,
-                    routingKey: routingKey, // The message only goes to queues bound with this key
-                    mandatory: true,
-                    basicProperties: properties,
-                    body: body);
-            }
+            // 3. Set Properties (Persistent ensures message survives broker restart)
+            var properties = new BasicProperties { Persistent = true };
 
-          
+            // 4. Publish
+            await channel.BasicPublishAsync(
+                exchange: exchangeName,
+                routingKey: routingKey,
+                mandatory: true,
+                basicProperties: properties,
+                body: body);
+
+            Console.WriteLine($" [x] Sent '{routingKey}':'{messageJson}'");
         }
 
-        public Task PublishAsync<T>(T message, string? destination = null, bool declareDestination = false) where T : IntegrationMessage
+        // Implementation of the interface method (routing based on 'destination')
+        public async Task PublishAsync<T>(T message, string? destination = null, bool declareDestination = false) where T : IntegrationMessage
         {
-            throw new NotImplementedException();
+            // Use the destination as the exchange name, and the message type as the routing key
+            string exchange = destination ?? "default_exchange";
+            string routingKey = "";
+            string name =message.GetType().Name;
+            if (name.Equals("PlanCreated", StringComparison.OrdinalIgnoreCase))
+            {
+                routingKey = "plans.created";
+            }
+            await PublishAsync(message, exchange, routingKey);
         }
     }
 }
