@@ -3,7 +3,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: planes_sqlserver
     networks:
-      - app-network-public
+      - shared-network
     restart: always
     env_file:
       - sqlserver.env
@@ -28,7 +28,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - DataBaseSettings__ConnectionString=Server=planes-sqlserver;Database=appservice;User Id=sa;Password=Password12345;TrustServerCertificate=True;
     networks:
-      - app-network-public
+      - shared-network
   planes-api:
     image: ikaru773/planesrecetaswebapi
     container_name: planes_receta_api
@@ -50,12 +50,13 @@ services:
       
       # JWT Options
       - JwtOptions__Lifetime=30
-      - JwtOptions__SecretKey=HL#6j=4;5H{5qZ#M=6J!1[W<YvWdbzEif|M]:ZB<6<{ap^K!@Tg{];OD0E
+      - JwtOptions__SecretKey=DiplomadoMicroservicios2025SecretoJTWApiSecurity
       - JwtOptions__ValidAudience=storeApp
-      - JwtOptions__ValidIssuer=identity
-      - JwtOptions__ValidateAudience=true
+      - JwtOptions__ValidIssuer=api_security
+      - JwtOptions__ValidateAudience=false
       - JwtOptions__ValidateIssuer=true
       - JwtOptions__ValidateLifetime=true
+
       
       # RabbitMQ (pointing to the rabbitmq container)
       - RabbitMqSettings__Host=rabbitmq
@@ -74,7 +75,7 @@ services:
       - JaegerSettings__Host=jaeger
       - JaegerSettings__Port=6831
     networks:
-      - app-network-public  # 
+      - shared-network  # 
     depends_on:
       planes-migrate:
         condition: service_completed_successfully
@@ -86,6 +87,6 @@ volumes:
   # sqldata:
   # sqllog:
   # sqlbackup:
-networks:
-  app-network-public:
-    driver: bridge 
+#networks:
+#  shared-network:
+#    driver: bridge 

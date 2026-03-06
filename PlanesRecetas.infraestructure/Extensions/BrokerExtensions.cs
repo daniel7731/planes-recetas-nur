@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Joseco.DDD.Core.Abstractions;
+using Joseco.Outbox.EFCore;
+using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,8 +27,8 @@ namespace PlanesRecetas.infraestructure.Extensions
             bool isWebApp = environment is IWebHostEnvironment;
             services.AddScoped<IExternalPublisher, DefaultPublisher>();
             services.AddScoped< INotificationHandler<PacienteCreated>, PacienteCreatedConsumer>();
-            services.AddHostedService<RabbitTopicWorker<PacienteCreated>>();
-
+            services.AddHostedService<RabbitTopicWorker<PacienteCreated>>();       
+            services.AddOutboxBackgroundService<DomainEvent>();
             return services;
         }
     }

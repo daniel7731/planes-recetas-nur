@@ -53,7 +53,7 @@ public static class DatabaseExtensions
             .AddScoped<IOutboxDatabase<DomainEvent>, OutboxDatabase>() // or UnitOfWork
             .AddOutbox<DomainEvent>();
          */
-        services.Decorate<IOutboxService<DomainEvent>, OutboxTracingService<DomainEvent>>();
+         //services.Decorate<IOutboxService<DomainEvent>, OutboxTracingService<DomainEvent>>();
 
         return services;
     }
