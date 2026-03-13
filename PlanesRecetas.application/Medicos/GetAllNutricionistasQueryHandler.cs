@@ -24,7 +24,7 @@ namespace PlanesRecetas.application.Medicos
             var nutricionistas = _nutricionistaRepository.GetAll();
             if (nutricionistas == null || nutricionistas.Count == 0)
                 return Task.FromResult(Result.Failure<List<NutricionistaDto>>(Errors.NutricionistasNotFound));
-            var  list = nutricionistas.Select(n => new NutricionistaDto
+            var list = nutricionistas.Select(n => new NutricionistaDto
             {
                 Id = n.Id,
                 Nombre = n.Nombre,

@@ -21,7 +21,7 @@ namespace PlanesRecetas.infraestructure.Consumer
         private IConnection? _connection;
         private IChannel? _channel;
         private string? _queueName;
-      
+
 
         private const string ExchangeName = "patients";
         private const string RoutingKey = "patient.*";
@@ -29,7 +29,7 @@ namespace PlanesRecetas.infraestructure.Consumer
         private RabbitMQSettings _settings;
         private readonly IServiceScopeFactory _scopeFactory;
         public RabbitTopicWorker(
-              IOptions<RabbitMQSettings> options, ILogger<RabbitTopicWorker<T>> logger , 
+              IOptions<RabbitMQSettings> options, ILogger<RabbitTopicWorker<T>> logger,
               IServiceScopeFactory scopeFactory)
         {
             _logger = logger;
@@ -84,13 +84,13 @@ namespace PlanesRecetas.infraestructure.Consumer
                     var body = ea.Body.ToArray();
                     var json = Encoding.UTF8.GetString(body);
 
-                
+
 
                     _logger.LogInformation(
                         "Message received. RoutingKey: {RoutingKey}",
                         ea.RoutingKey);
 
-                    if (json!= null)
+                    if (json != null)
                     {
                         await HandleMessage(json);
                     }
@@ -146,7 +146,7 @@ namespace PlanesRecetas.infraestructure.Consumer
                 if (message == null)
                 {
                     _logger.LogWarning("Failed to deserialize message to {Type}", typeof(T).Name);
-                 
+
                 }
 
                 _logger.LogInformation("Successfully deserialized {Type}", typeof(T).Name);

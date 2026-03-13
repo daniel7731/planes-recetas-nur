@@ -39,7 +39,7 @@ namespace PlanesRecetas.infraestructure.Repositories.Persons
         public async Task<Nutricionista?> GetByIdAsync(Guid id, bool readOnly = false)
         {
             var single = await _dbContext.Nutricionista.FirstOrDefaultAsync(x => x.Id == id);
-            
+
 
             return single;
         }

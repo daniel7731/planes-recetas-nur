@@ -18,19 +18,19 @@ namespace PlanesRecetas.infraestructure.Repositories.Care
         }
         public async Task AddAsync(Tiempo entity)
         {
-           await _dbContext.Tiempo.AddAsync(entity);
+            await _dbContext.Tiempo.AddAsync(entity);
         }
 
         public Task DeleteAsync(int id)
         {
-            _dbContext.Tiempo.Remove(new Tiempo { Id = id });   
+            _dbContext.Tiempo.Remove(new Tiempo { Id = id });
             return Task.CompletedTask;
         }
 
         public Task<bool> ExistsAsync(int id)
         {
-           bool tiempo = _dbContext.Tiempo.Any(x => x.Id == id);
-           return Task.FromResult(tiempo);
+            bool tiempo = _dbContext.Tiempo.Any(x => x.Id == id);
+            return Task.FromResult(tiempo);
         }
 
         public List<Tiempo> GetAll()
@@ -47,19 +47,19 @@ namespace PlanesRecetas.infraestructure.Repositories.Care
 
         public Task<Tiempo?> GetByIdAsync(Guid id, bool readOnly = false)
         {
-          
+
             return null;
         }
 
         public Task<Tiempo?> GetByNombreAsync(string nombre)
         {
-            var single =  _dbContext.Tiempo.FirstOrDefaultAsync(x => x.Nombre == nombre);
+            var single = _dbContext.Tiempo.FirstOrDefaultAsync(x => x.Nombre == nombre);
             return single;
         }
 
         public Task UpdateAsync(Tiempo tiempo)
         {
-            _dbContext.Tiempo.Update(tiempo);   
+            _dbContext.Tiempo.Update(tiempo);
             return Task.CompletedTask;
         }
     }

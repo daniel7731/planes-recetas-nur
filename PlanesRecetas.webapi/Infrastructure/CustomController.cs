@@ -25,11 +25,11 @@ public class CustomController : ControllerBase
             Detail = ResponseHelper.GetDetail(result.Error),
             Type = ResponseHelper.GetType(result.Error.Type)
         };
-        
+
 
         return StatusCode(statusCode, probleDetails);
     }
 
-   
+
 
 }

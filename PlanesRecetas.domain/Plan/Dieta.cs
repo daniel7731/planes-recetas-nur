@@ -11,7 +11,7 @@ namespace PlanesRecetas.domain.Plan
 {
     public class Dieta : AggregateRoot
     {
-  
+
         public Guid PlanAlimentacionId { get; set; }
         public DateTime FechaConsumo { get; set; }
 

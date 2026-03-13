@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PlanesRecetas.application.Plan
 {
-    public class CreatePlanAlimentacionComand: IRequest<Result<Guid>>
+    public class CreatePlanAlimentacionComand : IRequest<Result<Guid>>
     {
         public Guid Id { get; set; }
         public Guid PacienteId { get; set; }

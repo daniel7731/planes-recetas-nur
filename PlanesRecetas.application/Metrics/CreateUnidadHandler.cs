@@ -30,7 +30,7 @@ namespace PlanesRecetas.application.Metrics
             await _unidadRepository.AddAsync(unidad);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            
+
             return Result.Success(unidad.Id);
         }
     }

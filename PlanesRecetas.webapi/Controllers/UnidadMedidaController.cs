@@ -11,7 +11,7 @@ namespace PlanesRecetas.webapi.Controllers
     public class UnidadMedidaController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public  UnidadMedidaController(IMediator mediator)
+        public UnidadMedidaController(IMediator mediator)
         {
             _mediator = mediator;
         }

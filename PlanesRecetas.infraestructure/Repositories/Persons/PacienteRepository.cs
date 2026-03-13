@@ -16,14 +16,14 @@
         }
         public async Task AddAsync(Paciente entity)
         {
-           await _dbContext.Paciente.AddAsync(entity);
+            await _dbContext.Paciente.AddAsync(entity);
         }
 
-      
+
 
         public Task<bool> ExistsAsync(Guid id)
         {
-            return Task.FromResult( _dbContext.Paciente.Any(x => x.Id == id));
+            return Task.FromResult(_dbContext.Paciente.Any(x => x.Id == id));
         }
 
         public List<Paciente> GetAll()
@@ -38,7 +38,7 @@
 
         public async Task<Paciente?> GetByIdAsync(Guid id, bool readOnly = false)
         {
-            var single = await _dbContext.Paciente.FirstOrDefaultAsync(x=> x.Id == id);
+            var single = await _dbContext.Paciente.FirstOrDefaultAsync(x => x.Id == id);
             return single;
         }
 

@@ -4,7 +4,7 @@ namespace PlanesRecetas.domain.Plan.Events
 {
     public record PlanCreated : DomainEvent
     {
-        
+
         public Guid PacienteId { get; set; }
         public Guid NutricionistaId { get; set; }
         public DateTime FechaInicio { get; set; }
@@ -19,6 +19,6 @@ namespace PlanesRecetas.domain.Plan.Events
             this.Duracion = duracion;
         }
 
-       
+
     }
 }

@@ -22,7 +22,7 @@ public static class DependencyInjection
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-           // config.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
+            // config.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
             config.RegisterServicesFromAssembly(typeof(PublishPlanCreated).Assembly);
             config.RegisterServicesFromAssembly(typeof(PublishIngredienteCreated).Assembly);
             config.RegisterServicesFromAssembly(typeof(PacienteCreated).Assembly);

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace PlanesRecetas.application.Pacientes.Evento
 {
-    public class PacienteCreated : IntegrationMessage , INotification
+    public class PacienteCreated : IntegrationMessage, INotification
     {
-      
+
 
         public Guid Id { get; set; }
         public string FirstName { get; set; }

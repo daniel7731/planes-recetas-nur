@@ -10,7 +10,7 @@ namespace PlanesRecetas.testing.Domain.Persons
     public class NutricionistaTests
     {
         // Datos de prueba comunes
-       
+
 
         // ----------------------------------------------------------------------
         // Test para Constructor sin Guid (Usado comúnmente en Repositorios o Mappers)
@@ -32,10 +32,10 @@ namespace PlanesRecetas.testing.Domain.Persons
 
             // Assert
             // Verifica que los valores de las propiedades sean los pasados al constructor
-            Assert.Equal(nutricionista.Nombre, NombreEsperado); 
+            Assert.Equal(nutricionista.Nombre, NombreEsperado);
             Assert.Equal(nutricionista.Activo, ActivoEsperado);
             Assert.Equal(nutricionista.FechaCreacion, FechaCreacionEsperada);
-      
+
 
             // Verifica que el Id del AggregateRoot se genere por defecto (Guid.Empty o un nuevo Guid,
             // dependiendo de la implementación del constructor vacío de AggregateRoot. 
@@ -63,9 +63,9 @@ namespace PlanesRecetas.testing.Domain.Persons
             );
 
             // Assert
-         
+
             Assert.Equal(nutricionista.Nombre, NombreEsperado);
-          // 2. Verificar las propiedades específicas de Nutricionista
+            // 2. Verificar las propiedades específicas de Nutricionista
             Assert.Equal(ActivoEsperado, ActivoEsperado);
             Assert.Equal(FechaCreacionEsperada, FechaCreacionEsperada);
         }
@@ -90,8 +90,8 @@ namespace PlanesRecetas.testing.Domain.Persons
             // Los DateTime deben ser DateTime.MinValue
             Assert.Equal(DateTime.MinValue, nutricionista.FechaCreacion);
 
-       
-         
+
+
         }
     }
 }

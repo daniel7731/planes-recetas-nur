@@ -45,7 +45,7 @@ namespace PlanesRecetas.infraestructure.Repositories.Metrics
         public async Task<UnidadMedida?> GetUnidad(int id)
         {
             return await _dbContext.UnidadMedida
-                .AsNoTracking()                
+                .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 

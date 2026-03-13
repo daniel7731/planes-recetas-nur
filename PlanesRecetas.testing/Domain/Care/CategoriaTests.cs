@@ -48,7 +48,7 @@ namespace PlanesRecetas.testing.Domain.Care
 
             // Assert
             // Check base class property (Id)
-           // Assert.Equal(TestGuid, categoria.Id);
+            // Assert.Equal(TestGuid, categoria.Id);
 
             // Check assigned scalar properties
             Assert.Equal(TestNombre, categoria.Nombre);
@@ -64,6 +64,6 @@ namespace PlanesRecetas.testing.Domain.Care
 
         // --- 3. Test Parameterless Constructor (for ORM/Deserialization) ---
 
-       
+
     }
 }

@@ -19,7 +19,7 @@ internal sealed class RequestLoggingPipelineBehavior<TRequest, TResponse>(
         string requestName = typeof(TRequest).Name;
 
         logger.LogInformation("Processing request {RequestName}", requestName);
-        
+
         TResponse result = await next();
 
         if (result.IsSuccess)

@@ -29,7 +29,7 @@ namespace PlanesRecetas.application.Care
             {
                 Id = x.Id,
                 Nombre = x.Nombre
-            }).ToList(); 
+            }).ToList();
             return Task.FromResult(Result.Success(list));
         }
     }

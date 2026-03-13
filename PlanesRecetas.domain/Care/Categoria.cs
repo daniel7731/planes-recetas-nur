@@ -11,22 +11,23 @@ namespace PlanesRecetas.domain.Care
     {
         public String Nombre { get; set; }
         public TipoAlimento TipoAlimento { get; set; }
-        public int TipoAlimentoId {
+        public int TipoAlimentoId
+        {
             get; set;
-        }   
+        }
         public Categoria(Guid id, String nombre, TipoAlimento tipo) : base(id)
         {
             Nombre = nombre;
             TipoAlimento = tipo;
         }
         private Categoria() { }
-        public Categoria(Guid id, string nombre, int tipoAlimentoId):base(id)
+        public Categoria(Guid id, string nombre, int tipoAlimentoId) : base(id)
         {
-       
+
             Nombre = nombre;
-            TipoAlimento = new TipoAlimento(tipoAlimentoId,"");
+            TipoAlimento = new TipoAlimento(tipoAlimentoId, "");
             TipoAlimentoId = tipoAlimentoId;
-           
+
         }
     }
 }

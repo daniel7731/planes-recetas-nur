@@ -10,7 +10,7 @@ namespace PlanesRecetas.domain.Metrics
 {
     public interface IUnidadRepository : IRepository<UnidadMedida>
     {
-   
+
         List<UnidadMedida> GetAll();
         Task<UnidadMedida?> GetUnidad(int id);
         Task AddAsync(UnidadMedida unidad);

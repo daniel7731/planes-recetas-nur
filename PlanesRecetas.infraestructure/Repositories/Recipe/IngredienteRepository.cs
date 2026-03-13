@@ -17,7 +17,7 @@ namespace PlanesRecetas.infraestructure.Repositories.Recipe
         }
         public async Task AddAsync(Ingrediente entity)
         {
-           await _dbContext.Ingrediente.AddAsync(entity);
+            await _dbContext.Ingrediente.AddAsync(entity);
         }
 
         public Task DeleteAsync(Guid id)
@@ -45,13 +45,13 @@ namespace PlanesRecetas.infraestructure.Repositories.Recipe
             return Task.FromResult(_dbContext.Ingrediente.FirstOrDefault(i => i.Nombre == nombre));
         }
 
-       
+
 
         public Task UpdateAsync(Ingrediente ingrediente)
         {
-            _dbContext.Ingrediente.Update(ingrediente); 
+            _dbContext.Ingrediente.Update(ingrediente);
             return Task.CompletedTask;
         }
-        
+
     }
 }

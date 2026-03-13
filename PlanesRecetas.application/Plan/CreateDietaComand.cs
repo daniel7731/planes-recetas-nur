@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PlanesRecetas.application.Plan
 {
-    public class CreateDietaComand: IRequest<Result<Guid>>
+    public class CreateDietaComand : IRequest<Result<Guid>>
     {
         public Guid Id { get; set; }
         public Guid PlanId { get; set; }

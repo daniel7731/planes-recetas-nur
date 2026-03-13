@@ -14,7 +14,7 @@ namespace PlanesRecetas.domain.Metrics
         public string Simbolo { get; private set; }
 
         private UnidadMedida() { }
-        public UnidadMedida(int id,string nombre, string simbolo)
+        public UnidadMedida(int id, string nombre, string simbolo)
         {
             Id = id;
             Nombre = nombre;

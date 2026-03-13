@@ -14,7 +14,7 @@ namespace PlanesRecetas.domain.Recipe
         Task UpdateAsync(Ingrediente ingrediente);
         Task DeleteAsync(Guid id);
         Task<bool> ExistsAsync(Guid id);
-       
+
 
 
     }

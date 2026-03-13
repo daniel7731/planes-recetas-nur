@@ -7,7 +7,7 @@ using PlanesRecetas.application.Pacientes.Evento;
 namespace PlanesRecetas.infraestructure.RabbitMQ.Consumers
 {
     //consume los objetos paciente create desde un cola ver dependencie injection
-    public class PacienteCreatedConsumer:INotificationHandler<PacienteCreated>
+    public class PacienteCreatedConsumer : INotificationHandler<PacienteCreated>
     {
         private readonly IMediator _mediator;
 

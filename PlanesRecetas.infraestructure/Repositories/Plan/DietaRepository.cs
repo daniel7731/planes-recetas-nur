@@ -33,7 +33,7 @@ namespace PlanesRecetas.infraestructure.Repositories.Plan
         public List<Dieta> GetDietasPlan(Guid planId)
         {
             //  return _dbContext.DietaReceta.Join( ).Where(d => d.PlanAlimentacionId == planId).ToList();
-          
+
 
             var query = from dr in _dbContext.DietaReceta
                         join d in _dbContext.Dieta on dr.DietaId equals d.Id into dietGroup
@@ -49,9 +49,10 @@ namespace PlanesRecetas.infraestructure.Repositories.Plan
                         from t in tiempoGroup.DefaultIfEmpty()
 
                         where d.PlanAlimentacionId == planId
-                        select new Dieta(d.Id,d.FechaConsumo,planId){
-           
-                        
+                        select new Dieta(d.Id, d.FechaConsumo, planId)
+                        {
+
+
                         };
 
             var results = query.ToList();
@@ -107,7 +108,7 @@ namespace PlanesRecetas.infraestructure.Repositories.Plan
                             {
                                 Instrucciones = r.Instrucciones,
                                 TiempoId = r.TiempoId,
-                                
+
                             }
                         };
 

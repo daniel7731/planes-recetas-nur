@@ -13,7 +13,7 @@ namespace PlanesRecetas.domain.Persons
         Task<Paciente?> GetByEmailAsync(string email);
         Task UpdateAyscn(Paciente paciente);
         Task<bool> ExistsAsync(Guid id);
-       
+
     }
 
 }

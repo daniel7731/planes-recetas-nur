@@ -30,14 +30,14 @@ namespace PlanesRecetas.application.Recipe
         private readonly IUnidadRepository _unidadRepository;
         private readonly IRecetaRepository _recetaRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public CreateRecetaCommandHandler(IRecetaRepository recetaRepositor, 
+        public CreateRecetaCommandHandler(IRecetaRepository recetaRepositor,
             IIngredienteRepository ingredienteRepository,
             ICategoriaRepository categoriaRepository,
             ITiempoRepository tiempoRepository,
             IUnidadRepository unidadRepository,
             IUnitOfWork unitOfWork)
         {
-            _recetaRepository = recetaRepositor;    
+            _recetaRepository = recetaRepositor;
             _ingredienteRepository = ingredienteRepository;
             _tiempoRepository = tiempoRepository;
             _categoriaRepository = categoriaRepository;
@@ -53,23 +53,23 @@ namespace PlanesRecetas.application.Recipe
             if (tiempo is null)
                 return Result.Failure<Guid>(Error.Failure("", $"Tiempo with Id '{request.TiempoId}' not found.", []));
             // 2. **Map Command to Entity:** // Create the Domain Entity (Receta) from the command data.
-            
+
 
             var newReceta = new Receta(request.Id); // Assuming 'Receta' is your Entity class
             newReceta.Nombre = request.Nombre;
             newReceta.TiempoId = request.TiempoId;
             newReceta.Instrucciones = request.Instrucciones;
-           
+
             // 3. **Persistence:**
             // Add the new entity to the data context and save changes.
             await _recetaRepository.AddAsync(newReceta);
-          
-             List<RecetaIngrediente> ingredientes = request.Ingredientes.Select(incrediente => new RecetaIngrediente()
-             {
-                 RecetaId = newReceta.Id,
-                 IngredienteId = incrediente.IngredienteId,
-                 CantidadValor = incrediente.CantidadValor
-             }).ToList();
+
+            List<RecetaIngrediente> ingredientes = request.Ingredientes.Select(incrediente => new RecetaIngrediente()
+            {
+                RecetaId = newReceta.Id,
+                IngredienteId = incrediente.IngredienteId,
+                CantidadValor = incrediente.CantidadValor
+            }).ToList();
             // Add related Ingredientes (example relationship setup)
             await _recetaRepository.AddIngredientes(newReceta, ingredientes);
             await _unitOfWork.CommitAsync(cancellationToken);

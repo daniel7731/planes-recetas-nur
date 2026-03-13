@@ -23,6 +23,6 @@ namespace PlanesRecetas.application.Recipe
         public string? TiempoNombre { get; set; }
 
         // Collection of ingredients that belong to this recipe
-        public List<RecetaIngredienteDto> ?Ingredientes { get; set; }
+        public List<RecetaIngredienteDto>? Ingredientes { get; set; }
     }
 }

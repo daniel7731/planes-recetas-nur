@@ -16,8 +16,8 @@ namespace PlanesRecetas.domain.Persons
         public String Telefono { get; set; }
         public Decimal Peso { get; set; }
         public Decimal Altura { get; set; }
-   
-        public Paciente(Guid id, String nombre, String apellido, DateTime fechaNacimiento, String email, String telefono):base(id)
+
+        public Paciente(Guid id, String nombre, String apellido, DateTime fechaNacimiento, String email, String telefono) : base(id)
         {
             Nombre = nombre;
             Apellido = apellido;
@@ -30,8 +30,8 @@ namespace PlanesRecetas.domain.Persons
             Nombre = nombre;
             Apellido = apellido;
             FechaNacimiento = fechaNacimiento;
-            Altura= altura;
-            Peso= peso;
+            Altura = altura;
+            Peso = peso;
         }
         public Paciente(Guid id, String nombre, String apellido, DateTime fechaNacimiento, Decimal peso, Decimal altura) : base(id)
         {

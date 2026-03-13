@@ -25,10 +25,10 @@ namespace PlanesRecetas.application.Plan
             //await _dietaRepository.AddAsync(dieta);
 
             //return Result.Success(dieta.Id);
-           
-            
 
-            
+
+
+
             //await _dietaRepository.AddAsync(dieta);
 
             //return Result.Success(dieta.Id);

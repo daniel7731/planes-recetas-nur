@@ -21,7 +21,7 @@ public class RabbitMQConnection : IRabbitMQConnection
             Port = _settings.Port,
             UserName = _settings.UserName,
             Password = _settings.Password,
-  
+
         };
 
         _connection = await factory.CreateConnectionAsync();

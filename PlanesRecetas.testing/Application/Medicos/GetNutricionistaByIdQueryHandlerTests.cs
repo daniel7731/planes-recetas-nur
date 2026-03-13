@@ -78,7 +78,7 @@ namespace PlanesRecetas.testing.Application.Medicos
             // Arrange
             var id = Guid.NewGuid();
             var fecha = new DateTime(2023, 10, 1);
-            var entity = new domain.Persons.Nutricionista(id, "Test Name",false,fecha);
+            var entity = new domain.Persons.Nutricionista(id, "Test Name", false, fecha);
 
             _nutricionistaRepositoryMock
                 .Setup(repo => repo.GetByIdAsync(id, It.IsAny<bool>()))

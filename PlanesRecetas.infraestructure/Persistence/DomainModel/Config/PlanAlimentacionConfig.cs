@@ -17,8 +17,8 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
             builder.ToTable("PlanAlimentacion");
             builder.HasKey(x => x.Id);
 
-           // builder.Property(x => x.PacienteId).IsRequired();
-           // builder.Property(x => x.NutricionistaId).IsRequired();
+            // builder.Property(x => x.PacienteId).IsRequired();
+            // builder.Property(x => x.NutricionistaId).IsRequired();
             builder.Property(x => x.FechaInicio).HasColumnType("DATE").IsRequired();
             builder.Property(x => x.FechaFin).HasColumnType("DATE").IsRequired();
 

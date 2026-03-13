@@ -14,7 +14,7 @@ namespace PlanesRecetas.application.Care
         [StringLength(50, ErrorMessage = "El nombre no puede exceder los 50 caracteres")]
         public string Nombre { get; set; }
         public TipoAlimentoDto() { }
-       
+
         public TipoAlimentoDto(int id, string nombre)
         {
             Id = id;

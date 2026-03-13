@@ -1,8 +1,11 @@
-﻿using PlanesRecetas.infraestructure;
-using Consul;
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+﻿using Consul;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using PlanesRecetas.infraestructure.Extensions;
 using PlanesRecetas.webapi.Infrastructure;
+using System.Text;
 namespace PlanesRecetas.webapi
 {
     public static class DependencyInjection
@@ -14,7 +17,25 @@ namespace PlanesRecetas.webapi
 
             // REMARK: If you want to use Controllers, you'll need this.
             services.AddControllers();
-
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
+            var jwtOptions = configuration.GetSection("JwtOptions").Get<JwtOptions>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        // Map the boolean values
+                        ValidateIssuer = jwtOptions.ValidateIssuer,
+                        ValidateAudience = jwtOptions.ValidateAudience,
+                        ValidateLifetime = jwtOptions.ValidateLifetime,
+                        ValidateIssuerSigningKey = true,
+                        // Map the strings
+                        ValidIssuer = jwtOptions.ValidIssuer,
+                        // Map the Secret key
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
+                    };
+                });
             //services.AddExceptionHandler<GlobalExceptionHandler>();
             //services.AddProblemDetails();
 

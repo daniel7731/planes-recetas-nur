@@ -10,7 +10,8 @@ public class PublishPlanCreated : INotificationHandler<OutboxMessage<PlanCreated
 
     private readonly string exchangeName = "meal-plans";
     private readonly string exchangePatiens = "foodplan";
-    public PublishPlanCreated(IExternalPublisher publisher) {
+    public PublishPlanCreated(IExternalPublisher publisher)
+    {
         _publisher = publisher;
     }
 
@@ -29,6 +30,6 @@ public class PublishPlanCreated : INotificationHandler<OutboxMessage<PlanCreated
 
         await _publisher.PublishAsync(message, exchangePatiens, "foodplan.created");
 
-        await _publisher.PublishAsync(message, exchangeName,routingKey);
+        await _publisher.PublishAsync(message, exchangeName, routingKey);
     }
 }

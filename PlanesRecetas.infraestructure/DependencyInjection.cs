@@ -17,11 +17,11 @@ public static class DependencyInjection
         IHostEnvironment environment,
         string serviceName)
     {
-         services.AddSecrets(configuration, environment)
+        services.AddSecrets(configuration, environment)
        // .AddObservability(environment, serviceName)
-        .AddDatabase()
-        .AddSecurity(environment)
-        .AddRabbitMQ(configuration,environment);
+       .AddDatabase()
+       .AddSecurity(environment)
+       .AddRabbitMQ(configuration, environment);
 
 
         return services;

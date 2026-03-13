@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace PlanesRecetas.infraestructure.Persistence.DomainModel
 {
-    public class DomainDbContext : DbContext , IDatabase
+    public class DomainDbContext : DbContext, IDatabase
     {
         public DbSet<Paciente> Paciente { get; set; }
         public DbSet<Nutricionista> Nutricionista { get; set; }
@@ -26,7 +26,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel
         public DbSet<UnidadMedida> UnidadMedida { get; set; }
         public DbSet<Ingrediente> Ingrediente { get; set; }
         public DbSet<Dieta> Dieta { get; set; }
-        public DbSet<PlanAlimentacion> PlanAlimentacion { get; set; }  
+        public DbSet<PlanAlimentacion> PlanAlimentacion { get; set; }
         public DbSet<Receta> Receta { get; set; }
         public DbSet<RecetaIngrediente> RecetaIngrediente { get; set; }
 

@@ -17,7 +17,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
 
             builder.Property(ri => ri.RecetaId).IsRequired();
 
-            builder.Property(ri => ri.IngredienteId).IsRequired();       
+            builder.Property(ri => ri.IngredienteId).IsRequired();
         }
     }
 }

@@ -28,22 +28,22 @@ namespace PlanesRecetas.webapi.Controllers
                 request.NDiaPlan,
                 request.Fecha
              */
-           /* var platillos = new List<Receta>();
-            foreach (var platilloId in request.Platillos)
-            {
-                Receta r = new Receta(platilloId);
-                platillos.Add(r);
-            }
+            /* var platillos = new List<Receta>();
+             foreach (var platilloId in request.Platillos)
+             {
+                 Receta r = new Receta(platilloId);
+                 platillos.Add(r);
+             }
 
 
-            CreateDietaComand createDieta = new CreateDietaComand{
-                 Id = guid,
-                 PlanId = request.PlanId,
-                 Platillos = platillos,
-                 NDiasPlan = request.NDiaPlan,
-                 Fecha = request.Fecha,
-            };
-            var result = await _mediator.Send(createDieta);*/
+             CreateDietaComand createDieta = new CreateDietaComand{
+                  Id = guid,
+                  PlanId = request.PlanId,
+                  Platillos = platillos,
+                  NDiasPlan = request.NDiaPlan,
+                  Fecha = request.Fecha,
+             };
+             var result = await _mediator.Send(createDieta);*/
 
             return Ok(Guid.NewGuid());
         }

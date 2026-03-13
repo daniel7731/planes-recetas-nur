@@ -26,8 +26,8 @@ namespace PlanesRecetas.application.Care
                 return Result.Failure<TipoAlimentoDto>(Errors.TipoAlimentoNotFound);
             TipoAlimentoDto dto = new TipoAlimentoDto
             {
-                    Id = entity.Id,
-                    Nombre =  entity.Nombre
+                Id = entity.Id,
+                Nombre = entity.Nombre
             };
             return Result.Success(dto);
         }

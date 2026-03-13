@@ -17,8 +17,8 @@ namespace PlanesRecetas.application.Plan
         private readonly INutricionistaRepository _nutricionistaRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOutboxService<DomainEvent> _outboxService;
-        public CreatePlanAlimentacionHandler(IPlanAlimentacionRepository planAlimentacionRepository , IDietaRepository dietaRepository , IPacienteRepository pacienteRepository ,
-            INutricionistaRepository nutricionistaRepository , IOutboxService<DomainEvent> outboxService,  IUnitOfWork unitOfWork)
+        public CreatePlanAlimentacionHandler(IPlanAlimentacionRepository planAlimentacionRepository, IDietaRepository dietaRepository, IPacienteRepository pacienteRepository,
+            INutricionistaRepository nutricionistaRepository, IOutboxService<DomainEvent> outboxService, IUnitOfWork unitOfWork)
         {
             _planAlimentacionRepository = planAlimentacionRepository;
             _dietaRepository = dietaRepository;
@@ -35,10 +35,10 @@ namespace PlanesRecetas.application.Plan
             Guid nutricionistaId = request.NutricionistaId;
 
             Paciente paciente1 = await _pacienteRepository.GetByIdAsync(pacienteId);
-            if ( paciente1 == null)
+            if (paciente1 == null)
             {
                 return Result.Failure<Guid>(Error.Failure("", $"Paciente with Id '{pacienteId}' not found.", []));
-            }   
+            }
             Nutricionista nutricionista1 = await _nutricionistaRepository.GetByIdAsync(nutricionistaId);
             if (nutricionista1 == null)
             {
@@ -53,7 +53,7 @@ namespace PlanesRecetas.application.Plan
                 request.FechaInicio,
                 request.DuracionDias
             );
-           
+
             await _planAlimentacionRepository.AddAsync(planAlimentacion);
             request.Dieta.ForEach(async d =>
             {
@@ -62,19 +62,21 @@ namespace PlanesRecetas.application.Plan
 
                 d.Platillos.ForEach(async p =>
                 {
-                    DietaReceta dietaReceta = new () { 
-                    Orden = p.Orden,
-                    RecetaId = p.RecetaId,
-                    TiempoId = p.TiempoId,
-                    DietaId = dieta.Id };
-                    await _dietaRepository.AddDietaReceta(dieta,dietaReceta); 
+                    DietaReceta dietaReceta = new()
+                    {
+                        Orden = p.Orden,
+                        RecetaId = p.RecetaId,
+                        TiempoId = p.TiempoId,
+                        DietaId = dieta.Id
+                    };
+                    await _dietaRepository.AddDietaReceta(dieta, dietaReceta);
                 });
             });
             var outboxMessage = new OutboxMessage<DomainEvent>(new PlanCreated(planAlimentacion.Id, planAlimentacion.PacienteId, planAlimentacion.NutricionistaId,
                 planAlimentacion.FechaInicio, planAlimentacion.DuracionDias));
-            await _outboxService.AddAsync(new OutboxMessage<DomainEvent>(new 
+            await _outboxService.AddAsync(new OutboxMessage<DomainEvent>(new
                 PlanCreated(planAlimentacion.Id, planAlimentacion.PacienteId, planAlimentacion.NutricionistaId,
-                planAlimentacion.FechaInicio, planAlimentacion.DuracionDias)));  
+                planAlimentacion.FechaInicio, planAlimentacion.DuracionDias)));
             await _unitOfWork.CommitAsync(cancellationToken);
             return Result.Success(planAlimentacion.Id);
         }

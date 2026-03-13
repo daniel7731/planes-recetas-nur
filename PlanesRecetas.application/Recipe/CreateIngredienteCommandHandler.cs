@@ -17,7 +17,7 @@ namespace PlanesRecetas.application.Recipe
         private readonly ICategoriaRepository _categoriaRepository;
         private readonly IUnidadRepository _unidadRepository;
         private readonly IUnitOfWork _unitOfWork;
-       // private readonly IOu
+        // private readonly IOu
         //private readonly IExternalPublisher _externalPublisher;
         private readonly IOutboxService<DomainEvent> _outboxService;
 
@@ -25,8 +25,9 @@ namespace PlanesRecetas.application.Recipe
             IIngredienteRepository ingredienteRepository,
             ICategoriaRepository categoriaRepository,
             IUnidadRepository unidadRepository,
-            IUnitOfWork unitOfWork , 
-            IOutboxService<DomainEvent> outboxService)        {
+            IUnitOfWork unitOfWork,
+            IOutboxService<DomainEvent> outboxService)
+        {
             _ingredienteRepository = ingredienteRepository;
             _categoriaRepository = categoriaRepository;
             _unidadRepository = unidadRepository;
@@ -40,12 +41,12 @@ namespace PlanesRecetas.application.Recipe
             // Validate Categoria
             var categoria = await _categoriaRepository.GetByIdAsync(request.CategoriaId);
             if (categoria is null)
-                return Result.Failure<Guid>(Error.Failure("",$"Category with Id '{request.CategoriaId}' not found.", []));
+                return Result.Failure<Guid>(Error.Failure("", $"Category with Id '{request.CategoriaId}' not found.", []));
 
             // Validate Unidad
             var unidad = await _unidadRepository.GetUnidad(request.UnidadId);
             if (unidad is null)
-                return Result.Failure<Guid>(Error.Failure("",$"Unit with Id '{request.UnidadId}' not found.", []));
+                return Result.Failure<Guid>(Error.Failure("", $"Unit with Id '{request.UnidadId}' not found.", []));
 
             // Create Ingrediente entity
             var ingrediente = new Ingrediente(request.Id, request.Calorias, request.Nombre,
@@ -64,7 +65,7 @@ namespace PlanesRecetas.application.Recipe
             var outboxMessage = new OutboxMessage<DomainEvent>
                 (new IngredienteCreated(ingrediente.Id, ingrediente.Nombre,
                 ingrediente.Calorias, ingrediente.CategoriaId, ingrediente.UnidadId));
-           
+
             await _outboxService.AddAsync(outboxMessage);
 
             await _ingredienteRepository.AddAsync(ingrediente);

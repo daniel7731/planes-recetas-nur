@@ -10,7 +10,7 @@ namespace PlanesRecetas.application.Medicos
 {
     public class CreateNutricionistaComand : IRequest<Result<Guid>>
     {
-       
+
         public string Nombre { get; set; }
         public bool Activo { get; set; }
 

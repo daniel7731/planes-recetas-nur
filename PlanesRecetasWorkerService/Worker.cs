@@ -13,11 +13,12 @@ namespace PlanesRecetasWorkerService
     {
         private readonly ILogger<Worker> _logger;
         private readonly IMediator _mediator;
-  
+
         private readonly IRabbitMQConnection _rabbit;
-     
+
         private readonly RabbitMQSettings _options;
-        public Worker(IConfiguration configuration , IMediator mediator , ILogger<Worker> logger, IRabbitMQConnection rabbit){
+        public Worker(IConfiguration configuration, IMediator mediator, ILogger<Worker> logger, IRabbitMQConnection rabbit)
+        {
             _logger = logger;
             _options = configuration.GetSection("RabbitMQ").Get<RabbitMQSettings>()
                    ?? new RabbitMQSettings();
@@ -27,7 +28,7 @@ namespace PlanesRecetasWorkerService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            
+
 
             var consumer = new AsyncEventingBasicConsumer(_rabbit.Channel);
 
@@ -40,7 +41,7 @@ namespace PlanesRecetasWorkerService
 
                     var message = JsonSerializer.Deserialize<string>(messageString);
                     _logger.LogInformation("Received message: {Message}", message);
-                    
+
                     var paciente = JsonSerializer.Deserialize<PacienteCreatedMessage>(
                     message,
                     new JsonSerializerOptions
@@ -51,12 +52,12 @@ namespace PlanesRecetasWorkerService
 
                     if (paciente is null)
                     {
-                       
-                       throw new Exception("Invalid message");
-                    }
-                
 
-                 
+                        throw new Exception("Invalid message");
+                    }
+
+
+
 
                     CreatePacienteComand command = new CreatePacienteComand()
                     {
@@ -68,7 +69,7 @@ namespace PlanesRecetasWorkerService
 
                     };
                     var result = await _mediator.Send(command);
-                         
+
                     _logger.LogInformation("Received message: {Message}", message);
                     // delay
                     await Task.Delay(500, stoppingToken);
@@ -82,7 +83,7 @@ namespace PlanesRecetasWorkerService
                 }
             };
 
-            await _rabbit.Channel. BasicConsumeAsync(
+            await _rabbit.Channel.BasicConsumeAsync(
                 queue: _options.QueueName,
                 autoAck: false,
                 consumer: consumer);
@@ -92,6 +93,6 @@ namespace PlanesRecetasWorkerService
             await Task.Delay(Timeout.Infinite, stoppingToken);
         }
 
-    
+
     }
 }
