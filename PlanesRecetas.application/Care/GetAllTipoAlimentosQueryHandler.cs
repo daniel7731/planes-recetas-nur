@@ -18,6 +18,7 @@ namespace PlanesRecetas.application.Care
         public GetAllTipoAlimentosQueryHandler(ITipoAlimentoRepository repo)
         {
             _repo = repo;
+
         }
 
         public Task<Result<List<TipoAlimentoDto>>> Handle(GetAllTipoAlimentosQuery request, CancellationToken ct)
