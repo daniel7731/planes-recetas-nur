@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Joseco.DDD.Core.Results;
+﻿using Joseco.DDD.Core.Results;
+using Microsoft.AspNetCore.Mvc;
 using PlanesRecetas.webapi.Infrastructure;
 
 namespace PlanesRecetas.webapi.Infrastructure;

@@ -10,9 +10,7 @@
             "--include",
             "${staged}"
          ],
-         "include": [
-            "**/*.cs"
-         ]
+         "include": [ "PlanesRecetas.*/**/*.cs" ]
       }
    ]
 }

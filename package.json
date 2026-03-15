@@ -7,5 +7,10 @@
   },
   "devDependencies": {
     "lint-staged": "^16.4.0"
-  }
+  },
+  "lint-staged": {
+  "**/*.cs": [
+    "dotnet format ./PlanesRecetas.webapi/PlanesRecetas.webapi.sln --no-restore --include"
+  ]
+}
 }

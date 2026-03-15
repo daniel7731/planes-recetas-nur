@@ -7,11 +7,11 @@ using PlanesRecetas.application.Medicos;
 using PlanesRecetas.application.Pacientes;
 using PlanesRecetas.domain.Persons;
 using PlanesRecetas.infraestructure.Persistence.DomainModel;
+using PlanesRecetas.webapi.Parameters.Doctors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PlanesRecetas.webapi.Parameters.Doctors;
 
 namespace PlanesRecetas.webapi.Controllers
 {
