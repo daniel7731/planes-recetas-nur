@@ -4,14 +4,16 @@
   },
   "scripts": {
     "prepare": "husky",
-    "test" : "dotnet test PlanesRecetas.testing"
+    "test": "dotnet test PlanesRecetas.testing"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
     "lint-staged": "^16.4.0"
   },
   "lint-staged": {
-  "**/*.cs": [
-    "dotnet format ./PlanesRecetas.webapi/PlanesRecetas.webapi.sln --no-restore --include"
-  ]
-}
+    "**/*.cs": [
+      "dotnet format ./PlanesRecetas.webapi/PlanesRecetas.webapi.sln --no-restore --include"
+    ]
+  }
 }

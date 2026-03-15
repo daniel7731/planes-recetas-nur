@@ -1,0 +1,2 @@
+# This calls commitlint to check the message you just wrote
+npx --no -- commitlint --edit "$1"
