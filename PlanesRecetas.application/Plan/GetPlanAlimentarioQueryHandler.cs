@@ -19,8 +19,8 @@ namespace PlanesRecetas.application.Plan
         private readonly IPacienteRepository _pacienteRepository;
         private readonly INutricionistaRepository _nutricionistaRepository;
         private readonly IDietaRepository _dietaRepository;
-        public GetPlanAlimentarioQueryHandler(IUnitOfWork unitOfWork, IPlanAlimentacionRepository planRepository , IDietaRepository dietaRepository , IPacienteRepository pacienteRepository
-            ,INutricionistaRepository nutricionistaRepository)
+        public GetPlanAlimentarioQueryHandler(IUnitOfWork unitOfWork, IPlanAlimentacionRepository planRepository, IDietaRepository dietaRepository, IPacienteRepository pacienteRepository
+            , INutricionistaRepository nutricionistaRepository)
         {
             _unitOfWork = unitOfWork;
             _planRepository = planRepository;
@@ -31,21 +31,21 @@ namespace PlanesRecetas.application.Plan
         public async Task<Result<List<PlanAlimentacionDto>>> Handle(GetPlanAlimentaryQuery request, CancellationToken cancellationToken)
         {
             // request.Id;
-           PlanAlimentacion Plan = await _planRepository.GetByIdAsync(request.Id);  
+            PlanAlimentacion Plan = await _planRepository.GetByIdAsync(request.Id);
             if (Plan is null)
                 return Result.Failure<List<PlanAlimentacionDto>>(Errors.PlanNotFound);
 
-           Paciente paciente = await _pacienteRepository.GetByIdAsync(Plan.PacienteId); 
+            Paciente paciente = await _pacienteRepository.GetByIdAsync(Plan.PacienteId);
 
-           Nutricionista nutricionista = await _nutricionistaRepository.GetByIdAsync(Plan.NutricionistaId);
+            Nutricionista nutricionista = await _nutricionistaRepository.GetByIdAsync(Plan.NutricionistaId);
 
-           List<Dieta> dietas  =  _dietaRepository.GetDietasPlan(Plan.Id);
+            List<Dieta> dietas = _dietaRepository.GetDietasPlan(Plan.Id);
 
-           dietas.ForEach(d =>
-           {
+            dietas.ForEach(d =>
+            {
                 List<DietaReceta> recetas = _dietaRepository.GetDietaRecetas(d.Id);
                 d.DietaRecetas = recetas;
-           });
+            });
             PlanAlimentacionDto dto = new PlanAlimentacionDto
             {
                 Id = Plan.Id,
@@ -54,15 +54,16 @@ namespace PlanesRecetas.application.Plan
                 FechaInicio = Plan.FechaInicio,
                 DuracionDias = Plan.DuracionDias,
                 Dietas = dietas.Select(d =>
-                     new DietaDto {
+                     new DietaDto
+                     {
                          Id = d.Id,
                          Fecha = d.FechaConsumo,
                          Recetas = d.DietaRecetas.Select(p => new DietaRecetaDto
                          {
-                          
-                             Orden = (int) p.Orden,
-                             
-                             Tiempo = new Care.TiempoDto { Id = p.TiempoId},
+
+                             Orden = (int)p.Orden,
+
+                             Tiempo = new Care.TiempoDto { Id = p.TiempoId },
                              Receta = new Recipe.RecetaDto
                              {
                                  Id = p.Receta.Id,
@@ -72,7 +73,7 @@ namespace PlanesRecetas.application.Plan
                                  TiempoNombre = p.Receta.Tiempo.Nombre
 
                              }
-                             
+
 
 
                          }).ToList()

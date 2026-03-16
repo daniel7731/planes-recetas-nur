@@ -29,7 +29,7 @@ namespace PlanesRecetas.domain.Recipe
         }
         public void SetDomainEvent()
         {
-            AddDomainEvent(new IngredienteCreated(Id, Nombre, Calorias, CategoriaId,UnidadId));      
+            AddDomainEvent(new IngredienteCreated(Id, Nombre, Calorias, CategoriaId, UnidadId));
         }
         public Ingrediente(Guid id, decimal calorias, string nombre, Categoria categoria, decimal cantidadValor, UnidadMedida unidad) : base(id)
         {

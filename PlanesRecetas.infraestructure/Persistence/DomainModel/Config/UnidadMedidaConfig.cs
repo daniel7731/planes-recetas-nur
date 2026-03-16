@@ -33,7 +33,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
                    .HasMaxLength(10)
                    .IsRequired();
 
-            
+
         }
     }
 }

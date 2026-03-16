@@ -38,10 +38,10 @@ namespace PlanesRecetas.testing.Application.Paciente
             // 1. Create el comando
             Guid guid = Guid.NewGuid();
             var command = new CreatePacienteComand(
-                guid : guid,
+                guid: guid,
                 nombre: "Juan",
                 apellido: "Perez",
-                fechaNacimiento: new DateTime(1990, 5, 15), 
+                fechaNacimiento: new DateTime(1990, 5, 15),
                 peso: 75.5m,
                 altura: 1.78m
             );
@@ -49,18 +49,18 @@ namespace PlanesRecetas.testing.Application.Paciente
 
             // 2. Set up a placeholder for the Paciente object that will be passed to AddAsync
             PlanesRecetas.domain.Persons.Paciente capturedPaciente = null;
-       
+
             // 3. Configure the mock repository to capture the Paciente object passed to AddAsync
             _mockPacienteRepository
                 .Setup(r => r.AddAsync(It.IsAny<PlanesRecetas.domain.Persons.Paciente>()))
-                .Callback<PlanesRecetas.domain.Persons.Paciente>(p => capturedPaciente = p) 
-                .Returns( Task.FromResult(guid));
+                .Callback<PlanesRecetas.domain.Persons.Paciente>(p => capturedPaciente = p)
+                .Returns(Task.FromResult(guid));
 
             // Act
             // Call the handler's Handle method
             var result = await ((IRequestHandler<CreatePacienteComand, Result<Guid>>)_handler)
                 .Handle(command, CancellationToken.None);
-       
+
             // Assert
             // 1. Verify the result is successful and contains a Guid
             Assert.True(result.IsSuccess);
@@ -87,6 +87,6 @@ namespace PlanesRecetas.testing.Application.Paciente
                 Times.Once,
                 "CommitAsync should have been called once on the unit of work."
             );
-        }       
+        }
     }
 }

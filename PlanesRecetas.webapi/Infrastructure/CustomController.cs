@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Joseco.DDD.Core.Results;
+﻿using Joseco.DDD.Core.Results;
+using Microsoft.AspNetCore.Mvc;
 using PlanesRecetas.webapi.Infrastructure;
 
 namespace PlanesRecetas.webapi.Infrastructure;
@@ -25,11 +25,11 @@ public class CustomController : ControllerBase
             Detail = ResponseHelper.GetDetail(result.Error),
             Type = ResponseHelper.GetType(result.Error.Type)
         };
-        
+
 
         return StatusCode(statusCode, probleDetails);
     }
 
-   
+
 
 }

@@ -48,7 +48,7 @@ namespace PlanesRecetas.testing.Domain.Care
             Assert.Equal(0, ingrediente.UnidadId);
             // La colección debe ser inicializada si se espera que no sea nula.
             // En este caso, el constructor por defecto no la inicializa explícitamente, por lo que se espera null.
-           
+
         }
 
         // --- 2. Test de Constructor Solo con ID ---

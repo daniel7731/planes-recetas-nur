@@ -18,6 +18,7 @@ namespace PlanesRecetas.application.Care
         public GetAllTipoAlimentosQueryHandler(ITipoAlimentoRepository repo)
         {
             _repo = repo;
+
         }
 
         public Task<Result<List<TipoAlimentoDto>>> Handle(GetAllTipoAlimentosQuery request, CancellationToken ct)
@@ -29,7 +30,7 @@ namespace PlanesRecetas.application.Care
             {
                 Id = x.Id,
                 Nombre = x.Nombre
-            }).ToList(); 
+            }).ToList();
             return Task.FromResult(Result.Success(list));
         }
     }

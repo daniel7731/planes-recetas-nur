@@ -1,0 +1,4 @@
+
+
+echo "🚀 Starting pre-commit checks..."
+npx lint-staged

@@ -20,7 +20,7 @@ namespace PlanesRecetas.application.Care
 
         public Task<Result<List<TiempoDto>>> Handle(GetAllTiemposQuery request, CancellationToken cancellationToken)
         {
-            var tiempos =  _tiempoRepository.GetAll();
+            var tiempos = _tiempoRepository.GetAll();
             if (tiempos == null || tiempos.Count == 0)
             {
                 return Task.FromResult(Result.Failure<List<TiempoDto>>(Errors.TiemposNotFound));

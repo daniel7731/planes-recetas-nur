@@ -13,7 +13,7 @@ namespace PlanesRecetas.domain.Plan
         public int Id { get; set; }
         public Guid DietaId { get; set; }
         public Guid RecetaId { get; set; }
-        public int  TiempoId { get; set; } // 1: Desayuno, 2: Almuerzo, 3: Cena, etc.
+        public int TiempoId { get; set; } // 1: Desayuno, 2: Almuerzo, 3: Cena, etc.
 
         public Tiempo Tiempo { get; set; } = null!;
         public int? Orden { get; set; }

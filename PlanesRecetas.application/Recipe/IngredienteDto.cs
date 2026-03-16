@@ -22,6 +22,6 @@ namespace PlanesRecetas.application.Recipe
         [Range(1, int.MaxValue, ErrorMessage = "Debe seleccionar una unidad válida")]
         public int UnidadId { get; set; }
 
-    
+
     }
 }

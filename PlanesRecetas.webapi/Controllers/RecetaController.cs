@@ -12,7 +12,7 @@ namespace PlanesRecetas.webapi.Controllers
     public class RecetaController : ControllerBase
     {
         private readonly IMediator _mediator;
-     
+
         public RecetaController(IMediator mediator)
         {
             _mediator = mediator;
@@ -25,11 +25,12 @@ namespace PlanesRecetas.webapi.Controllers
 
             List<CreateRecetaIngredienteComand> ingredientes = request.IngredienteList.Select(ingredient =>
             {
-                return new CreateRecetaIngredienteComand { 
+                return new CreateRecetaIngredienteComand
+                {
                     IngredienteId = ingredient.Id,
-                    CantidadValor = ingredient.CantidadValor, 
+                    CantidadValor = ingredient.CantidadValor,
                     RecetaId = guid
-                };         
+                };
             }).ToList();
             CreateRecetaCommand createReceta = new CreateRecetaCommand
             {
@@ -40,7 +41,7 @@ namespace PlanesRecetas.webapi.Controllers
                 Instrucciones = request.Instrucciones
             };
             var result = await _mediator.Send(createReceta, ct);
-            
+
             return Ok(result);
         }
     }

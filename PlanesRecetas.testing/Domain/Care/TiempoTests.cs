@@ -11,14 +11,14 @@ namespace PlanesRecetas.testing.Domain.Care
 
     public class TiempoTests
     {
-        
+
         [Theory]
         [InlineData(1, "Desayuno")]
         [InlineData(2, "Almuerzo")]
         [InlineData(3, "Cena")]
         public void Constructor_WithValidInputs_SetsPropertiesCorrectly(int expectedId, string expectedNombre)
         {
-            
+
 
             // Act
             var tiempo = new Tiempo(expectedId, expectedNombre);
@@ -42,7 +42,7 @@ namespace PlanesRecetas.testing.Domain.Care
 
         // --- Test Case: Property Mutation (Update) ---
 
- 
+
         [Fact]
         public void PublicSetters_AllowPropertyMutation()
         {

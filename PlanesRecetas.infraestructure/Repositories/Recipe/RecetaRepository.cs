@@ -18,11 +18,11 @@ namespace PlanesRecetas.infraestructure.Repositories.Recipe
         public RecetaRepository(DomainDbContext dbContext)
         {
             _dbContext = dbContext;
-        }   
+        }
         public async Task AddAsync(Receta entity)
         {
-           // throw new NotImplementedException();
-            await  _dbContext.Receta.AddAsync(entity);
+            // throw new NotImplementedException();
+            await _dbContext.Receta.AddAsync(entity);
         }
 
         public Task AddIngredientes(Receta receta, List<RecetaIngrediente> ingredientes)
@@ -55,7 +55,7 @@ namespace PlanesRecetas.infraestructure.Repositories.Recipe
         public Task UpdateAsync(Receta receta)
         {
             throw new NotImplementedException();
-           // _dbContext.Receta.Update(receta);   
+            // _dbContext.Receta.Update(receta);   
             //return Task.CompletedTask;
         }
     }

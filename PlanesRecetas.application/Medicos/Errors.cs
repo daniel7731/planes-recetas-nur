@@ -9,7 +9,7 @@ namespace PlanesRecetas.application.Medicos
 {
     public static class Errors
     {
-      
+
 
         // Define the specific error for this case
         public static readonly Error NutricionistasNotFound = new(
@@ -22,7 +22,7 @@ namespace PlanesRecetas.application.Medicos
            "No nutricionista was found in the system.",
            ErrorType.NotFound
        );
-      
+
         public static readonly Error PacienteNotFound = new(
            "Paciente.NotFound",
            "No Paciente was found in the system.",

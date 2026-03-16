@@ -18,7 +18,7 @@ public class TracingMiddleware
     {
         var activity = Activity.Current;
 
-        if(activity != null)
+        if (activity != null)
         {
             tracingProvider.SetTraceId(activity.TraceId.ToString());
             tracingProvider.SetSpanId(activity.SpanId.ToString());
@@ -45,7 +45,8 @@ public class TracingMiddleware
 
     private static void AddCorrelationIdHeaderToResponse(HttpContext context, string correlationId)
     {
-        context.Response.OnStarting(() => {
+        context.Response.OnStarting(() =>
+        {
             context.Response.Headers.Add(_correlationIdHeader, new[] {
         correlationId
       });

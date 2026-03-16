@@ -1,6 +1,6 @@
 namespace PlanesRecetas.testing.Domain.Persons
 {
- 
+
     using PlanesRecetas.domain.Persons;
 
     public class PacienteTests
@@ -26,12 +26,12 @@ namespace PlanesRecetas.testing.Domain.Persons
                 emailEsperado,
                 telefonoEsperado
             );
-            
-      
-           // Assert.
+
+
+            // Assert.
             // ASSERT
             // 1. Verificar propiedades del AggregateRoot
-           // Assert.Equal(paciente.,idEsperado);
+            // Assert.Equal(paciente.,idEsperado);
 
             // 2. Verificar propiedades personales
             Assert.Equal(paciente.Nombre, nombreEsperado);
@@ -41,8 +41,8 @@ namespace PlanesRecetas.testing.Domain.Persons
             Assert.Equal(paciente.Telefono, telefonoEsperado);
 
             // 3. Verificar que Peso y Altura sean sus valores por defecto (Decimal = 0)
-            Assert.Equal(paciente.Peso,peso);
-            Assert.Equal(paciente.Altura,altura);
+            Assert.Equal(paciente.Peso, peso);
+            Assert.Equal(paciente.Altura, altura);
         }
         [Fact]
         public void ConstructorPesoAltura_Correctamente()

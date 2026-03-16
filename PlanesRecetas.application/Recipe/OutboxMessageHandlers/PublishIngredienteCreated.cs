@@ -10,25 +10,27 @@ public class PublishIngredienteCreated : INotificationHandler<OutboxMessage<Ingr
     private readonly IExternalPublisher _publisher;
 
     private readonly string exchangeName = "meal-plans";
-    public PublishIngredienteCreated(IExternalPublisher publisher) {
+    public PublishIngredienteCreated(IExternalPublisher publisher)
+    {
         _publisher = publisher;
     }
 
-    public async Task Handle(OutboxMessage<IngredienteCreated> outboxMessage, CancellationToken cancellationToken) {
-        
+    public async Task Handle(OutboxMessage<IngredienteCreated> outboxMessage, CancellationToken cancellationToken)
+    {
+
         //IngredienteCreated is and event
         IngredienteCreated content = outboxMessage.Content;
         // ingredientMessage is a message that will be sent to the external system extend IntegrationMessage
-        IngredienteMessage message = new ()
+        IngredienteMessage message = new()
         {
-           IngredienteId = content.Id,
-           Nombre = content.Nombre,
-           Calorias = content.Calorias,
-           UnidadId  = content.UnidadId,
-           CategoriaId = content.CategoriaId   
+            IngredienteId = content.Id,
+            Nombre = content.Nombre,
+            Calorias = content.Calorias,
+            UnidadId = content.UnidadId,
+            CategoriaId = content.CategoriaId
         };
-        
 
-        await _publisher.PublishAsync(message,exchangeName);
+
+        await _publisher.PublishAsync(message, exchangeName);
     }
 }

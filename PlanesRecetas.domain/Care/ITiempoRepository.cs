@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PlanesRecetas.domain.Care
 {
-    public interface  ITiempoRepository : IRepository<Tiempo>
+    public interface ITiempoRepository : IRepository<Tiempo>
     {
         List<Tiempo> GetAll();
         Task<Tiempo?> GetByNombreAsync(string nombre);

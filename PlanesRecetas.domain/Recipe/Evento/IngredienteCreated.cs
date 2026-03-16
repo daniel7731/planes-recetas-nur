@@ -11,14 +11,14 @@ namespace PlanesRecetas.application.Recipe.Evento
 {
     public record IngredienteCreated : DomainEvent
     {
-      
-       
+
+
         public string Nombre { get; set; }
-     
+
         public decimal Calorias { get; set; }
-        
+
         public Guid CategoriaId { get; set; }
-   
+
         public int UnidadId { get; set; }
         public IngredienteCreated(Guid Id, string nombre, decimal calorias, Guid categoriaId, int unidadId)
         {

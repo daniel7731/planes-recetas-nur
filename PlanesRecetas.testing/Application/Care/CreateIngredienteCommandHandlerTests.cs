@@ -28,7 +28,7 @@ namespace PlanesRecetas.testing.Application.Care
             _categoriaRepoMock = new Mock<ICategoriaRepository>();
             _unidadRepoMock = new Mock<IUnidadRepository>();
             _unitOfWorkMock = new Mock<IUnitOfWork>();
-            _outboxService = new Mock<IOutboxService<DomainEvent>>();   
+            _outboxService = new Mock<IOutboxService<DomainEvent>>();
 
             _handler = new CreateIngredienteCommandHandler(
                 _ingredienteRepoMock.Object,

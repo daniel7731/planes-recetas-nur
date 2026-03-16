@@ -19,7 +19,7 @@ namespace PlanesRecetas.infraestructure.Repositories.Care
         }
         public async Task AddAsync(Categoria entity)
         {
-           await _dbContext.Categoria.AddAsync(entity);
+            await _dbContext.Categoria.AddAsync(entity);
         }
 
         public Task DeleteAsync(Guid id)

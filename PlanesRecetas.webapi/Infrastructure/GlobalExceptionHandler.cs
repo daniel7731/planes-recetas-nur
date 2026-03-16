@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using Joseco.DDD.Core.Results;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Joseco.DDD.Core.Results;
 
 namespace PlanesRecetas.webapi.Infrastructure;
 
@@ -14,7 +14,7 @@ internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> log
     {
         logger.LogError(exception, "Unhandled exception occurred");
 
-        if(exception is DomainException domainException)
+        if (exception is DomainException domainException)
         {
             var error = domainException.Error;
             var domainProblemDetails = new ProblemDetails

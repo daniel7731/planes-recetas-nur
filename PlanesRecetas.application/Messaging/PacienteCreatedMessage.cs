@@ -8,8 +8,8 @@ namespace PlanesRecetas.application.Messaging
 {
     public class PacienteCreatedMessage : IntegrationMessage
     {
-    
-        PacienteCreatedMessage() 
+
+        PacienteCreatedMessage()
         {
         }
         public Guid Id { get; set; }
@@ -18,6 +18,6 @@ namespace PlanesRecetas.application.Messaging
         public DateTime FechaNacimiento { get; set; }
         public decimal Peso { get; set; }
         public decimal Altura { get; set; }
-     
+
     }
 }

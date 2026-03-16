@@ -16,7 +16,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
             builder.ToTable("TipoAlimento");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Nombre).HasMaxLength(50).IsRequired();
-         
+
         }
     }
 }

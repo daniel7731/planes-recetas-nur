@@ -42,7 +42,7 @@ public static class ObservabilityExtensions
         services
             .AddHealthChecks()
             .AddSqlServer(dbConnectionString);
-            //.AddRabbitMqHealthCheck();
+        //.AddRabbitMqHealthCheck();
 
         return services;
     }

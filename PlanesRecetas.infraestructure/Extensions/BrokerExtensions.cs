@@ -26,8 +26,8 @@ namespace PlanesRecetas.infraestructure.Extensions
             services.Configure<RabbitMQSettings>(configuration.GetSection("RabbitMQSettings"));
             bool isWebApp = environment is IWebHostEnvironment;
             services.AddScoped<IExternalPublisher, DefaultPublisher>();
-            services.AddScoped< INotificationHandler<PacienteCreated>, PacienteCreatedConsumer>();
-            services.AddHostedService<RabbitTopicWorker<PacienteCreated>>();       
+            services.AddScoped<INotificationHandler<PacienteCreated>, PacienteCreatedConsumer>();
+            services.AddHostedService<RabbitTopicWorker<PacienteCreated>>();
             services.AddOutboxBackgroundService<DomainEvent>();
             return services;
         }

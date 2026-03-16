@@ -7,11 +7,11 @@ using PlanesRecetas.application.Medicos;
 using PlanesRecetas.application.Pacientes;
 using PlanesRecetas.domain.Persons;
 using PlanesRecetas.infraestructure.Persistence.DomainModel;
+using PlanesRecetas.webapi.Parameters.Doctors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PlanesRecetas.webapi.Parameters.Doctors;
 
 namespace PlanesRecetas.webapi.Controllers
 {
@@ -29,13 +29,13 @@ namespace PlanesRecetas.webapi.Controllers
         public async Task<IActionResult> CreateNutricionista([FromBody] CreateNutricionistaParameter request)
         {
             Guid guid = Guid.NewGuid();
-           // request.Guid= guid;
-           CreateNutricionistaComand createNutricionista = new CreateNutricionistaComand(
-                guid,
-                request.Nombre,
-                request.Activo,
-                request.FechaCreacion
-                );
+            // request.Guid= guid;
+            CreateNutricionistaComand createNutricionista = new CreateNutricionistaComand(
+                 guid,
+                 request.Nombre,
+                 request.Activo,
+                 request.FechaCreacion
+                 );
             var result = await _mediator.Send(createNutricionista);
 
             return Ok(result);

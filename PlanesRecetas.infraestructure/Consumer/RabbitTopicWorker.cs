@@ -21,7 +21,7 @@ namespace PlanesRecetas.infraestructure.Consumer
         private IConnection? _connection;
         private IChannel? _channel;
         private string? _queueName;
-      
+
 
         private const string ExchangeName = "patients";
         private const string RoutingKey = "patient.*";
@@ -29,7 +29,7 @@ namespace PlanesRecetas.infraestructure.Consumer
         private RabbitMQSettings _settings;
         private readonly IServiceScopeFactory _scopeFactory;
         public RabbitTopicWorker(
-              IOptions<RabbitMQSettings> options, ILogger<RabbitTopicWorker<T>> logger , 
+              IOptions<RabbitMQSettings> options, ILogger<RabbitTopicWorker<T>> logger,
               IServiceScopeFactory scopeFactory)
         {
             _logger = logger;
@@ -47,74 +47,83 @@ namespace PlanesRecetas.infraestructure.Consumer
                 Ssl = new SslOption { Enabled = false }
 
             };
-
-            _connection = await factory.CreateConnectionAsync(stoppingToken);
-            _channel = await _connection.CreateChannelAsync();
-
-            // Declare Exchange
-            await _channel.ExchangeDeclareAsync(
-                exchange: ExchangeName,
-                type: ExchangeType.Topic,
-                durable: true,
-                autoDelete: false,
-                cancellationToken: stoppingToken);
-
-            // Declare Queue
-            var queueResult = await _channel.QueueDeclareAsync(
-                durable: false,
-                exclusive: true,
-                autoDelete: true,
-                cancellationToken: stoppingToken);
-
-
-
-            // Bind queue to exchange
-            await _channel.QueueBindAsync(
-                queue: QueueName,
-                exchange: ExchangeName,
-                routingKey: RoutingKey,
-                cancellationToken: stoppingToken);
-
-            var consumer = new AsyncEventingBasicConsumer(_channel);
-
-            consumer.ReceivedAsync += async (sender, ea) =>
+            try
             {
-                try
+                _connection = await factory.CreateConnectionAsync(stoppingToken);
+                _channel = await _connection.CreateChannelAsync();
+
+                // Declare Exchange
+                await _channel.ExchangeDeclareAsync(
+                    exchange: ExchangeName,
+                    type: ExchangeType.Topic,
+                    durable: true,
+                    autoDelete: false,
+                    cancellationToken: stoppingToken);
+
+                // Declare Queue
+                var queueResult = await _channel.QueueDeclareAsync(
+                    durable: false,
+                    exclusive: true,
+                    autoDelete: true,
+                    cancellationToken: stoppingToken);
+
+
+
+                // Bind queue to exchange
+                await _channel.QueueBindAsync(
+                    queue: QueueName,
+                    exchange: ExchangeName,
+                    routingKey: RoutingKey,
+                    cancellationToken: stoppingToken);
+
+                var consumer = new AsyncEventingBasicConsumer(_channel);
+
+                consumer.ReceivedAsync += async (sender, ea) =>
                 {
-                    var body = ea.Body.ToArray();
-                    var json = Encoding.UTF8.GetString(body);
-
-                
-
-                    _logger.LogInformation(
-                        "Message received. RoutingKey: {RoutingKey}",
-                        ea.RoutingKey);
-
-                    if (json!= null)
+                    try
                     {
-                        await HandleMessage(json);
+                        var body = ea.Body.ToArray();
+                        var json = Encoding.UTF8.GetString(body);
+
+
+
+                        _logger.LogInformation(
+                            "Message received. RoutingKey: {RoutingKey}",
+                            ea.RoutingKey);
+
+                        if (json != null)
+                        {
+                            await HandleMessage(json);
+                        }
+
+                        await Task.Delay(100, stoppingToken);
                     }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Error processing RabbitMQ message");
+                    }
+                };
 
-                    await Task.Delay(100, stoppingToken);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error processing RabbitMQ message");
-                }
-            };
+                await _channel.BasicConsumeAsync(
+                    queue: QueueName,
+                    autoAck: true,
+                    consumer: consumer,
+                    cancellationToken: stoppingToken);
 
-            await _channel.BasicConsumeAsync(
-                queue: QueueName,
-                autoAck: true,
-                consumer: consumer,
-                cancellationToken: stoppingToken);
+                _logger.LogInformation(
+                    "RabbitMQ Worker started. Listening on exchange '{Exchange}' with routing '{RoutingKey}'",
+                    ExchangeName,
+                    RoutingKey);
 
-            _logger.LogInformation(
-                "RabbitMQ Worker started. Listening on exchange '{Exchange}' with routing '{RoutingKey}'",
-                ExchangeName,
-                RoutingKey);
+                await Task.Delay(Timeout.Infinite, stoppingToken);
 
-            await Task.Delay(Timeout.Infinite, stoppingToken);
+            }
+            catch (Exception e) {
+                Console.Error.WriteLine(e.Message);
+                Console.WriteLine("Iniciando sin conexion a rabbitmq");
+            }
+
+            
         }
 
         public override async Task StopAsync(CancellationToken cancellationToken)
@@ -146,7 +155,7 @@ namespace PlanesRecetas.infraestructure.Consumer
                 if (message == null)
                 {
                     _logger.LogWarning("Failed to deserialize message to {Type}", typeof(T).Name);
-                 
+
                 }
 
                 _logger.LogInformation("Successfully deserialized {Type}", typeof(T).Name);

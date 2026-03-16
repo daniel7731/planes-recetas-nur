@@ -8,6 +8,6 @@ namespace PlanesRecetas.webapi.Parameters.Recipe
         public string Nombre { get; set; }
         public List<RecetaIngredienteParameter> IngredienteList { get; set; }
         public int TiempoId { get; set; }
-        public string Instrucciones { get; set; }   
+        public string Instrucciones { get; set; }
     }
 }

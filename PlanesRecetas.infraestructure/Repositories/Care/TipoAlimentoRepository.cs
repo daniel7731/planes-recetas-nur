@@ -12,7 +12,7 @@ namespace PlanesRecetas.infraestructure.Repositories.Care
     public class TipoAlimentoRepository : ITipoAlimentoRepository
     {
         private readonly DomainDbContext _dbContext;
-       
+
 
         public TipoAlimentoRepository(DomainDbContext dbContext)
         {
@@ -29,7 +29,7 @@ namespace PlanesRecetas.infraestructure.Repositories.Care
 
         public async Task<TipoAlimento?> GetByIdAsync(int id)
         {
-            var single= await _dbContext.TipoAlimento.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            var single = await _dbContext.TipoAlimento.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
             return single;
         }
 

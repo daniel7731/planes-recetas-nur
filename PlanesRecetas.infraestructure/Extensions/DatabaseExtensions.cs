@@ -26,7 +26,8 @@ public static class DatabaseExtensions
 {
     public static IServiceCollection AddDatabase(this IServiceCollection services)
     {
-        services.AddDbContext<DomainDbContext>((sp, options) => {
+        services.AddDbContext<DomainDbContext>((sp, options) =>
+        {
             var settings = sp.GetRequiredService<DataBaseSettings>();
             options.UseSqlServer(settings.ConnectionString);
         });
@@ -44,8 +45,8 @@ public static class DatabaseExtensions
             .AddScoped<IPlanAlimentacionRepository, PlanAlimentarioRepository>()
             .AddScoped<IOutboxDatabase<DomainEvent>, UnitOfWork>()    // AddScoped<IOutboxDatabase<DomainEvent>, OutboxDatabase>() // or UnitOfWork
             .AddOutbox<DomainEvent>();
-            // Scoped Out Servicio inyectado
-            //.AddOutboxBackgroundService<DomainEvent>(5000);
+        // Scoped Out Servicio inyectado
+        //.AddOutboxBackgroundService<DomainEvent>(5000);
 
         /***
          
@@ -53,7 +54,7 @@ public static class DatabaseExtensions
             .AddScoped<IOutboxDatabase<DomainEvent>, OutboxDatabase>() // or UnitOfWork
             .AddOutbox<DomainEvent>();
          */
-         //services.Decorate<IOutboxService<DomainEvent>, OutboxTracingService<DomainEvent>>();
+        //services.Decorate<IOutboxService<DomainEvent>, OutboxTracingService<DomainEvent>>();
 
         return services;
     }

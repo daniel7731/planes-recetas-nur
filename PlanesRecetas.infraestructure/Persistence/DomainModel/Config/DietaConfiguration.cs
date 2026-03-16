@@ -32,7 +32,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
             builder.HasOne(d => d.PlanAlimentacion)
                    .WithMany(p => p.Dietas)
                    .HasForeignKey(d => d.PlanAlimentacionId)
-                   .OnDelete(DeleteBehavior.Cascade);   
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

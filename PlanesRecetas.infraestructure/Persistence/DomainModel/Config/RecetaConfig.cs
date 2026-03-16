@@ -36,8 +36,8 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
                     .HasForeignKey(r => r.TiempoId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-        
-           
+
+
         }
     }
 }

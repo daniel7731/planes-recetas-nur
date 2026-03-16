@@ -11,7 +11,7 @@ namespace PlanesRecetas.infraestructure.RabbitMQ.Publisher
     public class DefaultPublisher : IExternalPublisher
     {
         private readonly RabbitMQSettings _settings;
-       
+
         public DefaultPublisher(IOptions<RabbitMQSettings> options)
         {
             _settings = options.Value;
@@ -64,7 +64,7 @@ namespace PlanesRecetas.infraestructure.RabbitMQ.Publisher
             // Use the destination as the exchange name, and the message type as the routing key
             string exchange = destination ?? "default_exchange";
             string routingKey = "";
-            string name =message.GetType().Name;
+            string name = message.GetType().Name;
             if (name.Equals("PlanCreated", StringComparison.OrdinalIgnoreCase))
             {
                 routingKey = "plans.created";

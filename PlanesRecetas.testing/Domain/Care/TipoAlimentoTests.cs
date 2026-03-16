@@ -10,14 +10,14 @@ namespace PlanesRecetas.testing.Domain.Care
     public class TipoAlimentoTests
     {
 
-     
+
 
         // --- 1. Test Parameterized Constructor ---
 
         [Theory]
-        [InlineData(1,"Fruta")]
+        [InlineData(1, "Fruta")]
         [InlineData(2, "Carnes")]
-        public void Constructor_WithIdAndNombre_SetsNombreCorrectly(int expectedId,string nombre)
+        public void Constructor_WithIdAndNombre_SetsNombreCorrectly(int expectedId, string nombre)
         {
             // Arrange & Act
             var tipoAlimento = new TipoAlimento(expectedId, nombre);
