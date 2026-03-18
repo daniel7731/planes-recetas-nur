@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky",
     "test": "dotnet test PlanesRecetas.testing",
-  "coverage": "dotnet tool run reportgenerator -reports:\"./coverage/**/coverage.cobertura.xml\" -targetdir:\"./coverage/report\" -reporttypes:Html"
+    "coverage": "dotnet tool run reportgenerator -reports:\"./coverage/**/coverage.cobertura.xml\" -targetdir:\"./coverage/report\" -reporttypes:Html"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
