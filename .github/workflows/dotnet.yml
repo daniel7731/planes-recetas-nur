@@ -25,4 +25,4 @@ jobs:
     - name: Build
       run: dotnet build PlanesRecetas.webapi --no-restore
     - name: Test
-      run: dotnet test PlanesRecetas.testing --no-build --verbosity normal
+      run: dotnet test PlanesRecetas.testing --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
