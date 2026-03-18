@@ -1,2 +1,3 @@
 echo "testing"
 npm test
+npm coverage
