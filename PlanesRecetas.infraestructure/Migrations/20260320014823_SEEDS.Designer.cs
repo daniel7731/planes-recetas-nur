@@ -12,7 +12,7 @@ using PlanesRecetas.infraestructure.Persistence.DomainModel;
 namespace PlanesRecetas.infraestructure.Migrations
 {
     [DbContext(typeof(DomainDbContext))]
-    [Migration("20260319015244_SEEDS")]
+    [Migration("20260320014823_SEEDS")]
     partial class SEEDS
     {
         /// <inheritdoc />

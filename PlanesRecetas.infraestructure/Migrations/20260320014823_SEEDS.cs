@@ -14,47 +14,6 @@ namespace PlanesRecetas.infraestructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.InsertData(
-                table: "Categoria",
-                columns: new[] { "Id", "Nombre", "TipoAlimentoId" },
-                values: new object[,]
-                {
-                    { new Guid("08082e0e-3db0-4fc5-82ad-6be43d1d8b96"), "Almendras", 3 },
-                    { new Guid("0ac3ec26-2f75-46dc-a13c-3db9a4ca6ab6"), "Nueces", 3 },
-                    { new Guid("19596e02-f8cb-443a-b039-e0d86c213e68"), "Maíz", 6 },
-                    { new Guid("313de149-aa99-48ff-8d2a-1f6a778469ad"), "Cordero", 4 },
-                    { new Guid("399a37bb-4703-40e1-941f-369b2d51d952"), "Pistachos", 3 },
-                    { new Guid("3b96f79b-7488-479f-8a43-263eba3c9077"), "Papa", 7 },
-                    { new Guid("47c51b84-bb85-49f6-96a1-0701d7144a0e"), "Cebada", 6 },
-                    { new Guid("482d1425-cece-43be-903c-9896902bafc1"), "Res", 4 },
-                    { new Guid("4f0d9cf1-1805-4f37-bbef-788144d527ba"), "Verdura congelada", 1 },
-                    { new Guid("5f46dcc2-156d-4ec4-8854-0e16fb78308b"), "Arroz", 6 },
-                    { new Guid("63f881a9-b533-410b-bc4c-0093990f9da1"), "Verdura de raíz", 1 },
-                    { new Guid("6c7bce6b-e56e-482c-8499-7e2ce9fbb7e4"), "Carne molida", 4 },
-                    { new Guid("6fd10062-3080-4f9f-889d-a5a48688711e"), "Fruta cítrica", 2 },
-                    { new Guid("7028b05f-9a06-4dad-8049-93900c85a4f0"), "Cerdo", 4 },
-                    { new Guid("7a487298-591f-4732-bcc6-c155a3cb71ba"), "Yuca", 7 },
-                    { new Guid("7c068691-0b72-485b-aa2b-e6d85ce5b656"), "Pan", 7 },
-                    { new Guid("7ce7f003-bceb-4a9b-b879-eb2deebaa373"), "Carne curada", 4 },
-                    { new Guid("83f2dea9-5a6c-43a0-9dac-b4790611b524"), "Verdura fresca", 1 },
-                    { new Guid("840dcd1d-f4e8-4156-a18c-cec437d0f805"), "Fruta congelada", 2 },
-                    { new Guid("8b3369ce-284e-46f6-91c6-a6a5789e289b"), "Trigo", 6 },
-                    { new Guid("8e0181da-6328-4be1-8cd1-e88c29f1b6c2"), "Verdura orgánica", 1 },
-                    { new Guid("a185f37c-ec77-4037-bf7f-0df4555e58b9"), "Cereal", 7 },
-                    { new Guid("a22302fa-057b-4603-a68d-49a7816ce1fe"), "Pavo", 5 },
-                    { new Guid("b7dc2a55-ac7a-4ddf-a2e0-7bf8d603d660"), "Conejo", 5 },
-                    { new Guid("c0bce9d3-0e49-4438-b7af-ac305e6300b0"), "Fruta tropical", 2 },
-                    { new Guid("c3d3c887-a7e8-4679-87bc-956f55401c74"), "Fruta de estación", 2 },
-                    { new Guid("c8ee09e0-8eec-4f25-95af-3ab6235578da"), "Avena", 6 },
-                    { new Guid("c9b6508f-91a3-4a3d-8df7-e3d3aa7e2f02"), "Fruta seca", 2 },
-                    { new Guid("cb120002-33c9-45eb-b475-437e96e8da49"), "Carne de ave", 5 },
-                    { new Guid("d5ee7bf1-c75c-4490-8820-c2ceb374e846"), "Pasta", 7 },
-                    { new Guid("d6f06539-7e82-40d3-b29f-86b8941375bc"), "Castañas", 3 },
-                    { new Guid("d8dc275b-ff4f-44ed-a291-df3ed7ccc760"), "Pollo", 5 },
-                    { new Guid("d9128e81-1d35-4418-824d-34432c572dff"), "Pescado blanco", 5 },
-                    { new Guid("f6fe0472-fde5-439f-9921-3f7ddbca926e"), "Maní", 3 }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Nutricionista",
                 columns: new[] { "Id", "Activo", "FechaCreacion", "Nombre" },
                 values: new object[,]
@@ -101,6 +60,84 @@ namespace PlanesRecetas.infraestructure.Migrations
                     { new Guid("d2740f5a-abe1-4a0b-a300-08de1746d733"), 180m, "Chavez", null, new DateTime(2019, 10, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pedro", 110m, null },
                     { new Guid("de44922e-b41a-46a3-0245-08de14c94aa7"), 167m, "Grande", null, new DateTime(2000, 10, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ariana", 76m, null },
                     { new Guid("e4b8e3d5-63f3-482f-979a-1256427b09e1"), 185m, "Walker", null, new DateTime(1987, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "Chris", 74m, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tiempo",
+                columns: new[] { "Id", "Nombre" },
+                values: new object[,]
+                {
+                    { 1, "Breakfast" },
+                    { 2, "HalfMorning" },
+                    { 3, "Lunch" },
+                    { 4, "HalfAfternoon" },
+                    { 5, "Dinner" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TipoAlimento",
+                columns: new[] { "Id", "Nombre" },
+                values: new object[,]
+                {
+                    { 1, "Verdura" },
+                    { 2, "Fruta" },
+                    { 3, "FrutoSeco" },
+                    { 4, "CarneRoja" },
+                    { 5, "CarneBlanca" },
+                    { 6, "Grano" },
+                    { 7, "Carbohidrato" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UnidadMedida",
+                columns: new[] { "Id", "Nombre", "Simbolo" },
+                values: new object[,]
+                {
+                    { 1, "Gramos", "g" },
+                    { 2, "Kilogramos", "kg" },
+                    { 3, "Mililitro", "Ml" },
+                    { 4, "Litro", "L" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categoria",
+                columns: new[] { "Id", "Nombre", "TipoAlimentoId" },
+                values: new object[,]
+                {
+                    { new Guid("08082e0e-3db0-4fc5-82ad-6be43d1d8b96"), "Almendras", 3 },
+                    { new Guid("0ac3ec26-2f75-46dc-a13c-3db9a4ca6ab6"), "Nueces", 3 },
+                    { new Guid("19596e02-f8cb-443a-b039-e0d86c213e68"), "Maíz", 6 },
+                    { new Guid("313de149-aa99-48ff-8d2a-1f6a778469ad"), "Cordero", 4 },
+                    { new Guid("399a37bb-4703-40e1-941f-369b2d51d952"), "Pistachos", 3 },
+                    { new Guid("3b96f79b-7488-479f-8a43-263eba3c9077"), "Papa", 7 },
+                    { new Guid("47c51b84-bb85-49f6-96a1-0701d7144a0e"), "Cebada", 6 },
+                    { new Guid("482d1425-cece-43be-903c-9896902bafc1"), "Res", 4 },
+                    { new Guid("4f0d9cf1-1805-4f37-bbef-788144d527ba"), "Verdura congelada", 1 },
+                    { new Guid("5f46dcc2-156d-4ec4-8854-0e16fb78308b"), "Arroz", 6 },
+                    { new Guid("63f881a9-b533-410b-bc4c-0093990f9da1"), "Verdura de raíz", 1 },
+                    { new Guid("6c7bce6b-e56e-482c-8499-7e2ce9fbb7e4"), "Carne molida", 4 },
+                    { new Guid("6fd10062-3080-4f9f-889d-a5a48688711e"), "Fruta cítrica", 2 },
+                    { new Guid("7028b05f-9a06-4dad-8049-93900c85a4f0"), "Cerdo", 4 },
+                    { new Guid("7a487298-591f-4732-bcc6-c155a3cb71ba"), "Yuca", 7 },
+                    { new Guid("7c068691-0b72-485b-aa2b-e6d85ce5b656"), "Pan", 7 },
+                    { new Guid("7ce7f003-bceb-4a9b-b879-eb2deebaa373"), "Carne curada", 4 },
+                    { new Guid("83f2dea9-5a6c-43a0-9dac-b4790611b524"), "Verdura fresca", 1 },
+                    { new Guid("840dcd1d-f4e8-4156-a18c-cec437d0f805"), "Fruta congelada", 2 },
+                    { new Guid("8b3369ce-284e-46f6-91c6-a6a5789e289b"), "Trigo", 6 },
+                    { new Guid("8e0181da-6328-4be1-8cd1-e88c29f1b6c2"), "Verdura orgánica", 1 },
+                    { new Guid("a185f37c-ec77-4037-bf7f-0df4555e58b9"), "Cereal", 7 },
+                    { new Guid("a22302fa-057b-4603-a68d-49a7816ce1fe"), "Pavo", 5 },
+                    { new Guid("b7dc2a55-ac7a-4ddf-a2e0-7bf8d603d660"), "Conejo", 5 },
+                    { new Guid("c0bce9d3-0e49-4438-b7af-ac305e6300b0"), "Fruta tropical", 2 },
+                    { new Guid("c3d3c887-a7e8-4679-87bc-956f55401c74"), "Fruta de estación", 2 },
+                    { new Guid("c8ee09e0-8eec-4f25-95af-3ab6235578da"), "Avena", 6 },
+                    { new Guid("c9b6508f-91a3-4a3d-8df7-e3d3aa7e2f02"), "Fruta seca", 2 },
+                    { new Guid("cb120002-33c9-45eb-b475-437e96e8da49"), "Carne de ave", 5 },
+                    { new Guid("d5ee7bf1-c75c-4490-8820-c2ceb374e846"), "Pasta", 7 },
+                    { new Guid("d6f06539-7e82-40d3-b29f-86b8941375bc"), "Castañas", 3 },
+                    { new Guid("d8dc275b-ff4f-44ed-a291-df3ed7ccc760"), "Pollo", 5 },
+                    { new Guid("d9128e81-1d35-4418-824d-34432c572dff"), "Pescado blanco", 5 },
+                    { new Guid("f6fe0472-fde5-439f-9921-3f7ddbca926e"), "Maní", 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -1306,6 +1343,11 @@ namespace PlanesRecetas.infraestructure.Migrations
                 keyValue: 8);
 
             migrationBuilder.DeleteData(
+                table: "Tiempo",
+                keyColumn: "Id",
+                keyValue: 5);
+
+            migrationBuilder.DeleteData(
                 table: "Categoria",
                 keyColumn: "Id",
                 keyValue: new Guid("08082e0e-3db0-4fc5-82ad-6be43d1d8b96"));
@@ -1416,6 +1458,11 @@ namespace PlanesRecetas.infraestructure.Migrations
                 keyValue: new Guid("f6666666-6666-6666-6666-666666666666"));
 
             migrationBuilder.DeleteData(
+                table: "TipoAlimento",
+                keyColumn: "Id",
+                keyValue: 2);
+
+            migrationBuilder.DeleteData(
                 table: "Categoria",
                 keyColumn: "Id",
                 keyValue: new Guid("313de149-aa99-48ff-8d2a-1f6a778469ad"));
@@ -1444,6 +1491,76 @@ namespace PlanesRecetas.infraestructure.Migrations
                 table: "Categoria",
                 keyColumn: "Id",
                 keyValue: new Guid("f6fe0472-fde5-439f-9921-3f7ddbca926e"));
+
+            migrationBuilder.DeleteData(
+                table: "Tiempo",
+                keyColumn: "Id",
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                table: "Tiempo",
+                keyColumn: "Id",
+                keyValue: 2);
+
+            migrationBuilder.DeleteData(
+                table: "Tiempo",
+                keyColumn: "Id",
+                keyValue: 3);
+
+            migrationBuilder.DeleteData(
+                table: "Tiempo",
+                keyColumn: "Id",
+                keyValue: 4);
+
+            migrationBuilder.DeleteData(
+                table: "TipoAlimento",
+                keyColumn: "Id",
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                table: "TipoAlimento",
+                keyColumn: "Id",
+                keyValue: 5);
+
+            migrationBuilder.DeleteData(
+                table: "UnidadMedida",
+                keyColumn: "Id",
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                table: "UnidadMedida",
+                keyColumn: "Id",
+                keyValue: 2);
+
+            migrationBuilder.DeleteData(
+                table: "UnidadMedida",
+                keyColumn: "Id",
+                keyValue: 3);
+
+            migrationBuilder.DeleteData(
+                table: "UnidadMedida",
+                keyColumn: "Id",
+                keyValue: 4);
+
+            migrationBuilder.DeleteData(
+                table: "TipoAlimento",
+                keyColumn: "Id",
+                keyValue: 3);
+
+            migrationBuilder.DeleteData(
+                table: "TipoAlimento",
+                keyColumn: "Id",
+                keyValue: 4);
+
+            migrationBuilder.DeleteData(
+                table: "TipoAlimento",
+                keyColumn: "Id",
+                keyValue: 6);
+
+            migrationBuilder.DeleteData(
+                table: "TipoAlimento",
+                keyColumn: "Id",
+                keyValue: 7);
         }
     }
 }

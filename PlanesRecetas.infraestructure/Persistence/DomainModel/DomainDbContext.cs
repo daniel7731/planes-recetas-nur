@@ -7,13 +7,7 @@ using PlanesRecetas.domain.Metrics;
 using PlanesRecetas.domain.Persons;
 using PlanesRecetas.domain.Plan;
 using PlanesRecetas.domain.Recipe;
-using PlanesRecetas.infraestructure.Persistence.DomainModel.Config;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlanesRecetas.infraestructure.Persistence.DomainModel
 {
@@ -45,7 +39,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel
             base.OnModelCreating(modelBuilder);
             modelBuilder.Ignore<DomainEvent>();
             base.OnModelCreating(modelBuilder);
-
+            
             modelBuilder.Entity<UnidadMedida>().HasData(
             new { Id = 1, Nombre = "Gramos", Simbolo = "g" },
             new { Id = 2, Nombre = "Kilogramos", Simbolo = "kg" },

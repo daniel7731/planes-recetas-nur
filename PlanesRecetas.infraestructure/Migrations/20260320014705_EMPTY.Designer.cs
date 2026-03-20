@@ -12,8 +12,8 @@ using PlanesRecetas.infraestructure.Persistence.DomainModel;
 namespace PlanesRecetas.infraestructure.Migrations
 {
     [DbContext(typeof(DomainDbContext))]
-    [Migration("20260305072744_Initial")]
-    partial class Initial
+    [Migration("20260320014705_EMPTY")]
+    partial class EMPTY
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,33 +107,6 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tiempo", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Nombre = "Breakfast"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Nombre = "HalfMorning"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Nombre = "Lunch"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Nombre = "HalfAfternoon"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Nombre = "Dinner"
-                        });
                 });
 
             modelBuilder.Entity("PlanesRecetas.domain.Care.TipoAlimento", b =>
@@ -152,43 +125,6 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TipoAlimento", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Nombre = "Verdura"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Nombre = "Fruta"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Nombre = "FrutoSeco"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Nombre = "CarneRoja"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Nombre = "CarneBlanca"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Nombre = "Grano"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Nombre = "Carbohidrato"
-                        });
                 });
 
             modelBuilder.Entity("PlanesRecetas.domain.Metrics.UnidadMedida", b =>
@@ -212,32 +148,6 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UnidadMedida", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Nombre = "Gramos",
-                            Simbolo = "g"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Nombre = "Kilogramos",
-                            Simbolo = "kg"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Nombre = "Mililitro",
-                            Simbolo = "Ml"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Nombre = "Litro",
-                            Simbolo = "L"
-                        });
                 });
 
             modelBuilder.Entity("PlanesRecetas.domain.Persons.Nutricionista", b =>
