@@ -256,7 +256,7 @@ INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNac
 INSERT INTO [appservice].[dbo].[Paciente] ([Id], [Nombre], [Apellido], [FechaNacimiento], [Email], [Telefono], [Peso], [Altura]) VALUES ('1C6BBD23-A625-4439-BB7C-34E52B7AE2C2', 'Gino', 'Spinka', '1957-11-09', NULL, NULL, 108, 201);
 
 INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('4224DE05-C1B1-424D-4D22-08DE14A4DB50', 'Daniel Roman', '0001-01-01 00:00:00.0000000', 0);
-INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('4CE7D823-87F3-4181-B936-08DE14A787B0', 'Jose Luis', '15:51:11', 1);
+INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('4CE7D823-87F3-4181-B936-08DE14A787B0', 'Ricadrdo Mena', '15:51:11', 1);
 INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('7A918AFC-94BB-46D7-7155-08DE1746E629', 'Jorge Parra', '23:57:10', 1);
 INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('A0C733F5-3F18-4176-114E-08DE181E81FB', 'CARLOS JAVIER', '01:40:34', 1);
 INSERT INTO [appservice].[dbo].[Nutricionista] ([Id], [Nombre], [FechaCreacion], [Activo]) VALUES ('D1F1DEA7-5596-43A9-DAF3-08DE350D21EE', 'Enzo Fernandez', '21:19:05', 1);
