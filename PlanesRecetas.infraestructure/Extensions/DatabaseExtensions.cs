@@ -12,7 +12,6 @@ using PlanesRecetas.domain.Plan;
 using PlanesRecetas.domain.Recipe;
 using PlanesRecetas.infraestructure.Persistence;
 using PlanesRecetas.infraestructure.Persistence.DomainModel;
-using PlanesRecetas.infraestructure.Persistence.Repositories;
 using PlanesRecetas.infraestructure.Repositories.Care;
 using PlanesRecetas.infraestructure.Repositories.Metrics;
 using PlanesRecetas.infraestructure.Repositories.Persons;

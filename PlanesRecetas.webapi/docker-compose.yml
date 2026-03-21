@@ -77,8 +77,26 @@ services:
     networks:
       - shared-network  # 
     depends_on:
-      planes-migrate:
-        condition: service_completed_successfully
+      planes-sqlserver:
+        condition: service_healthy
+  planes-worker:
+    image: ikaru773/plans-worker
+    container_name: plans-worker
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      
+      # Database Settings (pointing to the sqlserver container)
+      - DataBaseSettings__ConnectionString=Server=planes-sqlserver;Database=appservice;User Id=sa;Password=Password12345;TrustServerCertificate=True;
+      # RabbitMQ (pointing to the rabbitmq container)
+      - RabbitMqSettings__Host=rabbitmq
+      - RabbitMqSettings__Port=5672
+      - RabbitMqSettings__UserName=admin
+      - RabbitMqSettings__Password=StrongPassword123
+      - RabbitMqSettings__QueueName=plan-created
+      - RabbitMqSettings__VirtualHost=/
+    networks:
+      - shared-network  # 
+
 volumes:
  sql-server-data:
     driver: local
