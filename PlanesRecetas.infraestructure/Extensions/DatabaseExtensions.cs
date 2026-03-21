@@ -4,7 +4,9 @@ using Joseco.Outbox.EFCore;
 using Joseco.Outbox.EFCore.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using PlanesRecetas.domain.Care;
 using PlanesRecetas.domain.Metrics;
 using PlanesRecetas.domain.Persons;
@@ -23,11 +25,25 @@ namespace PlanesRecetas.infraestructure.Extensions;
 
 public static class DatabaseExtensions
 {
-    public static IServiceCollection AddDatabase(this IServiceCollection services)
+    public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<DomainDbContext>((sp, options) =>
+      
+        services.Configure<DataBaseSettings>(
+           
+         
+
+            configuration.GetSection("DataBaseSettings")
+        );
+        /*services.AddDbContext<DomainDbContext>((sp, options) =>
         {
             var settings = sp.GetRequiredService<DataBaseSettings>();
+            options.UseSqlServer(settings.ConnectionString);
+        })*/;
+        services.AddDbContext<DomainDbContext>((sp, options) =>
+        {
+            // Use IOptions to get the settings
+            var settings = sp.GetRequiredService<IOptions<DataBaseSettings>>().Value;
+            Console.WriteLine(settings.ConnectionString); // Debug: Check if the connection string is correct
             options.UseSqlServer(settings.ConnectionString);
         });
         services.AddScoped<IUnitOfWork, UnitOfWork>()
@@ -44,16 +60,7 @@ public static class DatabaseExtensions
             .AddScoped<IPlanAlimentacionRepository, PlanAlimentarioRepository>()
             .AddScoped<IOutboxDatabase<DomainEvent>, UnitOfWork>()    // AddScoped<IOutboxDatabase<DomainEvent>, OutboxDatabase>() // or UnitOfWork
             .AddOutbox<DomainEvent>();
-        // Scoped Out Servicio inyectado
-        //.AddOutboxBackgroundService<DomainEvent>(5000);
-
-        /***
-         
-          builder.Services
-            .AddScoped<IOutboxDatabase<DomainEvent>, OutboxDatabase>() // or UnitOfWork
-            .AddOutbox<DomainEvent>();
-         */
-        //services.Decorate<IOutboxService<DomainEvent>, OutboxTracingService<DomainEvent>>();
+    
 
         return services;
     }

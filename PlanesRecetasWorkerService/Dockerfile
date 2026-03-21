@@ -1,4 +1,8 @@
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+# Set these early so the runtime respects them immediately
+ENV ASPNETCORE_ENVIRONMENT=Development
+# Use a single backslash or forward slash for Linux compatibility
+ENV DataBaseSettings__ConnectionString="Server=DESKTOP-087TVGU\SQLEXPRESS;Database=appservice;User Id=sa;Password=Password12345;TrustServerCertificate=True;"
 USER $APP_UID
 WORKDIR /app
 
@@ -14,9 +18,7 @@ COPY ["PlanesRecetasWorkerService/PlanesRecetasWorkerService.csproj","PlanesRece
 RUN dotnet restore "PlanesRecetasWorkerService/PlanesRecetasWorkerService.csproj"
 
 COPY . .
-
 WORKDIR "/src/PlanesRecetasWorkerService"
-
 RUN dotnet build "PlanesRecetasWorkerService.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
@@ -26,9 +28,4 @@ RUN dotnet publish "PlanesRecetasWorkerService.csproj" -c $BUILD_CONFIGURATION -
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
-# Set environment variables
-ENV ASPNETCORE_ENVIRONMENT=Development
-ENV DataBaseSettings__ConnectionString=Server=sqlserver;Database=appservice;User Id=sa;Password=Password12345;TrustServerCertificate=True;
-
 ENTRYPOINT ["dotnet", "PlanesRecetasWorkerService.dll"]
