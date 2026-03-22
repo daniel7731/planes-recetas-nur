@@ -34,16 +34,10 @@ public static class DatabaseExtensions
 
             configuration.GetSection("DataBaseSettings")
         );
-        /*services.AddDbContext<DomainDbContext>((sp, options) =>
-        {
-            var settings = sp.GetRequiredService<DataBaseSettings>();
-            options.UseSqlServer(settings.ConnectionString);
-        })*/;
         services.AddDbContext<DomainDbContext>((sp, options) =>
         {
             // Use IOptions to get the settings
             var settings = sp.GetRequiredService<IOptions<DataBaseSettings>>().Value;
-            Console.WriteLine(settings.ConnectionString); // Debug: Check if the connection string is correct
             options.UseSqlServer(settings.ConnectionString);
         });
         services.AddScoped<IUnitOfWork, UnitOfWork>()
