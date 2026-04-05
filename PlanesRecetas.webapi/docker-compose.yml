@@ -6,7 +6,7 @@ services:
       - shared-network
     restart: always
     env_file:
-      - postgres.env.
+      - postgres.env
     ports:
       - '5022:5432'
     volumes:
