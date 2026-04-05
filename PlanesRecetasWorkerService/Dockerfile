@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 # Set these early so the runtime respects them immediately
 ENV ASPNETCORE_ENVIRONMENT=Development
 # Use a single backslash or forward slash for Linux compatibility
-ENV DataBaseSettings__ConnectionString="Server=DESKTOP-087TVGU\SQLEXPRESS;Database=appservice;User Id=sa;Password=Password12345;TrustServerCertificate=True;"
+ENV DataBaseSettings__ConnectionString="Host=planes-postgres;Port=5432;Database=appservice;Username=postgres;Password=Password12345"
 USER $APP_UID
 WORKDIR /app
 

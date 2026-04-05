@@ -1,8 +1,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 USER $APP_UID
 WORKDIR /app
-EXPOSE 17080
-EXPOSE 17081
+EXPOSE 1700
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
@@ -34,7 +33,8 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 # Set environment variables
+ENV ASPNETCORE_URLS=http://+:1700
 ENV ASPNETCORE_ENVIRONMENT=Development
-ENV DataBaseSettings__ConnectionString="Server=planes-sqlserver;Database=appservice;User Id=sa;Password=Password12345;TrustServerCertificate=True;"
+ENV DataBaseSettings__ConnectionString="Host=planes-postgres;Port=5432;Database=appservice;Username=postgres;Password=Password12345;"
 
 ENTRYPOINT ["dotnet", "PlanesRecetas.webapi.dll"]

@@ -24,7 +24,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
 
             // Configuración de columna calculada PERSISTED
             builder.Property(x => x.DuracionDias)
-                .HasComputedColumnSql("DATEDIFF(DAY, [FechaInicio], [FechaFin])", stored: true);
+                .HasComputedColumnSql("\"FechaFin\" - \"FechaInicio\"", stored: true);
 
             // Relaciones (FKs)
             // Nota: Se asume que existen las entidades Paciente y Nutricionista en tu dominio
