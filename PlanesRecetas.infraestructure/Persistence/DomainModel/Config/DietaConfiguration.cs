@@ -24,7 +24,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
 
             builder.Property(d => d.FechaConsumo)
                    .IsRequired()
-                   .HasColumnType("datetime");
+                   .HasColumnType("timestamp with time zone");
 
             builder.Property(d => d.PlanAlimentacionId)
                    .IsRequired();

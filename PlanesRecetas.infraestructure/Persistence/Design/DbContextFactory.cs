@@ -16,7 +16,7 @@ internal class DbContextFactory : IDesignTimeDbContextFactory<DomainDbContext>
         var connectionString = dataBaseSettings.ConnectionString;
 
         var optionsBuilder = new DbContextOptionsBuilder<DomainDbContext>();
-        optionsBuilder.UseSqlServer(connectionString);
+        optionsBuilder.UseNpgsql(connectionString);
 
         return new DomainDbContext(optionsBuilder.Options);
     }
