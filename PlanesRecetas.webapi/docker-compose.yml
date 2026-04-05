@@ -105,6 +105,6 @@ volumes:
   # sqldata:
   # sqllog:
   # sqlbackup:
-#networks:
-#  shared-network:
-#    driver: bridge 
+networks:
+  shared-network:
+    driver: bridge 
