@@ -15,11 +15,12 @@ builder.Services.AddAplication()
 
 
 var app = builder.Build();
-if (args.Contains("--migrate"))
+app.ApplyMigrations();
+/*if (args.Contains("--migrate"))
 {
-    app.ApplyMigrations();
+   
     return; // Exit container after migration
-}
+}*/
 
 
 // Configure the HTTP request pipeline.

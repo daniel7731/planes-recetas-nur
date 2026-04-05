@@ -2,9 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PlanesRecetas.infraestructure.Persistence.DomainModel;
 
 #nullable disable
@@ -12,8 +12,8 @@ using PlanesRecetas.infraestructure.Persistence.DomainModel;
 namespace PlanesRecetas.infraestructure.Migrations
 {
     [DbContext(typeof(DomainDbContext))]
-    [Migration("20260320014823_SEEDS")]
-    partial class SEEDS
+    [Migration("20260405162618_Base")]
+    partial class Base
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,48 +21,48 @@ namespace PlanesRecetas.infraestructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.4")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Joseco.Outbox.Contracts.Model.OutboxMessage<Joseco.DDD.Core.Abstractions.DomainEvent>", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("uuid")
                         .HasColumnName("outboxId");
 
                     b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("content");
 
                     b.Property<string>("CorrelationId")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("correlationId");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("created");
 
                     b.Property<bool>("Processed")
-                        .HasColumnType("bit")
+                        .HasColumnType("boolean")
                         .HasColumnName("processed");
 
                     b.Property<DateTime?>("ProcessedOn")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("processedOn");
 
                     b.Property<string>("SpanId")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("spanId");
 
                     b.Property<string>("TraceId")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("traceId");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("type");
 
                     b.HasKey("Id");
@@ -74,15 +74,15 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int>("TipoAlimentoId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -301,14 +301,14 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -346,14 +346,14 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -401,19 +401,19 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Simbolo")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("character varying(10)");
 
                     b.HasKey("Id");
 
@@ -450,18 +450,18 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("Activo")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -472,140 +472,140 @@ namespace PlanesRecetas.infraestructure.Migrations
                         {
                             Id = new Guid("4224de05-c1b1-424d-4d22-08de14a4db50"),
                             Activo = false,
-                            FechaCreacion = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Daniel Román"
                         },
                         new
                         {
                             Id = new Guid("4ce7d823-87f3-4181-b936-08de14a787b0"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 15, 51, 11, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 15, 51, 11, 0, DateTimeKind.Utc),
                             Nombre = "Ricardo Mena"
                         },
                         new
                         {
                             Id = new Guid("7a918afc-94bb-46d7-7155-08de1746e629"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 23, 57, 10, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 23, 57, 10, 0, DateTimeKind.Utc),
                             Nombre = "Jorge Parra"
                         },
                         new
                         {
                             Id = new Guid("a0c733f5-3f18-4176-114e-08de181e81fb"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 1, 40, 34, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 1, 40, 34, 0, DateTimeKind.Utc),
                             Nombre = "Carlos Javier"
                         },
                         new
                         {
                             Id = new Guid("d1f1dea7-5596-4399-daf3-08de350d21ee"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 21, 19, 5, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 21, 19, 5, 0, DateTimeKind.Utc),
                             Nombre = "Enzo Fernández"
                         },
                         new
                         {
                             Id = new Guid("87ba4a90-3efa-4d27-8692-0bfd86daf6bd"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 3, 25, 15, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 3, 25, 15, 0, DateTimeKind.Utc),
                             Nombre = "Valeria Gómez"
                         },
                         new
                         {
                             Id = new Guid("6c54b71f-4a1b-47c1-aca4-0ceca607d5eb"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 21, 47, 20, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 21, 47, 20, 0, DateTimeKind.Utc),
                             Nombre = "Andrés Castro"
                         },
                         new
                         {
                             Id = new Guid("1c2f7051-d0e9-454d-8653-19542c7aa5bf"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 2, 53, 19, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 2, 53, 19, 0, DateTimeKind.Utc),
                             Nombre = "Mariana Ríos"
                         },
                         new
                         {
                             Id = new Guid("5a2fe591-701b-4324-acfe-252de1efdd9d"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 2, 24, 43, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 2, 24, 43, 0, DateTimeKind.Utc),
                             Nombre = "Lucía Méndez"
                         },
                         new
                         {
                             Id = new Guid("46d0dfdf-5687-4042-88ba-37e7b2ebbe0b"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 14, 55, 8, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 14, 55, 8, 0, DateTimeKind.Utc),
                             Nombre = "Sergio Torres"
                         },
                         new
                         {
                             Id = new Guid("3237e879-17cd-4f03-a625-41a572db6be7"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 21, 45, 21, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 21, 45, 21, 0, DateTimeKind.Utc),
                             Nombre = "Beatriz Luna"
                         },
                         new
                         {
                             Id = new Guid("090b93ff-e07c-4187-bfc9-54493b6cdfbf"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 21, 36, 53, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 21, 36, 53, 0, DateTimeKind.Utc),
                             Nombre = "Fernando Soto"
                         },
                         new
                         {
                             Id = new Guid("54f96058-c83f-4681-8d30-65a53cf86bd2"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 21, 37, 52, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 21, 37, 52, 0, DateTimeKind.Utc),
                             Nombre = "Karla Espinoza"
                         },
                         new
                         {
                             Id = new Guid("8163c819-2f48-47cd-aa47-7bc4c7ff5d98"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Chef Ranci"
                         },
                         new
                         {
                             Id = new Guid("d3b13c4a-67fa-4fce-b915-83eb26e1c939"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 18, 20, 54, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 18, 20, 54, 0, DateTimeKind.Utc),
                             Nombre = "Chef Ranci Professional"
                         },
                         new
                         {
                             Id = new Guid("185132be-5513-4653-b8b6-93625438d04e"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 15, 42, 5, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 15, 42, 5, 0, DateTimeKind.Utc),
                             Nombre = "Paola Argüello"
                         },
                         new
                         {
                             Id = new Guid("40278d23-3911-48d5-9e6d-9b26dc61e93b"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 15, 0, 41, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 15, 0, 41, 0, DateTimeKind.Utc),
                             Nombre = "Roberto Villalba"
                         },
                         new
                         {
                             Id = new Guid("b608bcce-4290-4789-81e9-cdfa957402bb"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 16, 9, 12, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 16, 9, 12, 0, DateTimeKind.Utc),
                             Nombre = "María Delgado"
                         },
                         new
                         {
                             Id = new Guid("12bf19a5-b30c-49ee-b75c-d9e8769fb05f"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 16, 5, 51, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 16, 5, 51, 0, DateTimeKind.Utc),
                             Nombre = "Luigi Vampa"
                         },
                         new
                         {
                             Id = new Guid("ab971254-d489-452a-b809-f3d29d7ceb88"),
                             Activo = true,
-                            FechaCreacion = new DateTime(2024, 1, 1, 2, 53, 19, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2024, 1, 1, 2, 53, 19, 0, DateTimeKind.Utc),
                             Nombre = "Elena Martínez"
                         });
                 });
@@ -614,7 +614,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<decimal>("Altura")
                         .HasColumnType("decimal(10,2)");
@@ -622,26 +622,26 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.Property<string>("Apellido")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("character varying(150)");
 
                     b.Property<DateTime>("FechaNacimiento")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)");
 
                     b.Property<decimal>("Peso")
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("Telefono")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -653,7 +653,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("de44922e-b41a-46a3-0245-08de14c94aa7"),
                             Altura = 167m,
                             Apellido = "Grande",
-                            FechaNacimiento = new DateTime(2000, 10, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(2000, 10, 26, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Ariana",
                             Peso = 76m
                         },
@@ -662,7 +662,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("d2740f5a-abe1-4a0b-a300-08de1746d733"),
                             Altura = 180m,
                             Apellido = "Chavez",
-                            FechaNacimiento = new DateTime(2019, 10, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(2019, 10, 29, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Pedro",
                             Peso = 110m
                         },
@@ -671,7 +671,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("9f972a0e-3153-4b9b-98cc-08de181e9efc"),
                             Altura = 170m,
                             Apellido = "Carlos Duran",
-                            FechaNacimiento = new DateTime(2005, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(2005, 10, 31, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Juan",
                             Peso = 110m
                         },
@@ -680,7 +680,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("7cd40a9b-5bf2-4dbf-b9ee-0c1093b306c0"),
                             Altura = 50m,
                             Apellido = "Sosa",
-                            FechaNacimiento = new DateTime(2026, 3, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(2026, 3, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Ricardo",
                             Peso = 3.5m
                         },
@@ -689,7 +689,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("7f1c4c1e-5a54-4c4c-9e15-0c6c1b8d4d55"),
                             Altura = 160m,
                             Apellido = "Elena",
-                            FechaNacimiento = new DateTime(1985, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(1985, 11, 22, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Maria",
                             Peso = 65m
                         },
@@ -698,7 +698,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("9d1e822c-ffb9-4009-b16e-0f4259b2fa1a"),
                             Altura = 70m,
                             Apellido = "Perez",
-                            FechaNacimiento = new DateTime(2026, 1, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(2026, 1, 19, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Juan",
                             Peso = 50m
                         },
@@ -707,7 +707,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("12b9c6e2-34d7-4fb2-b5d1-119773a6834f"),
                             Altura = 52m,
                             Apellido = "Guzman",
-                            FechaNacimiento = new DateTime(2026, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(2026, 2, 19, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Roberto",
                             Peso = 4.2m
                         },
@@ -716,7 +716,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("e4b8e3d5-63f3-482f-979a-1256427b09e1"),
                             Altura = 185m,
                             Apellido = "Walker",
-                            FechaNacimiento = new DateTime(1987, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(1987, 6, 18, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Chris",
                             Peso = 74m
                         },
@@ -725,7 +725,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("c06a5a28-4b9a-4812-bb37-1658bfb58b7e"),
                             Altura = 207m,
                             Apellido = "Fahey",
-                            FechaNacimiento = new DateTime(1979, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(1979, 2, 13, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Layne",
                             Peso = 103m
                         },
@@ -734,7 +734,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("8fe998c5-bf70-49f9-ba34-17149b9aef8d"),
                             Altura = 160m,
                             Apellido = "Quito",
-                            FechaNacimiento = new DateTime(2026, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(2026, 1, 20, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Esteban",
                             Peso = 100m
                         },
@@ -743,7 +743,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("1183d1b1-6c9a-4264-afe1-28b020225b39"),
                             Altura = 175m,
                             Apellido = "Calisalla",
-                            FechaNacimiento = new DateTime(2026, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(2026, 2, 28, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Juan",
                             Peso = 70m
                         },
@@ -752,7 +752,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("90eecb08-da56-48b3-917d-2f80f55701f5"),
                             Altura = 162m,
                             Apellido = "Suarez",
-                            FechaNacimiento = new DateTime(2026, 3, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(2026, 3, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Monica",
                             Peso = 58m
                         },
@@ -761,7 +761,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("a2b10db8-aad2-4f62-81ff-309b24b53402"),
                             Altura = 207m,
                             Apellido = "Fahey",
-                            FechaNacimiento = new DateTime(1979, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(1979, 2, 13, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Layne",
                             Peso = 103m
                         },
@@ -770,7 +770,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("41234e45-8fd3-4992-a7ff-3330ffea60ad"),
                             Altura = 10m,
                             Apellido = "Villarruel",
-                            FechaNacimiento = new DateTime(2026, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(2026, 3, 5, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Davos",
                             Peso = 10m
                         },
@@ -779,7 +779,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Id = new Guid("1c6bbd23-a625-4439-bb7c-34e52b7ae2c2"),
                             Altura = 201m,
                             Apellido = "Spinka",
-                            FechaNacimiento = new DateTime(1957, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaNacimiento = new DateTime(1957, 11, 9, 0, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Gino",
                             Peso = 108m
                         });
@@ -789,13 +789,13 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("FechaConsumo")
-                        .HasColumnType("datetime");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("PlanAlimentacionId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -808,21 +808,21 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 2);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<Guid>("DietaId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int?>("Orden")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("RecetaId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("TiempoId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -839,12 +839,12 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("DuracionDias")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("int")
-                        .HasComputedColumnSql("DATEDIFF(DAY, [FechaInicio], [FechaFin])", true);
+                        .HasColumnType("integer")
+                        .HasComputedColumnSql("\"FechaFin\" - \"FechaInicio\"", true);
 
                     b.Property<DateTime>("FechaFin")
                         .HasColumnType("DATE");
@@ -853,10 +853,10 @@ namespace PlanesRecetas.infraestructure.Migrations
                         .HasColumnType("DATE");
 
                     b.Property<Guid>("NutricionistaId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("PacienteId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -871,7 +871,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<decimal>("Calorias")
                         .HasColumnType("decimal(10,2)");
@@ -880,15 +880,15 @@ namespace PlanesRecetas.infraestructure.Migrations
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<Guid>("CategoriaId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int>("UnidadId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -2201,19 +2201,19 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Instrucciones")
                         .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("character varying(150)");
 
                     b.Property<int>("TiempoId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -2298,18 +2298,18 @@ namespace PlanesRecetas.infraestructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<decimal?>("CantidadValor")
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<Guid>("IngredienteId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("RecetaId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 

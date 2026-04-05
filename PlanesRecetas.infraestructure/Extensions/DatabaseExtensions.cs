@@ -1,4 +1,5 @@
-﻿using Joseco.DDD.Core.Abstractions;
+﻿using Humanizer.Configuration;
+using Joseco.DDD.Core.Abstractions;
 using Joseco.Outbox.Contracts.Service;
 using Joseco.Outbox.EFCore;
 using Joseco.Outbox.EFCore.Persistence;
@@ -38,7 +39,7 @@ public static class DatabaseExtensions
         {
             // Use IOptions to get the settings
             var settings = sp.GetRequiredService<IOptions<DataBaseSettings>>().Value;
-            options.UseSqlServer(settings.ConnectionString);
+            options.UseNpgsql(settings.ConnectionString);
         });
         services.AddScoped<IUnitOfWork, UnitOfWork>()
             .AddScoped<IDatabase, DomainDbContext>()
