@@ -1,6 +1,4 @@
-﻿
-using Nur.Store2025.Observability.Tracing;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace PlanesRecetas.webapi.Middleware;
 
@@ -9,7 +7,7 @@ public class TracingMiddleware
     private readonly RequestDelegate _next;
     private const string _correlationIdHeader = "X-Correlation-Id";
 
-    public TracingMiddleware(RequestDelegate next)
+    /*public TracingMiddleware(RequestDelegate next)
     {
         _next = next;
     }
@@ -52,5 +50,5 @@ public class TracingMiddleware
       });
             return Task.CompletedTask;
         });
-    }
+    }*/
 }

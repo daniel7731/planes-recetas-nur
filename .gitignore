@@ -484,3 +484,6 @@ $RECYCLE.BIN/
 *.swp
 report
 coverage
+grafana/data
+loki/data
+prometheus/data

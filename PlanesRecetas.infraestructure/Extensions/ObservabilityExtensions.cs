@@ -41,7 +41,7 @@ public static class ObservabilityExtensions
 
         services
             .AddHealthChecks()
-            .AddSqlServer(dbConnectionString);
+            .AddNpgSql(dbConnectionString , name:"postgres", tags: ["ready"]);
         //.AddRabbitMqHealthCheck();
 
         return services;
