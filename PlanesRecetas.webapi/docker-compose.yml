@@ -44,6 +44,7 @@ services:
       - Serilog__MinimumLevel__Override__Microsoft=Warning
       - Serilog__MinimumLevel__Override__System=Warning
       
+      
       # Vault / Secret Manager (Set to true or false as needed)
       - UseSecretManager=false
       
@@ -98,6 +99,50 @@ services:
     depends_on:
       planes-postgres:
         condition: service_healthy
+  loki:
+    image: grafana/loki:3.0.0
+    restart: unless-stopped
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - '3100:3100'
+    volumes:
+      # Map the local folder 'loki/data' to '/loki' inside the container
+      - ../loki/data:/loki 
+      # Map your local config file to the path Loki expects (fixed 'ect' to 'etc')
+      - ../loki/config.yml:/etc/loki/local-config.yaml
+    networks:
+     - shared-network
+  prometheus:
+    image: prom/prometheus:v2.52.0
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      # Map the local folder 'loki/data' to '/loki' inside the container
+      - ../prometheus:/etc/prometheus
+      # Map your local config file to the path Loki expects (fixed 'ect' to 'etc')
+      - ../prometheus/data:/prometheus
+    command:
+      - --config.file=/etc/prometheus/config.yml
+      - --storage.tsdb.retention.time=30d
+    networks:
+      - shared-network
+  grafana:
+    image: grafana/grafana:11.0.0
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP= false
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      
+    volumes:
+      - ../grafana/data:/var/lib/grafana
+      - ../grafana/provisioning:/etc/grafana/provisioning    
+    networks:
+      - shared-network  
 
 volumes:
  posgrest-server-data:

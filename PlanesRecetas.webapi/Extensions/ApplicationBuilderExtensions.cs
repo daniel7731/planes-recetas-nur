@@ -18,5 +18,6 @@ public static class ApplicationBuilderExtensions
         {
             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
         });*/
+       // app.AddHeal
     }
 }

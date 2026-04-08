@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PlanesRecetas.domain.Recipe;
 using PlanesRecetas.infraestructure.Persistence.DomainModel;
 using PlanesRecetas.infraestructure.Persistence.DomainModel.Config;
