@@ -118,10 +118,10 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      # Map the local folder 'loki/data' to '/loki' inside the container
-      - ../prometheus:/etc/prometheus
+      # Map the local folder 'loki/data' to '/loki' inside the container 
+      - ../prometheus/config.yml:/etc/prometheus/config.yml
       # Map your local config file to the path Loki expects (fixed 'ect' to 'etc')
-      - ../prometheus/data:/prometheus
+      - ./prometheus/data:/prometheus
     command:
       - --config.file=/etc/prometheus/config.yml
       - --storage.tsdb.retention.time=30d
@@ -135,16 +135,18 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
-      - GF_USERS_ALLOW_SIGN_UP= false
+      - GF_USERS_ALLOW_SIGN_UP=false
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       
     volumes:
-      - ../grafana/data:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
       - ../grafana/provisioning:/etc/grafana/provisioning    
     networks:
       - shared-network  
 
 volumes:
+ grafana_data:
+ prometheus_data:
  posgrest-server-data:
     driver: local
   # The rest of your volumes were removed as they conflicted with standard SQL Server paths
