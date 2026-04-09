@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   planes-postgres:
     image: postgres:15
@@ -10,13 +12,14 @@ services:
     ports:
       - '5022:5432'
     volumes:
-      - posgrest-server-data:/var/lib/postgresql/data
-    user: "0"
+      - postgres-server-data:/var/lib/postgresql/data
+    user: "0" # Running as root to avoid permission issues with mounted volumes
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d appservice"]
       interval: 5s
       timeout: 5s
       retries: 10
+
   planes-migrate:
     image: ikaru773/planesrecetaswebapi
     command: ["dotnet", "PlanesRecetas.WebApi.dll", "--migrate"]
@@ -28,6 +31,7 @@ services:
       - DataBaseSettings__ConnectionString=Host=planes-postgres;Port=5432;Database=appservice;Username=postgres;Password=Password12345;
     networks:
       - shared-network
+
   planes-api:
     image: ikaru773/planesrecetaswebapi
     container_name: planes_receta_api
@@ -35,20 +39,11 @@ services:
       - "1700:1700"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      
-      # Database Settings (pointing to the sqlserver container)
       - DataBaseSettings__ConnectionString=Host=planes-postgres;Port=5432;Database=appservice;Username=postgres;Password=Password12345;
-      
-      # Serilog
       - Serilog__MinimumLevel__Default=Information
       - Serilog__MinimumLevel__Override__Microsoft=Warning
       - Serilog__MinimumLevel__Override__System=Warning
-      
-      
-      # Vault / Secret Manager (Set to true or false as needed)
       - UseSecretManager=false
-      
-      # JWT Options
       - JwtOptions__Lifetime=30
       - JwtOptions__SecretKey=DiplomadoMicroservicios2025SecretoJTWApiSecurity
       - JwtOptions__ValidAudience=storeApp
@@ -56,17 +51,12 @@ services:
       - JwtOptions__ValidateAudience=false
       - JwtOptions__ValidateIssuer=true
       - JwtOptions__ValidateLifetime=true
-
-      
-      # RabbitMQ (pointing to the rabbitmq container)
       - RabbitMqSettings__Host=rabbitmq
       - RabbitMqSettings__Port=5672
       - RabbitMqSettings__UserName=admin
       - RabbitMqSettings__Password=StrongPassword123
       - RabbitMqSettings__QueueName=plan-created
       - RabbitMqSettings__VirtualHost=/
-      
-      # Service Registration & Monitoring
       - ServiceRegistration__ServiceDiscoveryAddress=http://consul:8500
       - ServiceRegistration__Host=http://api-plan
       - ServiceRegistration__Port=8090
@@ -75,19 +65,17 @@ services:
       - JaegerSettings__Host=jaeger
       - JaegerSettings__Port=6831
     networks:
-      - shared-network  # 
+      - shared-network
     depends_on:
       planes-postgres:
         condition: service_healthy
+
   planes-worker:
     image: ikaru773/plans-worker
     container_name: plans-worker
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      
-      # Database Settings (pointing to the sqlserver container)
       - DataBaseSettings__ConnectionString=Host=planes-postgres;Port=5432;Database=appservice;Username=postgres;Password=Password12345;
-      # RabbitMQ (pointing to the rabbitmq container)
       - RabbitMqSettings__Host=rabbitmq
       - RabbitMqSettings__Port=5672
       - RabbitMqSettings__UserName=admin
@@ -95,10 +83,11 @@ services:
       - RabbitMqSettings__QueueName=plan-created
       - RabbitMqSettings__VirtualHost=/
     networks:
-      - shared-network  # 
+      - shared-network
     depends_on:
       planes-postgres:
         condition: service_healthy
+
   loki:
     image: grafana/loki:3.0.0
     restart: unless-stopped
@@ -106,38 +95,38 @@ services:
     ports:
       - '3100:3100'
     volumes:
-      # Map the local folder 'loki/data' to '/loki' inside the container
       - ../loki/data:/loki 
-      # Map your local config file to the path Loki expects (fixed 'ect' to 'etc')
       - ../loki/config.yml:/etc/loki/local-config.yaml
     networks:
-     - shared-network
+      - shared-network
+
   prometheus:
     image: prom/prometheus:v2.52.0
+    container_name: prometheus
     restart: unless-stopped
+    user: "0" # Fixes the "permission denied" error on DigitalOcean/Linux hosts
     ports:
       - "9090:9090"
     volumes:
-      # Map the local folder 'loki/data' to '/loki' inside the container 
-      - ../prometheus/config.yml:/etc/prometheus/config.yml
-      # Map your local config file to the path Loki expects (fixed 'ect' to 'etc')
-      - ./prometheus/data:/prometheus
+      - ../prometheus/config.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
     command:
-      - --config.file=/etc/prometheus/config.yml
-      - --storage.tsdb.retention.time=30d
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
     networks:
       - shared-network
+
   grafana:
     image: grafana/grafana:11.0.0
     restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
-      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
       - GF_USERS_ALLOW_SIGN_UP=false
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
-      
     volumes:
       - grafana_data:/var/lib/grafana
       - ../grafana/provisioning:/etc/grafana/provisioning    
@@ -145,15 +134,11 @@ services:
       - shared-network  
 
 volumes:
- grafana_data:
- prometheus_data:
- posgrest-server-data:
+  grafana_data:
+  prometheus_data:
+  postgres-server-data: # Fixed typo from 'posgrest'
     driver: local
-  # The rest of your volumes were removed as they conflicted with standard SQL Server paths
-  # If you need them, they must be defined here with the correct syntax:
-  # sqldata:
-  # sqllog:
-  # sqlbackup:
+
 networks:
   shared-network:
-    driver: bridge 
+    driver: bridge
