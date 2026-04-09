@@ -104,15 +104,16 @@ services:
     image: prom/prometheus:v2.52.0
     container_name: prometheus
     restart: unless-stopped
-    user: "0" # Fixes the "permission denied" error on DigitalOcean/Linux hosts
+    user: "0" 
     ports:
       - "9090:9090"
     volumes:
       - ../prometheus/config.yml:/etc/prometheus/prometheus.yml
-      - prometheus_data:/prometheus
+      # Notice we map to /prometheus/data to match where your files actually are
+      - prometheus_data:/prometheus/data 
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.path=/prometheus/data' # This tells Prometheus to look in /data
       - '--storage.tsdb.retention.time=30d'
     networks:
       - shared-network
@@ -123,8 +124,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER:-admin}
-      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
       - GF_USERS_ALLOW_SIGN_UP=false
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     volumes:
