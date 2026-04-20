@@ -2,11 +2,7 @@
 using PlanesRecetas.domain.Plan;
 using PlanesRecetas.domain.Recipe;
 using PlanesRecetas.infraestructure.Persistence.DomainModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PlanesRecetas.infraestructure.Repositories.Plan
 {

@@ -31,9 +31,11 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel
 
         public DomainDbContext(DbContextOptions<DomainDbContext> options) : base(options)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("public");
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             modelBuilder.AddOutboxModel<DomainEvent>();
             base.OnModelCreating(modelBuilder);
@@ -331,7 +333,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel
         }
         public void Migrate()
         {
-            Database.Migrate();
+           Database.Migrate();
         }
     }
 }

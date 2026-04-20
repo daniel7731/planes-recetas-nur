@@ -23,7 +23,7 @@ namespace PlanesRecetas.application.Care
         {
             var entity = await _repo.GetByIdAsync(request.Id);
             if (entity is null)
-                return Result.Failure<TipoAlimentoDto>(Errors.TipoAlimentoNotFound);
+                return Result.Failure<TipoAlimentoDto>(CareErrors.TipoAlimentoNotFound);
             TipoAlimentoDto dto = new TipoAlimentoDto
             {
                 Id = entity.Id,

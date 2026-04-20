@@ -62,7 +62,7 @@ namespace PlanesRecetas.testing.Application.Care
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Equal(Errors.TipoAlimentoNotFound, result.Error);
+            Assert.Equal(CareErrors.TipoAlimentoNotFound, result.Error);
             _repoMock.Verify(r => r.GetByIdAsync(tipoAlimentoId), Times.Once);
         }
     }

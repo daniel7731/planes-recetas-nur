@@ -25,7 +25,7 @@ namespace PlanesRecetas.application.Care
         {
             var items = _repo.GetAll();
             if (items == null || items.Count == 0)
-                return Task.FromResult(Result.Failure<List<TipoAlimentoDto>>(Errors.TiposAlimentoNotFound));
+                return Task.FromResult(Result.Failure<List<TipoAlimentoDto>>(CareErrors.TiposAlimentoNotFound));
             var list = items.Select(x => new TipoAlimentoDto
             {
                 Id = x.Id,

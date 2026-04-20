@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using k8s.KubeConfigModels;
+using Microsoft.EntityFrameworkCore;
 using PlanesRecetas.domain.Recipe;
 using PlanesRecetas.infraestructure.Persistence.DomainModel;
 using PlanesRecetas.infraestructure.Persistence.DomainModel.Config;
@@ -42,14 +43,13 @@ namespace PlanesRecetas.infraestructure.Repositories.Recipe
 
         public List<Receta> GetAll()
         {
-            throw new NotImplementedException();
-            /*var list =  _dbContext.Receta.ToList(); 
-            return list;*/
+            return _dbContext.Receta.Include(r => r.Tiempo).
+                ToList();   
         }
 
-        public Task<Receta?> GetByIdAsync(Guid id, bool readOnly = false)
-        {
-            throw new NotImplementedException();
+        public async Task<Receta?> GetByIdAsync(Guid id, bool readOnly = false) { 
+        
+            return await _dbContext.Receta.Include(r => r.Tiempo).SingleAsync(r => r.Id == id);
         }
         public Task UpdateAsync(Receta receta)
         {

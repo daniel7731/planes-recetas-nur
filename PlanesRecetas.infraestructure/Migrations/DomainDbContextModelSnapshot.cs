@@ -17,6 +17,7 @@ namespace PlanesRecetas.infraestructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("public")
                 .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -38,7 +39,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                         .HasColumnName("correlationId");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("created");
 
                     b.Property<bool>("Processed")
@@ -46,7 +47,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                         .HasColumnName("processed");
 
                     b.Property<DateTime?>("ProcessedOn")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("processedOn");
 
                     b.Property<string>("SpanId")
@@ -85,7 +86,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasIndex("TipoAlimentoId");
 
-                    b.ToTable("Categoria", (string)null);
+                    b.ToTable("Categoria", "public");
 
                     b.HasData(
                         new
@@ -309,7 +310,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tiempo", (string)null);
+                    b.ToTable("Tiempo", "public");
 
                     b.HasData(
                         new
@@ -354,7 +355,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TipoAlimento", (string)null);
+                    b.ToTable("TipoAlimento", "public");
 
                     b.HasData(
                         new
@@ -414,7 +415,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UnidadMedida", (string)null);
+                    b.ToTable("UnidadMedida", "public");
 
                     b.HasData(
                         new
@@ -453,7 +454,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -462,7 +463,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Nutricionista", (string)null);
+                    b.ToTable("Nutricionista", "public");
 
                     b.HasData(
                         new
@@ -626,7 +627,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                         .HasColumnType("character varying(150)");
 
                     b.Property<DateTime>("FechaNacimiento")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -642,7 +643,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Paciente", (string)null);
+                    b.ToTable("Paciente", "public");
 
                     b.HasData(
                         new
@@ -798,7 +799,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasIndex("PlanAlimentacionId");
 
-                    b.ToTable("Dieta", (string)null);
+                    b.ToTable("Dieta", "public");
                 });
 
             modelBuilder.Entity("PlanesRecetas.domain.Plan.DietaReceta", b =>
@@ -829,7 +830,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasIndex("TiempoId");
 
-                    b.ToTable("DietaReceta", (string)null);
+                    b.ToTable("DietaReceta", "public");
                 });
 
             modelBuilder.Entity("PlanesRecetas.domain.Plan.PlanAlimentacion", b =>
@@ -861,7 +862,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasIndex("PacienteId");
 
-                    b.ToTable("PlanAlimentacion", (string)null);
+                    b.ToTable("PlanAlimentacion", "public");
                 });
 
             modelBuilder.Entity("PlanesRecetas.domain.Recipe.Ingrediente", b =>
@@ -893,7 +894,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasIndex("UnidadId");
 
-                    b.ToTable("Ingrediente", (string)null);
+                    b.ToTable("Ingrediente", "public");
 
                     b.HasData(
                         new
@@ -2216,7 +2217,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasIndex("TiempoId");
 
-                    b.ToTable("Receta", (string)null);
+                    b.ToTable("Receta", "public");
 
                     b.HasData(
                         new
@@ -2314,7 +2315,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.HasIndex("RecetaId");
 
-                    b.ToTable("RecetaIngrediente", (string)null);
+                    b.ToTable("RecetaIngrediente", "public");
 
                     b.HasData(
                         new
@@ -2426,17 +2427,21 @@ namespace PlanesRecetas.infraestructure.Migrations
 
             modelBuilder.Entity("PlanesRecetas.domain.Plan.PlanAlimentacion", b =>
                 {
-                    b.HasOne("PlanesRecetas.domain.Persons.Nutricionista", null)
+                    b.HasOne("PlanesRecetas.domain.Persons.Nutricionista", "Nutricionista")
                         .WithMany()
                         .HasForeignKey("NutricionistaId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PlanesRecetas.domain.Persons.Paciente", null)
+                    b.HasOne("PlanesRecetas.domain.Persons.Paciente", "Paciente")
                         .WithMany()
                         .HasForeignKey("PacienteId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Nutricionista");
+
+                    b.Navigation("Paciente");
                 });
 
             modelBuilder.Entity("PlanesRecetas.domain.Recipe.Ingrediente", b =>

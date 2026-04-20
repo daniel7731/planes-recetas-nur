@@ -28,7 +28,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
 
             // Relaciones (FKs)
             // Nota: Se asume que existen las entidades Paciente y Nutricionista en tu dominio
-            builder.HasOne<Paciente>()
+           /* builder.HasOne<Paciente>()
                 .WithMany()
                 .HasForeignKey(x => x.PacienteId)
                 .OnDelete(DeleteBehavior.Restrict);
@@ -36,7 +36,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
             builder.HasOne<Nutricionista>()
                 .WithMany()
                 .HasForeignKey(x => x.NutricionistaId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);*/
         }
 
     }

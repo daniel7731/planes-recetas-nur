@@ -1,4 +1,5 @@
-﻿using PlanesRecetas.domain.Plan;
+﻿using Microsoft.EntityFrameworkCore;
+using PlanesRecetas.domain.Plan;
 using PlanesRecetas.infraestructure.Persistence.DomainModel;
 using System;
 using System.Collections.Generic;
@@ -35,15 +36,41 @@ namespace PlanesRecetas.infraestructure.Repositories.Plan
         {
             return Task.FromResult(_dbContext.PlanAlimentacion.FirstOrDefault(i => i.Id == id));
         }
+
+    
+
         public Task<PlanAlimentacion?> GetByNutricionistaIdAsync(Guid nutricionistaId)
         {
             return Task.FromResult(_dbContext.PlanAlimentacion.FirstOrDefault(i => i.NutricionistaId == nutricionistaId));
         }
-        public Task<PlanAlimentacion?> GetByPacienteIdAsync(Guid pacienteId)
+        public Task<List<PlanAlimentacion>> GetByPacienteIdAsync(Guid pacienteId)
         {
-            return Task.FromResult(_dbContext.PlanAlimentacion.FirstOrDefault(i => i.PacienteId == pacienteId));
+            return Task.FromResult(
+                _dbContext.PlanAlimentacion
+                .Include(p => p.Paciente)
+                .Include(p => p.Nutricionista)
+                .Include(p => p.Dietas)
+                .Where(i => i.PacienteId == pacienteId).ToList());
         }
 
+        public async Task<List<DietaReceta>> GetRecetasByPlanIdAsync(Guid planId)
+        {
+            return await _dbContext.DietaReceta.
+                 Include(d => d.Dieta)
+                .Include(d => d.Receta)
+                .Include(d => d.Tiempo)
+                .Where(r => r.Dieta.PlanAlimentacionId == planId).ToListAsync();
+        }
+
+        public Task<List<PlanAlimentacion>> SearchPacienteIdAsync(Guid pacienteId, DateTime FechaInicio, bool readOnly = false)
+        {
+            
+            var list = _dbContext.PlanAlimentacion.Include(p => p.Paciente
+               ).Include(p => p.Nutricionista)
+               .Include(p => p.Dietas).Where(p => p.PacienteId == pacienteId && p.FechaInicio >= FechaInicio).ToList();
+
+            return Task.FromResult(list);
+        }
 
         public Task UpdateAsync(PlanAlimentacion plan)
         {
