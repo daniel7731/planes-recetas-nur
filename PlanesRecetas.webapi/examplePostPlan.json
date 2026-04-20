@@ -1,0 +1,305 @@
+{
+  "pacienteId": "8fe998c5-bf70-49f9-ba34-17149b9aef8d",
+  "nutricionistaId": "a0c733f5-3f18-4176-114e-08de181e81fb",
+  "fechaInicio": "2026-04-22",
+  "duracionDias": 30,
+  "dietas": [
+    {
+      "fecha": "2026-04-22",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "c3333333-3333-3333-3333-333333333333" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "4aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa" }
+      ]
+    },
+    {
+      "fecha": "2026-04-23",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "d4444444-4444-4444-4444-444444444444" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "b2222222-2222-2222-2222-222222222222" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "17777777-7777-7777-7777-777777777777" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "39999999-9999-9999-9999-999999999999" }
+      ]
+    },
+    {
+      "fecha": "2026-04-24",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "a1111111-1111-1111-1111-111111111111" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "28888888-8888-8888-8888-888888888888" }
+      ]
+    },
+    {
+      "fecha": "2026-04-22",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "c3333333-3333-3333-3333-333333333333" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "4aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa" }
+      ]
+    },
+    {
+      "fecha": "2026-04-23",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "d4444444-4444-4444-4444-444444444444" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "b2222222-2222-2222-2222-222222222222" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "17777777-7777-7777-7777-777777777777" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "39999999-9999-9999-9999-999999999999" }
+      ]
+    },
+    {
+      "fecha": "2026-04-24",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "a1111111-1111-1111-1111-111111111111" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "28888888-8888-8888-8888-888888888888" }
+      ]
+    },
+    {
+      "fecha": "2026-04-22",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "c3333333-3333-3333-3333-333333333333" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "4aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa" }
+      ]
+    },
+    {
+      "fecha": "2026-04-23",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "d4444444-4444-4444-4444-444444444444" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "b2222222-2222-2222-2222-222222222222" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "17777777-7777-7777-7777-777777777777" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "39999999-9999-9999-9999-999999999999" }
+      ]
+    },
+    {
+      "fecha": "2026-04-24",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "a1111111-1111-1111-1111-111111111111" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "28888888-8888-8888-8888-888888888888" }
+      ]
+    },
+    {
+      "fecha": "2026-04-22",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "c3333333-3333-3333-3333-333333333333" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "4aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa" }
+      ]
+    },
+    {
+      "fecha": "2026-04-23",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "d4444444-4444-4444-4444-444444444444" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "b2222222-2222-2222-2222-222222222222" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "17777777-7777-7777-7777-777777777777" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "39999999-9999-9999-9999-999999999999" }
+      ]
+    },
+    {
+      "fecha": "2026-04-24",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "a1111111-1111-1111-1111-111111111111" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "28888888-8888-8888-8888-888888888888" }
+      ]
+    },
+    {
+      "fecha": "2026-04-22",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "c3333333-3333-3333-3333-333333333333" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "4aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa" }
+      ]
+    },
+    {
+      "fecha": "2026-04-23",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "d4444444-4444-4444-4444-444444444444" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "b2222222-2222-2222-2222-222222222222" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "17777777-7777-7777-7777-777777777777" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "39999999-9999-9999-9999-999999999999" }
+      ]
+    },
+    {
+      "fecha": "2026-04-24",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "a1111111-1111-1111-1111-111111111111" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "28888888-8888-8888-8888-888888888888" }
+      ]
+    },
+    {
+      "fecha": "2026-04-22",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "c3333333-3333-3333-3333-333333333333" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "4aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa" }
+      ]
+    },
+    {
+      "fecha": "2026-04-23",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "d4444444-4444-4444-4444-444444444444" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "b2222222-2222-2222-2222-222222222222" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "17777777-7777-7777-7777-777777777777" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "39999999-9999-9999-9999-999999999999" }
+      ]
+    },
+    {
+      "fecha": "2026-04-24",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "a1111111-1111-1111-1111-111111111111" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "28888888-8888-8888-8888-888888888888" }
+      ]
+    },
+    {
+      "fecha": "2026-04-22",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "c3333333-3333-3333-3333-333333333333" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "4aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa" }
+      ]
+    },
+    {
+      "fecha": "2026-04-23",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "d4444444-4444-4444-4444-444444444444" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "b2222222-2222-2222-2222-222222222222" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "17777777-7777-7777-7777-777777777777" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "39999999-9999-9999-9999-999999999999" }
+      ]
+    },
+    {
+      "fecha": "2026-04-24",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "a1111111-1111-1111-1111-111111111111" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "28888888-8888-8888-8888-888888888888" }
+      ]
+    },
+    {
+      "fecha": "2026-04-22",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "c3333333-3333-3333-3333-333333333333" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "4aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa" }
+      ]
+    },
+    {
+      "fecha": "2026-04-23",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "d4444444-4444-4444-4444-444444444444" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "b2222222-2222-2222-2222-222222222222" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "17777777-7777-7777-7777-777777777777" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "39999999-9999-9999-9999-999999999999" }
+      ]
+    },
+    {
+      "fecha": "2026-04-24",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "a1111111-1111-1111-1111-111111111111" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "28888888-8888-8888-8888-888888888888" }
+      ]
+    },
+    {
+      "fecha": "2026-04-22",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "c3333333-3333-3333-3333-333333333333" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "4aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa" }
+      ]
+    },
+    {
+      "fecha": "2026-04-23",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "d4444444-4444-4444-4444-444444444444" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "b2222222-2222-2222-2222-222222222222" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "17777777-7777-7777-7777-777777777777" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "39999999-9999-9999-9999-999999999999" }
+      ]
+    },
+    {
+      "fecha": "2026-04-24",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "a1111111-1111-1111-1111-111111111111" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "28888888-8888-8888-8888-888888888888" }
+      ]
+    },
+    {
+      "fecha": "2026-04-22",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "c3333333-3333-3333-3333-333333333333" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "4aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa" }
+      ]
+    },
+    {
+      "fecha": "2026-04-23",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "d4444444-4444-4444-4444-444444444444" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "b2222222-2222-2222-2222-222222222222" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "17777777-7777-7777-7777-777777777777" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "39999999-9999-9999-9999-999999999999" }
+      ]
+    },
+    {
+      "fecha": "2026-04-24",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "a1111111-1111-1111-1111-111111111111" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "28888888-8888-8888-8888-888888888888" }
+      ]
+    },
+    {
+      "fecha": "2026-04-22",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "c3333333-3333-3333-3333-333333333333" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "4aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa" }
+      ]
+    },
+    {
+      "fecha": "2026-04-23",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "d4444444-4444-4444-4444-444444444444" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "b2222222-2222-2222-2222-222222222222" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "17777777-7777-7777-7777-777777777777" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "39999999-9999-9999-9999-999999999999" }
+      ]
+    },
+    {
+      "fecha": "2026-04-24",
+      "recetas": [
+        { "orden": 1, "tiempoId": 1, "recetaId": "e5555555-5555-5555-5555-555555555555" },
+        { "orden": 2, "tiempoId": 2, "recetaId": "a1111111-1111-1111-1111-111111111111" },
+        { "orden": 3, "tiempoId": 3, "recetaId": "f6666666-6666-6666-6666-666666666666" },
+        { "orden": 4, "tiempoId": 4, "recetaId": "28888888-8888-8888-8888-888888888888" }
+      ]
+    }
+  ]
+}

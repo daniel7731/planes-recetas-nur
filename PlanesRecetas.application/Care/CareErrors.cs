@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PlanesRecetas.application.Care
 {
-    public static class Errors
+    public static class CareErrors
     {
 
 

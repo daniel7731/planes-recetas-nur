@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PlanesRecetas.application.Plan;
+using PlanesRecetas.application.Plan.Query;
 using PlanesRecetas.webapi.Parameters.Plan;
 
 namespace PlanesRecetas.webapi.Controllers
@@ -64,10 +65,58 @@ namespace PlanesRecetas.webapi.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetPlanAlimentario(Guid id)
         {
-            GetPlanAlimentaryQuery query = new GetPlanAlimentaryQuery(id);
-            var result = await _mediator.Send(query);
-            return Ok(result);
-
+            try
+            {
+                GetPlanAlimentaryQuery query = new GetPlanAlimentaryQuery(id);
+                var result = await _mediator.Send(query);
+                if (result.IsFailure)
+                {
+                    return NotFound(result.Error);
+                }
+                else
+                {
+                    return Ok(result.Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetDietaPlan(Guid planId)
+        {
+            try
+            {
+                GetRecetasByPlanAlimentarioQuery query = new GetRecetasByPlanAlimentarioQuery(planId);
+                var result = await _mediator.Send(query);
+                if (result.IsFailure)
+                {
+                    return NotFound(result.Error);
+                }
+                return Ok(result.Value);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("[action]")]
+        public async Task<IActionResult> BuscarPlanAlimentarioByPaciente(ParamSearchPlanAlimentario paramSearchPlan)
+        {
+            try
+            {
+                var result = await _mediator.Send(new BuscarPlanAlimentarioByPacienteQuery(paramSearchPlan.PacienteId, paramSearchPlan.DesdeFecha , paramSearchPlan.IgnorarFiltroFecha));
+                if (result.IsFailure)
+                {
+                    return NotFound(result.Error);
+                }
+                return Ok(result.Value);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

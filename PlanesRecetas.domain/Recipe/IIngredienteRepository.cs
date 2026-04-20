@@ -15,6 +15,8 @@ namespace PlanesRecetas.domain.Recipe
         Task DeleteAsync(Guid id);
         Task<bool> ExistsAsync(Guid id);
 
+        List<Ingrediente> GetIngredientesByRecetaId(Guid recetaId);
+
 
 
     }

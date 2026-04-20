@@ -1,4 +1,5 @@
-﻿using PlanesRecetas.domain.Recipe;
+﻿using Microsoft.EntityFrameworkCore;
+using PlanesRecetas.domain.Recipe;
 using PlanesRecetas.infraestructure.Persistence.DomainModel;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,18 @@ namespace PlanesRecetas.infraestructure.Repositories.Recipe
             return Task.FromResult(_dbContext.Ingrediente.FirstOrDefault(i => i.Nombre == nombre));
         }
 
-
+        public List<Ingrediente> GetIngredientesByRecetaId(Guid recetaId)
+        {
+            return  _dbContext.RecetaIngrediente
+                .Where(ri => ri.RecetaId == recetaId)
+                .Include(ri => ri.Ingrediente)
+                    .ThenInclude(i => i.Categoria)
+                .Include(ri => ri.Ingrediente)
+                    .ThenInclude(i => i.Unidad)
+                .Select(ri => ri.Ingrediente) // This makes the result Task<List<Ingrediente>>
+                .AsNoTracking()
+                .ToList();
+        }
 
         public Task UpdateAsync(Ingrediente ingrediente)
         {

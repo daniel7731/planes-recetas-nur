@@ -10,10 +10,13 @@ namespace PlanesRecetas.domain.Plan
     public interface IPlanAlimentacionRepository : IRepository<PlanAlimentacion>
     {
         List<PlanAlimentacion> GetAll();
-        Task<PlanAlimentacion?> GetByPacienteIdAsync(Guid pacienteId);
+        Task<List<PlanAlimentacion>> GetByPacienteIdAsync(Guid pacienteId);
         Task<PlanAlimentacion?> GetByNutricionistaIdAsync(Guid nutricionistaId);
         Task UpdateAsync(PlanAlimentacion plan);
         Task DeleteAsync(Guid id);
         Task<bool> ExistsAsync(Guid id);
+        public Task<List<DietaReceta>> GetRecetasByPlanIdAsync(Guid planId);
+
+        public Task<List<PlanAlimentacion>> SearchPacienteIdAsync(Guid pacienteId , DateTime FechaInicio, bool readOnly = false);
     }
 }

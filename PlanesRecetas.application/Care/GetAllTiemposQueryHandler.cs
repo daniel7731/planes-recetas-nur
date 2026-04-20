@@ -23,7 +23,7 @@ namespace PlanesRecetas.application.Care
             var tiempos = _tiempoRepository.GetAll();
             if (tiempos == null || tiempos.Count == 0)
             {
-                return Task.FromResult(Result.Failure<List<TiempoDto>>(Errors.TiemposNotFound));
+                return Task.FromResult(Result.Failure<List<TiempoDto>>(CareErrors.TiemposNotFound));
             }
             var dtoList = tiempos.Select(t => new TiempoDto(t.Id, t.Nombre)).ToList();
 

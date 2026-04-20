@@ -24,7 +24,7 @@ namespace PlanesRecetas.infraestructure.Care
         {
             var categorias = _categoriaRepository.GetAll();
             if (categorias == null || categorias.Count == 0)
-                return Task.FromResult(Result.Failure<List<CategoriaDto>>(Errors.CategoriesNotFound));
+                return Task.FromResult(Result.Failure<List<CategoriaDto>>(CareErrors.CategoriesNotFound));
             var list = categorias.Select(x => new CategoriaDto
             {
                 Id = x.Id,

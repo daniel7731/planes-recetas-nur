@@ -53,6 +53,7 @@ public static class DatabaseExtensions
             .AddScoped<IRecetaRepository, RecetaRepository>()
             .AddScoped<IDietaRepository, DietaRepository>()
             .AddScoped<IPlanAlimentacionRepository, PlanAlimentarioRepository>()
+            .AddScoped<IRecetaIngredienteRepository, RecetaIngredienteRepository>()
             .AddScoped<IOutboxDatabase<DomainEvent>, UnitOfWork>()    // AddScoped<IOutboxDatabase<DomainEvent>, OutboxDatabase>() // or UnitOfWork
             .AddOutbox<DomainEvent>();
     

@@ -63,7 +63,7 @@ namespace PlanesRecetas.testing.Application.Care
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Equal(Errors.TiposAlimentoNotFound, result.Error);
+            Assert.Equal(CareErrors.TiposAlimentoNotFound, result.Error);
         }
 
         [Fact]
@@ -81,7 +81,7 @@ namespace PlanesRecetas.testing.Application.Care
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Equal(Errors.TiposAlimentoNotFound, result.Error);
+            Assert.Equal(CareErrors.TiposAlimentoNotFound, result.Error);
         }
     }
 }

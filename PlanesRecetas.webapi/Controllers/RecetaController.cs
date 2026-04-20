@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PlanesRecetas.application.Recipe;
-using PlanesRecetas.domain.Recipe;
+using PlanesRecetas.domain.Recipe.Query;
 using PlanesRecetas.webapi.Parameters.Recipe;
 
 namespace PlanesRecetas.webapi.Controllers
@@ -43,6 +43,41 @@ namespace PlanesRecetas.webapi.Controllers
             var result = await _mediator.Send(createReceta, ct);
 
             return Ok(result);
+        }
+        //GetRecetaByIdQuery query = new GetRecetaByIdQuery { Id = id };
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetRecetaById(ParamGetReceta param, CancellationToken ct)
+        {
+            try
+            {
+                GetRecetaByIdQuery query = new(param.Id,true,param.IncludeIngredientes);
+                var result = await _mediator.Send(query, ct);
+                if (result.IsSuccess)
+                {
+                    return Ok(result.Value);
+                }
+                if (!result.IsSuccess)
+                    return NotFound(result.Error);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return NotFound();
+        }
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetAllRecetas(CancellationToken ct)
+        {
+            GetAllRecetasQuery query = new GetAllRecetasQuery();
+            var result = await _mediator.Send(query, ct);
+            if (result.IsSuccess)
+            {
+                return Ok(result.Value);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

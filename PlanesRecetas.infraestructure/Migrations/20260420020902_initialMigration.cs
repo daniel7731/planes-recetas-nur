@@ -9,22 +9,26 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace PlanesRecetas.infraestructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Base : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
+                name: "public");
+
+            migrationBuilder.EnsureSchema(
                 name: "outbox");
 
             migrationBuilder.CreateTable(
                 name: "Nutricionista",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Nombre = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Activo = table.Column<bool>(type: "boolean", nullable: false),
-                    FechaCreacion = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    FechaCreacion = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,9 +43,9 @@ namespace PlanesRecetas.infraestructure.Migrations
                     outboxId = table.Column<Guid>(type: "uuid", nullable: false),
                     content = table.Column<string>(type: "text", nullable: true),
                     type = table.Column<string>(type: "text", nullable: false),
-                    created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     processed = table.Column<bool>(type: "boolean", nullable: false),
-                    processedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    processedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     correlationId = table.Column<string>(type: "text", nullable: true),
                     traceId = table.Column<string>(type: "text", nullable: true),
                     spanId = table.Column<string>(type: "text", nullable: true)
@@ -53,12 +57,13 @@ namespace PlanesRecetas.infraestructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Paciente",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Nombre = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Apellido = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    FechaNacimiento = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaNacimiento = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Email = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
                     Telefono = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     Peso = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
@@ -71,6 +76,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Tiempo",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -84,6 +90,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "TipoAlimento",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -97,6 +104,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UnidadMedida",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -111,6 +119,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "PlanAlimentacion",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -126,19 +135,22 @@ namespace PlanesRecetas.infraestructure.Migrations
                     table.ForeignKey(
                         name: "FK_PlanAlimentacion_Nutricionista_NutricionistaId",
                         column: x => x.NutricionistaId,
+                        principalSchema: "public",
                         principalTable: "Nutricionista",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PlanAlimentacion_Paciente_PacienteId",
                         column: x => x.PacienteId,
+                        principalSchema: "public",
                         principalTable: "Paciente",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Receta",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -152,6 +164,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                     table.ForeignKey(
                         name: "FK_Receta_Tiempo_TiempoId",
                         column: x => x.TiempoId,
+                        principalSchema: "public",
                         principalTable: "Tiempo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -159,6 +172,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Categoria",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -171,6 +185,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                     table.ForeignKey(
                         name: "FK_Categoria_TipoAlimento_TipoAlimentoId",
                         column: x => x.TipoAlimentoId,
+                        principalSchema: "public",
                         principalTable: "TipoAlimento",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -178,6 +193,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Dieta",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -190,6 +206,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                     table.ForeignKey(
                         name: "FK_Dieta_PlanAlimentacion_PlanAlimentacionId",
                         column: x => x.PlanAlimentacionId,
+                        principalSchema: "public",
                         principalTable: "PlanAlimentacion",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -197,6 +214,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Ingrediente",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -212,12 +230,14 @@ namespace PlanesRecetas.infraestructure.Migrations
                     table.ForeignKey(
                         name: "FK_Ingrediente_Categoria_CategoriaId",
                         column: x => x.CategoriaId,
+                        principalSchema: "public",
                         principalTable: "Categoria",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Ingrediente_UnidadMedida_UnidadId",
                         column: x => x.UnidadId,
+                        principalSchema: "public",
                         principalTable: "UnidadMedida",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -225,6 +245,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "DietaReceta",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -240,18 +261,21 @@ namespace PlanesRecetas.infraestructure.Migrations
                     table.ForeignKey(
                         name: "FK_DietaReceta_Dieta_DietaId",
                         column: x => x.DietaId,
+                        principalSchema: "public",
                         principalTable: "Dieta",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DietaReceta_Receta_RecetaId",
                         column: x => x.RecetaId,
+                        principalSchema: "public",
                         principalTable: "Receta",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DietaReceta_Tiempo_TiempoId",
                         column: x => x.TiempoId,
+                        principalSchema: "public",
                         principalTable: "Tiempo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -259,6 +283,7 @@ namespace PlanesRecetas.infraestructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "RecetaIngrediente",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -273,18 +298,21 @@ namespace PlanesRecetas.infraestructure.Migrations
                     table.ForeignKey(
                         name: "FK_RecetaIngrediente_Ingrediente_IngredienteId",
                         column: x => x.IngredienteId,
+                        principalSchema: "public",
                         principalTable: "Ingrediente",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RecetaIngrediente_Receta_RecetaId",
                         column: x => x.RecetaId,
+                        principalSchema: "public",
                         principalTable: "Receta",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
+                schema: "public",
                 table: "Nutricionista",
                 columns: new[] { "Id", "Activo", "FechaCreacion", "Nombre" },
                 values: new object[,]
@@ -312,6 +340,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "public",
                 table: "Paciente",
                 columns: new[] { "Id", "Altura", "Apellido", "Email", "FechaNacimiento", "Nombre", "Peso", "Telefono" },
                 values: new object[,]
@@ -334,6 +363,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "public",
                 table: "Tiempo",
                 columns: new[] { "Id", "Nombre" },
                 values: new object[,]
@@ -346,6 +376,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "public",
                 table: "TipoAlimento",
                 columns: new[] { "Id", "Nombre" },
                 values: new object[,]
@@ -360,6 +391,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "public",
                 table: "UnidadMedida",
                 columns: new[] { "Id", "Nombre", "Simbolo" },
                 values: new object[,]
@@ -371,6 +403,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "public",
                 table: "Categoria",
                 columns: new[] { "Id", "Nombre", "TipoAlimentoId" },
                 values: new object[,]
@@ -412,6 +445,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "public",
                 table: "Receta",
                 columns: new[] { "Id", "Instrucciones", "Nombre", "TiempoId" },
                 values: new object[,]
@@ -429,6 +463,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "public",
                 table: "Ingrediente",
                 columns: new[] { "Id", "Calorias", "CantidadValor", "CategoriaId", "Nombre", "UnidadId" },
                 values: new object[,]
@@ -580,6 +615,7 @@ namespace PlanesRecetas.infraestructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                schema: "public",
                 table: "RecetaIngrediente",
                 columns: new[] { "Id", "CantidadValor", "IngredienteId", "RecetaId" },
                 values: new object[,]
@@ -596,61 +632,73 @@ namespace PlanesRecetas.infraestructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categoria_TipoAlimentoId",
+                schema: "public",
                 table: "Categoria",
                 column: "TipoAlimentoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dieta_PlanAlimentacionId",
+                schema: "public",
                 table: "Dieta",
                 column: "PlanAlimentacionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DietaReceta_DietaId",
+                schema: "public",
                 table: "DietaReceta",
                 column: "DietaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DietaReceta_RecetaId",
+                schema: "public",
                 table: "DietaReceta",
                 column: "RecetaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DietaReceta_TiempoId",
+                schema: "public",
                 table: "DietaReceta",
                 column: "TiempoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ingrediente_CategoriaId",
+                schema: "public",
                 table: "Ingrediente",
                 column: "CategoriaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ingrediente_UnidadId",
+                schema: "public",
                 table: "Ingrediente",
                 column: "UnidadId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlanAlimentacion_NutricionistaId",
+                schema: "public",
                 table: "PlanAlimentacion",
                 column: "NutricionistaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlanAlimentacion_PacienteId",
+                schema: "public",
                 table: "PlanAlimentacion",
                 column: "PacienteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Receta_TiempoId",
+                schema: "public",
                 table: "Receta",
                 column: "TiempoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RecetaIngrediente_IngredienteId",
+                schema: "public",
                 table: "RecetaIngrediente",
                 column: "IngredienteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RecetaIngrediente_RecetaId",
+                schema: "public",
                 table: "RecetaIngrediente",
                 column: "RecetaId");
         }
@@ -659,44 +707,56 @@ namespace PlanesRecetas.infraestructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DietaReceta");
+                name: "DietaReceta",
+                schema: "public");
 
             migrationBuilder.DropTable(
                 name: "outboxMessage",
                 schema: "outbox");
 
             migrationBuilder.DropTable(
-                name: "RecetaIngrediente");
+                name: "RecetaIngrediente",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Dieta");
+                name: "Dieta",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Ingrediente");
+                name: "Ingrediente",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Receta");
+                name: "Receta",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "PlanAlimentacion");
+                name: "PlanAlimentacion",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Categoria");
+                name: "Categoria",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "UnidadMedida");
+                name: "UnidadMedida",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Tiempo");
+                name: "Tiempo",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Nutricionista");
+                name: "Nutricionista",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Paciente");
+                name: "Paciente",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "TipoAlimento");
+                name: "TipoAlimento",
+                schema: "public");
         }
     }
 }
