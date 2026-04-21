@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PlanesRecetas.application.Care;
+using PlanesRecetas.webapi.Infrastructure;
 
 namespace PlanesRecetas.webapi.Controllers
 {
@@ -17,12 +18,18 @@ namespace PlanesRecetas.webapi.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new GetAllTiemposQuery());
-
-            if (!result.IsSuccess)
-                return NotFound(result.Error);
-
-            return Ok(result.Value);
+            ApiResponse response;
+            try
+            {
+                var result = await _mediator.Send(new GetAllTiemposQuery());
+                response = ResponseHelper.CreateResponse(result);
+            }
+            catch(Exception ex)
+            {
+                response = ResponseHelper.CreateErrorResponse(ex);
+               
+            }
+            return Ok(response);
         }
     }
 }

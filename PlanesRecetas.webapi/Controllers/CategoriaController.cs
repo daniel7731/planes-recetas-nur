@@ -1,8 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PlanesRecetas.application.Care;
 using PlanesRecetas.infraestructure.Care;
+using PlanesRecetas.webapi.Infrastructure;
 
 namespace PlanesRecetas.webapi.Controllers
 {
@@ -18,12 +17,17 @@ namespace PlanesRecetas.webapi.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetAll(CancellationToken ct)
         {
-            var result = await _mediator.Send(new GetAllCategoriasQuery(), ct);
-
-            if (!result.IsSuccess)
-                return NotFound(result.Error);
-
-            return Ok(result.Value);
+            ApiResponse response;
+            try
+            {
+                var result = await _mediator.Send(new GetAllCategoriasQuery(), ct);
+                response = ResponseHelper.CreateResponse(result);
+            }
+            catch(Exception e)
+            {
+                response = ResponseHelper.CreateErrorResponse(e);
+            }        
+            return Ok(response);
         }
     }
 }
