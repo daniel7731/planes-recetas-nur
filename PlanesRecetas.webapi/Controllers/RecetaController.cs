@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using PlanesRecetas.application.Recipe;
 using PlanesRecetas.domain.Recipe.Query;
+using PlanesRecetas.webapi.Infrastructure;
 using PlanesRecetas.webapi.Parameters.Recipe;
 
 namespace PlanesRecetas.webapi.Controllers
@@ -20,64 +22,68 @@ namespace PlanesRecetas.webapi.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateReceta([FromBody] CreateRecetaParameter request, CancellationToken ct)
         {
-
-            Guid guid = Guid.NewGuid();
-
-            List<CreateRecetaIngredienteComand> ingredientes = request.IngredienteList.Select(ingredient =>
+            ApiResponse response;
+            try
             {
-                return new CreateRecetaIngredienteComand
+                Guid guid = Guid.NewGuid();
+                List<CreateRecetaIngredienteComand> ingredientes = request.IngredienteList.Select(ingredient =>
                 {
-                    IngredienteId = ingredient.Id,
-                    CantidadValor = ingredient.CantidadValor,
-                    RecetaId = guid
+                    return new CreateRecetaIngredienteComand
+                    {
+                        IngredienteId = ingredient.Id,
+                        CantidadValor = ingredient.CantidadValor,
+                        RecetaId = guid
+                    };
+                }).ToList();
+                CreateRecetaCommand createReceta = new CreateRecetaCommand
+                {
+                    Id = guid,
+                    Nombre = request.Nombre,
+                    Ingredientes = ingredientes,
+                    TiempoId = request.TiempoId,
+                    Instrucciones = request.Instrucciones
                 };
-            }).ToList();
-            CreateRecetaCommand createReceta = new CreateRecetaCommand
+                var result = await _mediator.Send(createReceta, ct);
+                response = ResponseHelper.CreateResponse(result);
+            }
+            catch(Exception ex)
             {
-                Id = guid,
-                Nombre = request.Nombre,
-                Ingredientes = ingredientes,
-                TiempoId = request.TiempoId,
-                Instrucciones = request.Instrucciones
-            };
-            var result = await _mediator.Send(createReceta, ct);
-
-            return Ok(result);
+                response = ResponseHelper.CreateErrorResponse(ex);
+            }
+            return Ok(response);
         }
         //GetRecetaByIdQuery query = new GetRecetaByIdQuery { Id = id };
         [HttpPost("[action]")]
         public async Task<IActionResult> GetRecetaById(ParamGetReceta param, CancellationToken ct)
         {
+            ApiResponse response;
             try
             {
                 GetRecetaByIdQuery query = new(param.Id,true,param.IncludeIngredientes);
                 var result = await _mediator.Send(query, ct);
-                if (result.IsSuccess)
-                {
-                    return Ok(result.Value);
-                }
-                if (!result.IsSuccess)
-                    return NotFound(result.Error);
+                response = ResponseHelper.CreateResponse(result);   
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                response = ResponseHelper.CreateErrorResponse(ex);
             }
-            return NotFound();
+            return Ok(response);
         }
         [HttpPost("[action]")]
         public async Task<IActionResult> GetAllRecetas(CancellationToken ct)
         {
-            GetAllRecetasQuery query = new GetAllRecetasQuery();
-            var result = await _mediator.Send(query, ct);
-            if (result.IsSuccess)
+            ApiResponse response;
+            try
             {
-                return Ok(result.Value);
+                GetAllRecetasQuery query = new GetAllRecetasQuery();
+                var result = await _mediator.Send(query, ct);
+                response  = ResponseHelper.CreateResponse(result);
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound();
+                response = ResponseHelper.CreateErrorResponse(ex);  
             }
+            return Ok(response);
         }
     }
 }

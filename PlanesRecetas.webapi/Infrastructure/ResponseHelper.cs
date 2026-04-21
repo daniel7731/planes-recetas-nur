@@ -1,4 +1,6 @@
 ﻿using Joseco.DDD.Core.Results;
+using PlanesRecetas.application.Pacientes;
+using VaultSharp.V1.SecretsEngines.Identity;
 
 namespace PlanesRecetas.webapi.Infrastructure;
 
@@ -56,4 +58,43 @@ public class ResponseHelper
                 { "errors", validationError.Errors }
             };
     }
+
+
+    internal static ApiResponse CreateResponse<T>(Result<T> result)
+    {
+        return new ApiResponse
+        {
+            IsSuccess = result.IsSuccess,
+            IsFailure = !result.IsSuccess,
+            // Only assign Value if it's a success to avoid unexpected data
+            Value = result.IsSuccess ? result.Value : null,
+
+            // Use the null-conditional operator (?.) to prevent crashes
+            Error = result.IsSuccess ? null : new ErrorDetails
+            {
+                Code = result.Error?.Code ?? "",
+                Description = result.Error?.Description ?? "An unknown error occurred.",
+                StructuredMessage = result.Error?.StructuredMessage,
+                Type = (int)(result.Error?.Type ?? 0)
+            }
+        };
+    }
+    internal static ApiResponse CreateErrorResponse(Exception error)
+    {
+        ApiResponse response=new()
+        {
+            IsFailure = true,
+            IsSuccess = false,
+            Error = new ErrorDetails
+            {
+                Code = "",
+                Description = error.Message,
+                StructuredMessage = error.Message,
+                Type = 0
+            }
+        };
+        return response;
+    }
+
+    
 }
