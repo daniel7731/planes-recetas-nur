@@ -7,6 +7,7 @@ using PlanesRecetas.domain.Metrics;
 using PlanesRecetas.domain.Persons;
 using PlanesRecetas.domain.Plan;
 using PlanesRecetas.domain.Recipe;
+using PlanesRecetas.domain.Template;
 using System.Reflection;
 
 namespace PlanesRecetas.infraestructure.Persistence.DomainModel
@@ -27,6 +28,11 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel
         public DbSet<DietaReceta> DietaReceta { get; set; }
 
         public DbSet<Tiempo> Tiempo { get; set; }
+
+        public DbSet<PlanTemplate> PlanTemplates { get; set; }
+
+        public DbSet<PlanItemTemplate> PlanItemTemplates { get; set; }
+
         public DbSet<OutboxMessage<DomainEvent>> OutboxMessages { get; internal set; }
 
         public DomainDbContext(DbContextOptions<DomainDbContext> options) : base(options)
@@ -309,7 +315,43 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel
                 // Dinner / Cena (TiempoId 4)
                 new { Id = Guid.Parse("28888888-8888-8888-8888-888888888888"), Nombre = "Chuletas de Cordero al Horno", Instrucciones = "Marinar el cordero con especias y hornear con papas.", TiempoId = 4 },
                 new { Id = Guid.Parse("39999999-9999-9999-9999-999999999999"), Nombre = "Sopa de Cebada y Pollo", Instrucciones = "Hervir el pollo con cebada y vegetales hasta ablandar.", TiempoId = 4 },
-                new { Id = Guid.Parse("4AAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"), Nombre = "Pavo Mechado Liviano", Instrucciones = "Desmenuzar pavo cocido y servir con puré de papa.", TiempoId = 4 }
+                new { Id = Guid.Parse("4AAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"), Nombre = "Pavo Mechado Liviano", Instrucciones = "Desmenuzar pavo cocido y servir con puré de papa.", TiempoId = 4 },
+                new
+                {
+                    Id = Guid.Parse("e5555555-5555-5555-5555-555555555551"),
+                    Nombre = "Ensalada Detox Raíces y Frescura",
+                    Instrucciones = "Rallar la remolacha cruda y la zanahoria fresca. Mezclar sobre una base de lechuga. Aliñar con jengibre rallado, rábano picante y un toque de puerro picado.",
+                    TiempoId = 2
+                },
+
+                new
+                {
+                    Id = Guid.Parse("e5555555-5555-5555-5555-555555555552"),
+                    Nombre = "Bowl Muscle de Pavo y Quinoa",
+                    Instrucciones = "Cocinar la quinoa con ajo picado. Saltear el pavo molido magro hasta dorar. Servir la carne sobre la quinoa y añadir una cucharada de mantequilla de maní como fuente de energía.",
+                    TiempoId = 3
+                },
+                new
+                {
+                    Id = Guid.Parse("e5555555-5555-5555-5555-555555555553"),
+                    Nombre = "Estofado de Cordero y Cebada",
+                    Instrucciones = "Sellar el lomo de cordero con cebolla blanca. Añadir la cebada perlada, nabo y agua. Cocinar a fuego lento y agregar papas cocidas con piel al final.",
+                    TiempoId = 2
+                },
+                new
+                {
+                    Id = Guid.Parse("e5555555-5555-5555-5555-555555555554"),
+                    Nombre = "Lenguado al Vapor Light",
+                    Instrucciones = "Cocinar el lenguado al vapor utilizando el consomé de pavo para aromatizar. Servir acompañado de zapallo y raíces verdes al vapor.",
+                    TiempoId = 3
+                },
+                new
+                {
+                    Id = Guid.Parse("e5555555-5555-5555-5555-555555555556"),
+                    Nombre = "Snack de Arroz y Pavo",
+                    Instrucciones = "Colocar una rebanada de jamón de pavo sobre la galleta de arroz inflado. Añadir una hoja de lechuga y tiras de zanahoria fresca para dar crocancia.",
+                    TiempoId = 4
+                }
             );
             modelBuilder.Entity<RecetaIngrediente>().HasData(
                 // Ingredients for Majadito
@@ -328,7 +370,76 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel
 
                 // Ingredients for Dinner (Chuletas)
                 new { Id = 7, RecetaId = Guid.Parse("28888888-8888-8888-8888-888888888888"), IngredienteId = Guid.Parse("DE511E70-D867-4D08-8C5E-8A59429390ED"), CantidadValor = 2m },   // Chuleta de cordero
-                new { Id = 8, RecetaId = Guid.Parse("28888888-8888-8888-8888-888888888888"), IngredienteId = Guid.Parse("2403700C-3916-4855-830E-F2687EB0A84F"), CantidadValor = 2m }    // Papa asada
+                new { Id = 8, RecetaId = Guid.Parse("28888888-8888-8888-8888-888888888888"), IngredienteId = Guid.Parse("2403700C-3916-4855-830E-F2687EB0A84F"), CantidadValor = 2m },    // Papa asada
+
+                // Ingredientes para Ensalada Detox
+                new { Id = 10, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555551"), IngredienteId = Guid.Parse("02E196F1-1B17-45FE-9A8F-731651F53F8B"), CantidadValor = 1m }, // Remolacha
+                new { Id = 11, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555551"), IngredienteId = Guid.Parse("4200520D-DCF4-424B-8B07-D9459E3E2F11"), CantidadValor = 1m }, // Zanahoria
+                new { Id = 12, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555551"), IngredienteId = Guid.Parse("975B0575-F99A-42A9-BE76-715A509FEA59"), CantidadValor = 5m }, // Lechuga
+                new { Id = 13, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555551"), IngredienteId = Guid.Parse("98746E75-69FC-4C53-A7B5-EA56DF561BBD"), CantidadValor = 1m }, // Jengibre
+                new { Id = 14, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555551"), IngredienteId = Guid.Parse("01CEE8AD-D60C-43FD-9337-8AB3CC3820F2"), CantidadValor = 1m }, // Rábano picante
+                new { Id = 15, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555551"), IngredienteId = Guid.Parse("18018540-A0EC-4A86-806F-5772F99B58DF"), CantidadValor = 1m },  // Puerro
+
+                // Ingredientes para Bowl Muscle
+                new { Id = 20, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555552"), IngredienteId = Guid.Parse("9DDFF76B-D8C4-450D-AD00-0DDB152CDF91"), CantidadValor = 1m }, // Pavo molido magro
+                new { Id = 21, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555552"), IngredienteId = Guid.Parse("8AC032D5-7AA2-400B-B0AA-F969FE44A99B"), CantidadValor = 1m }, // Quinoa cruda
+                new { Id = 22, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555552"), IngredienteId = Guid.Parse("E984D4E9-F9D8-46B7-B078-3375237E2865"), CantidadValor = 1m }, // Ajo (cabeza)
+                new { Id = 23, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555552"), IngredienteId = Guid.Parse("8D5C9A34-BB53-4B8C-88BF-FC399B1D04B1"), CantidadValor = 1m }, // Mantequilla de maní
+                new { Id = 24, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555552"), IngredienteId = Guid.Parse("0A5B2076-F3E6-4AAD-8106-A3C385108531"), CantidadValor = 1m },  // Amaranto (semilla)
+
+                // Ingredientes para Estofado de Cordero
+                new { Id = 30, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555553"), IngredienteId = Guid.Parse("C430D1D8-AD26-4AA6-8304-B3B0EE00D60B"), CantidadValor = 1m }, // Lomo de cordero
+                new { Id = 31, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555553"), IngredienteId = Guid.Parse("3AC58F2F-734E-46C6-836B-04AF33DECCBD"), CantidadValor = 1m }, // Cebada perlada
+                new { Id = 32, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555553"), IngredienteId = Guid.Parse("CD365A29-D84F-4CA1-A854-E6A6887E9DA4"), CantidadValor = 1m }, // Cebolla blanca
+                new { Id = 33, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555553"), IngredienteId = Guid.Parse("A723CBEB-2733-4559-8590-E946072010C6"), CantidadValor = 1m }, // Nabo cocido
+                new { Id = 34, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555553"), IngredienteId = Guid.Parse("0E6F9613-7CA8-4D16-ACA9-520C17561219"), CantidadValor = 1m },  // Papa cocida (con piel)
+
+                // Ingredientes para Lenguado al Vapor Light
+                new { Id = 40, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555554"), IngredienteId = Guid.Parse("09103B00-9D4C-49C6-995A-51E8928FF585"), CantidadValor = 1m }, // Lenguado
+                new { Id = 41, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555554"), IngredienteId = Guid.Parse("4F7F1592-8AD0-40DC-98D9-A33CAF68D91B"), CantidadValor = 1m }, // Consomé de pavo
+                new { Id = 42, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555554"), IngredienteId = Guid.Parse("68A43539-0FD9-430A-A673-19161A744413"), CantidadValor = 1m }, // Zapallo
+                new { Id = 43, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555554"), IngredienteId = Guid.Parse("24E77645-5D8F-4F08-B020-76AB6C73D428"), CantidadValor = 1m },  // Raíces verdes
+
+                new { Id = 50, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555556"), IngredienteId = Guid.Parse("4BBCF803-0372-4515-B700-42749A77E1BA"), CantidadValor = 1m }, // Galletas de arroz
+                new { Id = 51, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555556"), IngredienteId = Guid.Parse("3BC78B5B-8A70-480C-A372-B7D150DCE38D"), CantidadValor = 1m }, // Jamón de pavo
+                new { Id = 52, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555556"), IngredienteId = Guid.Parse("975B0575-F99A-42A9-BE76-715A509FEA59"), CantidadValor = 1m }, // Lechuga
+                new { Id = 53, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555556"), IngredienteId = Guid.Parse("4200520D-DCF4-424B-8B07-D9459E3E2F11"), CantidadValor = 1m }  // Zanahoria fresca
+            );
+
+            modelBuilder.Entity<PlanTemplate>().HasData(
+                new { Id = 1, Nombre = "Plan Detox Raíces y Frescura", Dias = 15 },
+                new { Id = 2, Nombre = "Plan Muscle & Power", Dias = 15 }
+            );
+            modelBuilder.Entity<PlanItemTemplate>().HasData(
+             // Repetir ciclo de recetas ligeras durante 15 días
+                Enumerable.Range(1, 15).SelectMany(dia => new[]
+                {
+                    // Desayuno
+                    new { Id = 100 + (dia * 4), PlanTemplateId = 1, NumeroDia = dia, RecetaId = Guid.Parse("d4444444-4444-4444-4444-444444444444") }, // Avena con Manzana
+                    // Almuerzo
+                    new { Id = 101 + (dia * 4), PlanTemplateId = 1, NumeroDia = dia, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555551") }, // Ensalada Detox
+                    // Snack
+                    new { Id = 102 + (dia * 4), PlanTemplateId = 1, NumeroDia = dia, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555556") }, // Snack de Arroz y Pavo
+                    // Cena
+                    new { Id = 103 + (dia * 4), PlanTemplateId = 1, NumeroDia = dia, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555554") }  // Lenguado al Vapor
+                }).ToArray()
+            );
+
+            modelBuilder.Entity<PlanItemTemplate>().HasData(
+                // Repetir ciclo de fuerza durante 15 días
+                Enumerable.Range(1, 15).SelectMany(dia => new[]
+                {
+                    // Desayuno
+                    new { Id = 200 + (dia * 4), PlanTemplateId = 2, NumeroDia = dia, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555556") }, // Tostadas de Cebada/Pavo
+                    // Almuerzo (Alternando Majadito y Estofado)
+                    new { Id = 201 + (dia * 4), PlanTemplateId = 2, NumeroDia = dia, RecetaId = (dia % 2 == 0)
+                        ? Guid.Parse("a1111111-1111-1111-1111-111111111111")   // Majadito
+                        : Guid.Parse("e5555555-5555-5555-5555-555555555553") }, // Estofado Cordero
+                    // Snack
+                    new { Id = 202 + (dia * 4), PlanTemplateId = 2, NumeroDia = dia, RecetaId = Guid.Parse("f6666666-6666-6666-6666-666666666666") }, // Frutos Secos
+                    // Cena
+                    new { Id = 203 + (dia * 4), PlanTemplateId = 2, NumeroDia = dia, RecetaId = Guid.Parse("e5555555-5555-5555-5555-555555555552") }  // Bowl Muscle Pavo/Quinoa
+                }).ToArray()
             );
         }
         public void Migrate()

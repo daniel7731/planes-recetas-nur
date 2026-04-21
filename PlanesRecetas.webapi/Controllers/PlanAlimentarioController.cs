@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PlanesRecetas.application.Plan;
 using PlanesRecetas.application.Plan.Query;
+using PlanesRecetas.application.Template.Query;
 using PlanesRecetas.webapi.Infrastructure;
 using PlanesRecetas.webapi.Parameters.Plan;
 
@@ -65,7 +66,7 @@ namespace PlanesRecetas.webapi.Controllers
                 var result = await _mediator.Send(createPlanAlimentario);
                 response = ResponseHelper.CreateResponse(result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response = ResponseHelper.CreateErrorResponse(ex);
             }
@@ -86,7 +87,7 @@ namespace PlanesRecetas.webapi.Controllers
             {
                 response = ResponseHelper.CreateErrorResponse(ex);
             }
-            return Ok(response);    
+            return Ok(response);
         }
         [HttpGet("[action]")]
         public async Task<IActionResult> GetDietaPlan(Guid planId)
@@ -110,9 +111,24 @@ namespace PlanesRecetas.webapi.Controllers
             ApiResponse response;
             try
             {
-                var result = await _mediator.Send(new BuscarPlanAlimentarioByPacienteQuery(paramSearchPlan.PacienteId, 
-                    paramSearchPlan.DesdeFecha , 
+                var result = await _mediator.Send(new BuscarPlanAlimentarioByPacienteQuery(paramSearchPlan.PacienteId,
+                    paramSearchPlan.DesdeFecha,
                     paramSearchPlan.IgnorarFiltroFecha));
+                response = ResponseHelper.CreateResponse(result);
+            }
+            catch (Exception ex)
+            {
+                response = ResponseHelper.CreateErrorResponse(ex);
+            }
+            return Ok(response);
+        }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllPlanesTemplates()
+        {
+            ApiResponse response;
+            try
+            {
+                var result = await _mediator.Send(new GetAllTemplateQuery());
                 response = ResponseHelper.CreateResponse(result);
             }
             catch (Exception ex)
