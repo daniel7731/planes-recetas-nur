@@ -51,7 +51,8 @@ namespace PlanesRecetas.application.Plan
                 pacienteId,
                 nutricionistaId,
                 request.FechaInicio,
-                request.DuracionDias
+                request.DuracionDias,
+                request.Requerido   
             );
 
             await _planAlimentacionRepository.AddAsync(planAlimentacion);
@@ -73,10 +74,10 @@ namespace PlanesRecetas.application.Plan
                 });
             });
             var outboxMessage = new OutboxMessage<DomainEvent>(new PlanCreated(planAlimentacion.Id, planAlimentacion.PacienteId, planAlimentacion.NutricionistaId,
-                planAlimentacion.FechaInicio, planAlimentacion.DuracionDias));
+                planAlimentacion.FechaInicio, planAlimentacion.DuracionDias , planAlimentacion.Requerido));
             await _outboxService.AddAsync(new OutboxMessage<DomainEvent>(new
                 PlanCreated(planAlimentacion.Id, planAlimentacion.PacienteId, planAlimentacion.NutricionistaId,
-                planAlimentacion.FechaInicio, planAlimentacion.DuracionDias)));
+                planAlimentacion.FechaInicio, planAlimentacion.DuracionDias,planAlimentacion.Requerido)));
             await _unitOfWork.CommitAsync(cancellationToken);
             return Result.Success(planAlimentacion.Id);
         }

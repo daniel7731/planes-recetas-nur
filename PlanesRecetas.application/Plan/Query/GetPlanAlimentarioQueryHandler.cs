@@ -4,13 +4,9 @@ using MediatR;
 using PlanesRecetas.application.Pacientes;
 using PlanesRecetas.domain.Persons;
 using PlanesRecetas.domain.Plan;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PlanesRecetas.application.Plan
+
+namespace PlanesRecetas.application.Plan.Query
 {
     public class GetPlanAlimentarioQueryHandler : IRequestHandler<GetPlanAlimentaryQuery, Result<List<PlanAlimentacionDto>>>
     {
@@ -58,7 +54,7 @@ namespace PlanesRecetas.application.Plan
                      {
                          Id = d.Id,
                          Fecha = d.FechaConsumo,
-                         Recetas = d.DietaRecetas.Select(p => new DietaRecetaDto
+                         DietasRecetas = d.DietaRecetas.Select(p => new DietaRecetaDto
                          {
 
                              Orden = (int)p.Orden,

@@ -17,6 +17,7 @@ namespace PlanesRecetas.domain.Plan
         public DateTime FechaInicio { get; private set; }
         public DateTime FechaFin { get; private set; }
 
+        public Boolean Requerido { get; set; } = false;
         public Paciente Paciente { get; set; }
 
         public Nutricionista Nutricionista { get; set; }
@@ -28,14 +29,15 @@ namespace PlanesRecetas.domain.Plan
 
         protected PlanAlimentacion() { }
 
-        public PlanAlimentacion(Guid id, Guid paciente, Guid nutricionista, DateTime fechaInicio, int duracion) : base(id)
+        public PlanAlimentacion(Guid id, Guid paciente, Guid nutricionista, DateTime fechaInicio, int duracion , bool requerido) : base(id)
         {
             PacienteId = paciente;
             NutricionistaId = nutricionista;
             SetFechaInicio(fechaInicio, duracion);
             Dietas = new List<Dieta>();
             DuracionDias = duracion;
-            AddDomainEvent(new PlanCreated(Id, PacienteId, NutricionistaId, FechaInicio, duracion));
+            Requerido = requerido;
+            AddDomainEvent(new PlanCreated(Id, PacienteId, NutricionistaId, FechaInicio, duracion, requerido));
         }
         public void SetFechaInicio(DateTime fechaInicio, int duracion)
         {

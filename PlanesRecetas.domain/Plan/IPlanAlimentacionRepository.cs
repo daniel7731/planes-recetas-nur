@@ -15,6 +15,8 @@ namespace PlanesRecetas.domain.Plan
         Task UpdateAsync(PlanAlimentacion plan);
         Task DeleteAsync(Guid id);
         Task<bool> ExistsAsync(Guid id);
+
+        public List<DietaReceta> GetRecetasByPlanId(Guid planId);
         public Task<List<DietaReceta>> GetRecetasByPlanIdAsync(Guid planId);
 
         public Task<List<PlanAlimentacion>> SearchPacienteIdAsync(Guid pacienteId , DateTime FechaInicio, bool readOnly = false);

@@ -12,7 +12,7 @@ using PlanesRecetas.infraestructure.Persistence.DomainModel;
 namespace PlanesRecetas.infraestructure.Migrations
 {
     [DbContext(typeof(DomainDbContext))]
-    [Migration("20260420020902_initialMigration")]
+    [Migration("20260421154241_initialMigration")]
     partial class initialMigration
     {
         /// <inheritdoc />
@@ -858,6 +858,9 @@ namespace PlanesRecetas.infraestructure.Migrations
 
                     b.Property<Guid>("PacienteId")
                         .HasColumnType("uuid");
+
+                    b.Property<bool>("Requerido")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -2292,6 +2295,41 @@ namespace PlanesRecetas.infraestructure.Migrations
                             Instrucciones = "Desmenuzar pavo cocido y servir con puré de papa.",
                             Nombre = "Pavo Mechado Liviano",
                             TiempoId = 4
+                        },
+                        new
+                        {
+                            Id = new Guid("e5555555-5555-5555-5555-555555555551"),
+                            Instrucciones = "Rallar la remolacha cruda y la zanahoria fresca. Mezclar sobre una base de lechuga. Aliñar con jengibre rallado, rábano picante y un toque de puerro picado.",
+                            Nombre = "Ensalada Detox Raíces y Frescura",
+                            TiempoId = 2
+                        },
+                        new
+                        {
+                            Id = new Guid("e5555555-5555-5555-5555-555555555552"),
+                            Instrucciones = "Cocinar la quinoa con ajo picado. Saltear el pavo molido magro hasta dorar. Servir la carne sobre la quinoa y añadir una cucharada de mantequilla de maní como fuente de energía.",
+                            Nombre = "Bowl Muscle de Pavo y Quinoa",
+                            TiempoId = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("e5555555-5555-5555-5555-555555555553"),
+                            Instrucciones = "Sellar el lomo de cordero con cebolla blanca. Añadir la cebada perlada, nabo y agua. Cocinar a fuego lento y agregar papas cocidas con piel al final.",
+                            Nombre = "Estofado de Cordero y Cebada",
+                            TiempoId = 2
+                        },
+                        new
+                        {
+                            Id = new Guid("e5555555-5555-5555-5555-555555555554"),
+                            Instrucciones = "Cocinar el lenguado al vapor utilizando el consomé de pavo para aromatizar. Servir acompañado de zapallo y raíces verdes al vapor.",
+                            Nombre = "Lenguado al Vapor Light",
+                            TiempoId = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("e5555555-5555-5555-5555-555555555556"),
+                            Instrucciones = "Colocar una rebanada de jamón de pavo sobre la galleta de arroz inflado. Añadir una hoja de lechuga y tiras de zanahoria fresca para dar crocancia.",
+                            Nombre = "Snack de Arroz y Pavo",
+                            TiempoId = 4
                         });
                 });
 
@@ -2376,6 +2414,1077 @@ namespace PlanesRecetas.infraestructure.Migrations
                             CantidadValor = 2m,
                             IngredienteId = new Guid("2403700c-3916-4855-830e-f2687eb0a84f"),
                             RecetaId = new Guid("28888888-8888-8888-8888-888888888888")
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("02e196f1-1b17-45fe-9a8f-731651f53f8b"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("4200520d-dcf4-424b-8b07-d9459e3e2f11"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CantidadValor = 5m,
+                            IngredienteId = new Guid("975b0575-f99a-42a9-be76-715a509fea59"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("98746e75-69fc-4c53-a7b5-ea56df561bbd"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("01cee8ad-d60c-43fd-9337-8ab3cc3820f2"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("18018540-a0ec-4a86-806f-5772f99b58df"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("9ddff76b-d8c4-450d-ad00-0ddb152cdf91"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("8ac032d5-7aa2-400b-b0aa-f969fe44a99b"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("e984d4e9-f9d8-46b7-b078-3375237e2865"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("8d5c9a34-bb53-4b8c-88bf-fc399b1d04b1"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 24,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("0a5b2076-f3e6-4aad-8106-a3c385108531"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 30,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("c430d1d8-ad26-4aa6-8304-b3b0ee00d60b"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555553")
+                        },
+                        new
+                        {
+                            Id = 31,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("3ac58f2f-734e-46c6-836b-04af33deccbd"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555553")
+                        },
+                        new
+                        {
+                            Id = 32,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("cd365a29-d84f-4ca1-a854-e6a6887e9da4"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555553")
+                        },
+                        new
+                        {
+                            Id = 33,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("a723cbeb-2733-4559-8590-e946072010c6"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555553")
+                        },
+                        new
+                        {
+                            Id = 34,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("0e6f9613-7ca8-4d16-aca9-520c17561219"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555553")
+                        },
+                        new
+                        {
+                            Id = 40,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("09103b00-9d4c-49c6-995a-51e8928ff585"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 41,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("4f7f1592-8ad0-40dc-98d9-a33caf68d91b"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 42,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("68a43539-0fd9-430a-a673-19161a744413"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 43,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("24e77645-5d8f-4f08-b020-76ab6c73d428"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 50,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("4bbcf803-0372-4515-b700-42749a77e1ba"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 51,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("3bc78b5b-8a70-480c-a372-b7d150dce38d"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 52,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("975b0575-f99a-42a9-be76-715a509fea59"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 53,
+                            CantidadValor = 1m,
+                            IngredienteId = new Guid("4200520d-dcf4-424b-8b07-d9459e3e2f11"),
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        });
+                });
+
+            modelBuilder.Entity("PlanesRecetas.domain.Template.PlanItemTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("NumeroDia")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PlanTemplateId")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("RecetaId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanTemplateId");
+
+                    b.HasIndex("RecetaId");
+
+                    b.ToTable("PlanItemTemplate", "public");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 104,
+                            NumeroDia = 1,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 105,
+                            NumeroDia = 1,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 106,
+                            NumeroDia = 1,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 107,
+                            NumeroDia = 1,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 108,
+                            NumeroDia = 2,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 109,
+                            NumeroDia = 2,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 110,
+                            NumeroDia = 2,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 111,
+                            NumeroDia = 2,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 112,
+                            NumeroDia = 3,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 113,
+                            NumeroDia = 3,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 114,
+                            NumeroDia = 3,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 115,
+                            NumeroDia = 3,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 116,
+                            NumeroDia = 4,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 117,
+                            NumeroDia = 4,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 118,
+                            NumeroDia = 4,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 119,
+                            NumeroDia = 4,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 120,
+                            NumeroDia = 5,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 121,
+                            NumeroDia = 5,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 122,
+                            NumeroDia = 5,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 123,
+                            NumeroDia = 5,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 124,
+                            NumeroDia = 6,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 125,
+                            NumeroDia = 6,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 126,
+                            NumeroDia = 6,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 127,
+                            NumeroDia = 6,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 128,
+                            NumeroDia = 7,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 129,
+                            NumeroDia = 7,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 130,
+                            NumeroDia = 7,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 131,
+                            NumeroDia = 7,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 132,
+                            NumeroDia = 8,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 133,
+                            NumeroDia = 8,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 134,
+                            NumeroDia = 8,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 135,
+                            NumeroDia = 8,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 136,
+                            NumeroDia = 9,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 137,
+                            NumeroDia = 9,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 138,
+                            NumeroDia = 9,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 139,
+                            NumeroDia = 9,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 140,
+                            NumeroDia = 10,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 141,
+                            NumeroDia = 10,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 142,
+                            NumeroDia = 10,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 143,
+                            NumeroDia = 10,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 144,
+                            NumeroDia = 11,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 145,
+                            NumeroDia = 11,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 146,
+                            NumeroDia = 11,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 147,
+                            NumeroDia = 11,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 148,
+                            NumeroDia = 12,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 149,
+                            NumeroDia = 12,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 150,
+                            NumeroDia = 12,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 151,
+                            NumeroDia = 12,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 152,
+                            NumeroDia = 13,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 153,
+                            NumeroDia = 13,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 154,
+                            NumeroDia = 13,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 155,
+                            NumeroDia = 13,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 156,
+                            NumeroDia = 14,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 157,
+                            NumeroDia = 14,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 158,
+                            NumeroDia = 14,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 159,
+                            NumeroDia = 14,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 160,
+                            NumeroDia = 15,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("d4444444-4444-4444-4444-444444444444")
+                        },
+                        new
+                        {
+                            Id = 161,
+                            NumeroDia = 15,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555551")
+                        },
+                        new
+                        {
+                            Id = 162,
+                            NumeroDia = 15,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 163,
+                            NumeroDia = 15,
+                            PlanTemplateId = 1,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555554")
+                        },
+                        new
+                        {
+                            Id = 204,
+                            NumeroDia = 1,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 205,
+                            NumeroDia = 1,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555553")
+                        },
+                        new
+                        {
+                            Id = 206,
+                            NumeroDia = 1,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 207,
+                            NumeroDia = 1,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 208,
+                            NumeroDia = 2,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 209,
+                            NumeroDia = 2,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("a1111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            Id = 210,
+                            NumeroDia = 2,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 211,
+                            NumeroDia = 2,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 212,
+                            NumeroDia = 3,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 213,
+                            NumeroDia = 3,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555553")
+                        },
+                        new
+                        {
+                            Id = 214,
+                            NumeroDia = 3,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 215,
+                            NumeroDia = 3,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 216,
+                            NumeroDia = 4,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 217,
+                            NumeroDia = 4,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("a1111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            Id = 218,
+                            NumeroDia = 4,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 219,
+                            NumeroDia = 4,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 220,
+                            NumeroDia = 5,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 221,
+                            NumeroDia = 5,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555553")
+                        },
+                        new
+                        {
+                            Id = 222,
+                            NumeroDia = 5,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 223,
+                            NumeroDia = 5,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 224,
+                            NumeroDia = 6,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 225,
+                            NumeroDia = 6,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("a1111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            Id = 226,
+                            NumeroDia = 6,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 227,
+                            NumeroDia = 6,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 228,
+                            NumeroDia = 7,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 229,
+                            NumeroDia = 7,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555553")
+                        },
+                        new
+                        {
+                            Id = 230,
+                            NumeroDia = 7,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 231,
+                            NumeroDia = 7,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 232,
+                            NumeroDia = 8,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 233,
+                            NumeroDia = 8,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("a1111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            Id = 234,
+                            NumeroDia = 8,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 235,
+                            NumeroDia = 8,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 236,
+                            NumeroDia = 9,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 237,
+                            NumeroDia = 9,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555553")
+                        },
+                        new
+                        {
+                            Id = 238,
+                            NumeroDia = 9,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 239,
+                            NumeroDia = 9,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 240,
+                            NumeroDia = 10,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 241,
+                            NumeroDia = 10,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("a1111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            Id = 242,
+                            NumeroDia = 10,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 243,
+                            NumeroDia = 10,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 244,
+                            NumeroDia = 11,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 245,
+                            NumeroDia = 11,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555553")
+                        },
+                        new
+                        {
+                            Id = 246,
+                            NumeroDia = 11,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 247,
+                            NumeroDia = 11,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 248,
+                            NumeroDia = 12,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 249,
+                            NumeroDia = 12,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("a1111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            Id = 250,
+                            NumeroDia = 12,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 251,
+                            NumeroDia = 12,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 252,
+                            NumeroDia = 13,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 253,
+                            NumeroDia = 13,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555553")
+                        },
+                        new
+                        {
+                            Id = 254,
+                            NumeroDia = 13,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 255,
+                            NumeroDia = 13,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 256,
+                            NumeroDia = 14,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 257,
+                            NumeroDia = 14,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("a1111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            Id = 258,
+                            NumeroDia = 14,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 259,
+                            NumeroDia = 14,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        },
+                        new
+                        {
+                            Id = 260,
+                            NumeroDia = 15,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555556")
+                        },
+                        new
+                        {
+                            Id = 261,
+                            NumeroDia = 15,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555553")
+                        },
+                        new
+                        {
+                            Id = 262,
+                            NumeroDia = 15,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("f6666666-6666-6666-6666-666666666666")
+                        },
+                        new
+                        {
+                            Id = 263,
+                            NumeroDia = 15,
+                            PlanTemplateId = 2,
+                            RecetaId = new Guid("e5555555-5555-5555-5555-555555555552")
+                        });
+                });
+
+            modelBuilder.Entity("PlanesRecetas.domain.Template.PlanTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Dias")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PlanTemplate", "public");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Dias = 15,
+                            Nombre = "Plan Detox Raíces y Frescura"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Dias = 15,
+                            Nombre = "Plan Muscle & Power"
                         });
                 });
 
@@ -2496,6 +3605,23 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.Navigation("Receta");
                 });
 
+            modelBuilder.Entity("PlanesRecetas.domain.Template.PlanItemTemplate", b =>
+                {
+                    b.HasOne("PlanesRecetas.domain.Template.PlanTemplate", null)
+                        .WithMany("Items")
+                        .HasForeignKey("PlanTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PlanesRecetas.domain.Recipe.Receta", "Receta")
+                        .WithMany()
+                        .HasForeignKey("RecetaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Receta");
+                });
+
             modelBuilder.Entity("PlanesRecetas.domain.Care.TipoAlimento", b =>
                 {
                     b.Navigation("Categorias");
@@ -2509,6 +3635,11 @@ namespace PlanesRecetas.infraestructure.Migrations
             modelBuilder.Entity("PlanesRecetas.domain.Plan.PlanAlimentacion", b =>
                 {
                     b.Navigation("Dietas");
+                });
+
+            modelBuilder.Entity("PlanesRecetas.domain.Template.PlanTemplate", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

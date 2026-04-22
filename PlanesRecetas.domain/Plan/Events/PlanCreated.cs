@@ -10,13 +10,16 @@ namespace PlanesRecetas.domain.Plan.Events
         public DateTime FechaInicio { get; set; }
         public int Duracion { get; set; }
 
-        public PlanCreated(Guid Id, Guid pacienteId, Guid nutricionistaId, DateTime fechaInicio, int duracion)
+        public bool Requerido { get; set; } = false;
+
+        public PlanCreated(Guid Id, Guid pacienteId, Guid nutricionistaId, DateTime fechaInicio, int duracion , bool requerido)
         {
             this.Id = Id;
             this.PacienteId = pacienteId;
             this.NutricionistaId = nutricionistaId;
             this.FechaInicio = fechaInicio;
             this.Duracion = duracion;
+            this.Requerido = requerido;
         }
 
 

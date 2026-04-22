@@ -3,6 +3,7 @@
   "nutricionistaId": "a0c733f5-3f18-4176-114e-08de181e81fb",
   "fechaInicio": "2026-04-22",
   "duracionDias": 30,
+  "requerido" : true,
   "dietas": [
     {
       "fecha": "2026-04-22",
