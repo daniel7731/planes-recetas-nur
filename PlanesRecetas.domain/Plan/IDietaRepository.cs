@@ -17,5 +17,7 @@ namespace PlanesRecetas.domain.Plan
         Task AddDietaReceta(Dieta dieta, DietaReceta dietaReceta);
 
         List<DietaReceta> GetDietaRecetas(Guid dietaId);
+
+        List<DietaReceta> GetDietaRecetasByPlanId(Guid planId);
     }
 }

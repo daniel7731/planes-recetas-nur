@@ -28,6 +28,7 @@ namespace PlanesRecetas.infraestructure.Extensions
             services.AddScoped<IExternalPublisher, DefaultPublisher>();
             services.AddScoped<INotificationHandler<PacienteCreated>, PacienteCreatedConsumer>();
             services.AddHostedService<RabbitTopicWorker<PacienteCreated>>();
+          
             return services;
         }
     }

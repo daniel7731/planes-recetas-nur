@@ -9,11 +9,14 @@ namespace PlanesRecetas.application.Recipe
 {
     using Joseco.DDD.Core.Abstractions;
     using Joseco.DDD.Core.Results;
+    using Joseco.Outbox.Contracts.Model;
+    using Joseco.Outbox.Contracts.Service;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using PlanesRecetas.domain.Care;
     using PlanesRecetas.domain.Metrics;
     using PlanesRecetas.domain.Recipe;
+    using PlanesRecetas.domain.Recipe.Evento;
     using System;
     using System.Collections.Generic;
     using System.Threading;
@@ -30,12 +33,14 @@ namespace PlanesRecetas.application.Recipe
         private readonly IUnidadRepository _unidadRepository;
         private readonly IRecetaRepository _recetaRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IOutboxService<DomainEvent> _outboxService;
         public CreateRecetaCommandHandler(IRecetaRepository recetaRepositor,
             IIngredienteRepository ingredienteRepository,
             ICategoriaRepository categoriaRepository,
             ITiempoRepository tiempoRepository,
             IUnidadRepository unidadRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IOutboxService<DomainEvent> outboxService)
         {
             _recetaRepository = recetaRepositor;
             _ingredienteRepository = ingredienteRepository;
@@ -43,6 +48,7 @@ namespace PlanesRecetas.application.Recipe
             _categoriaRepository = categoriaRepository;
             _unidadRepository = unidadRepository;
             _unitOfWork = unitOfWork;
+            _outboxService = outboxService;
         }
 
         // The method that handles the command execution
@@ -58,7 +64,7 @@ namespace PlanesRecetas.application.Recipe
             var newReceta = new Receta(request.Id); // Assuming 'Receta' is your Entity class
             newReceta.Nombre = request.Nombre;
             newReceta.TiempoId = request.TiempoId;
-            newReceta.Instrucciones = request.Instrucciones;
+            newReceta.Instrucciones = request.Instrucciones != null ? request.Instrucciones : "";
 
             // 3. **Persistence:**
             // Add the new entity to the data context and save changes.
@@ -71,7 +77,21 @@ namespace PlanesRecetas.application.Recipe
                 CantidadValor = incrediente.CantidadValor
             }).ToList();
             // Add related Ingredientes (example relationship setup)
+            EventRecetaCreated recetaCreatedEvent = new EventRecetaCreated(
+                newReceta.Id,
+                newReceta.Nombre,
+                newReceta.Instrucciones,
+                newReceta.TiempoId
+            );
+            recetaCreatedEvent.IngredientesId = ingredientes.Select(i => new EventItemIngredient
+            {
+                Id = i.IngredienteId,
+                CantidadValor = i.CantidadValor != null ? i.CantidadValor.Value : 1
+            }).ToList();
+            newReceta.AddDomainEvent(recetaCreatedEvent);
+            var outboxEvent = new OutboxMessage<DomainEvent>(recetaCreatedEvent);
             await _recetaRepository.AddIngredientes(newReceta, ingredientes);
+            await _outboxService.AddAsync(outboxEvent);
             await _unitOfWork.CommitAsync(cancellationToken);
 
             // 4. **Return Result:**

@@ -16,6 +16,7 @@ public static class MiddlewareExtensions
         app.UseSerilogRequestLogging(opts =>
             opts.MessageTemplate = "HTTP {RequestMethod} {RequestPath} -> {StatusCOde} ({Elapsed:0.0ms})"
         );
+       
 
         return app;
     }

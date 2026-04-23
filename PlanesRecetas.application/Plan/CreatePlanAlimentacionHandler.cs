@@ -6,6 +6,7 @@ using MediatR;
 using PlanesRecetas.domain.Persons;
 using PlanesRecetas.domain.Plan;
 using PlanesRecetas.domain.Plan.Events;
+using PlanesRecetas.domain.Recipe.Evento;
 
 namespace PlanesRecetas.application.Plan
 {
@@ -51,7 +52,8 @@ namespace PlanesRecetas.application.Plan
                 pacienteId,
                 nutricionistaId,
                 request.FechaInicio,
-                request.DuracionDias
+                request.DuracionDias,
+                request.Requerido   
             );
 
             await _planAlimentacionRepository.AddAsync(planAlimentacion);
@@ -72,11 +74,26 @@ namespace PlanesRecetas.application.Plan
                     await _dietaRepository.AddDietaReceta(dieta, dietaReceta);
                 });
             });
-            var outboxMessage = new OutboxMessage<DomainEvent>(new PlanCreated(planAlimentacion.Id, planAlimentacion.PacienteId, planAlimentacion.NutricionistaId,
-                planAlimentacion.FechaInicio, planAlimentacion.DuracionDias));
-            await _outboxService.AddAsync(new OutboxMessage<DomainEvent>(new
-                PlanCreated(planAlimentacion.Id, planAlimentacion.PacienteId, planAlimentacion.NutricionistaId,
-                planAlimentacion.FechaInicio, planAlimentacion.DuracionDias)));
+            var newEvent = new EventPlanCreated(planAlimentacion.Id, 
+                planAlimentacion.PacienteId, 
+                planAlimentacion.NutricionistaId,
+                planAlimentacion.FechaInicio, 
+                planAlimentacion.DuracionDias, 
+                planAlimentacion.Requerido);
+            newEvent.Dietas = request.Dieta.Select(d => new EventItemDieta
+            {
+                DietaId = d.Id,
+                FechaConsumo = d.FechaConsumo,
+                Recetas = d.Platillos.Select(p => new EventItemDietaReceta
+                {
+                    RecetaId = p.RecetaId,
+                    Orden = p.Orden,
+                    TiempoId = p.TiempoId
+                    
+                }).ToList()
+            }).ToList();
+            var outboxMessage = new OutboxMessage<DomainEvent>(newEvent);
+            await _outboxService.AddAsync(outboxMessage);
             await _unitOfWork.CommitAsync(cancellationToken);
             return Result.Success(planAlimentacion.Id);
         }

@@ -21,6 +21,7 @@ namespace PlanesRecetas.infraestructure.Persistence.DomainModel.Config
             // builder.Property(x => x.NutricionistaId).IsRequired();
             builder.Property(x => x.FechaInicio).HasColumnType("DATE").IsRequired();
             builder.Property(x => x.FechaFin).HasColumnType("DATE").IsRequired();
+            builder.Property(x => x.Requerido).IsRequired();    
 
             // Configuración de columna calculada PERSISTED
             builder.Property(x => x.DuracionDias)

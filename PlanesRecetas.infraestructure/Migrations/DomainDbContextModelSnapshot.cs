@@ -856,6 +856,9 @@ namespace PlanesRecetas.infraestructure.Migrations
                     b.Property<Guid>("PacienteId")
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("Requerido")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NutricionistaId");

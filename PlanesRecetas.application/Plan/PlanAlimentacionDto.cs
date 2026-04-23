@@ -16,5 +16,7 @@ namespace PlanesRecetas.application.Plan
         public List<DietaDto> Dietas { get; set; } = new();
         public DateTime FechaInicio { get; set; }
         public int DuracionDias { get; set; }
+
+        public bool Requerido { get; set; } = false;
     }
 }

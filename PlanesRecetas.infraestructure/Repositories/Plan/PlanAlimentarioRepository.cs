@@ -30,7 +30,15 @@ namespace PlanesRecetas.infraestructure.Repositories.Plan
         }
         public List<PlanAlimentacion> GetAll()
         {
-            return _dbContext.PlanAlimentacion.ToList();
+            var list = _dbContext.PlanAlimentacion.Include(p => p.Paciente)
+             .Include(p => p.Nutricionista)
+             .Include(p => p.Dietas)
+             .ThenInclude(d => d.DietaRecetas)
+             .ThenInclude(r => r.Receta)
+             .ThenInclude(r => r.Tiempo);
+          
+           return list.ToList();
+
         }
         public Task<PlanAlimentacion?> GetByIdAsync(Guid id, bool readOnly = false)
         {
@@ -51,6 +59,16 @@ namespace PlanesRecetas.infraestructure.Repositories.Plan
                 .Include(p => p.Nutricionista)
                 .Include(p => p.Dietas)
                 .Where(i => i.PacienteId == pacienteId).ToList());
+        }
+
+        public List<DietaReceta> GetRecetasByPlanId(Guid planId)
+        {
+            return _dbContext.DietaReceta.
+                 Include(d => d.Dieta)
+                .Include(d => d.Receta)
+                .Include(d => d.Tiempo)
+                .Where(r => r.Dieta.PlanAlimentacionId == planId).ToList();
+
         }
 
         public async Task<List<DietaReceta>> GetRecetasByPlanIdAsync(Guid planId)

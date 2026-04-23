@@ -3,23 +3,26 @@ using Joseco.Outbox.Contracts.Model;
 using MediatR;
 using PlanesRecetas.application.Messaging;
 using PlanesRecetas.application.Recipe.Evento;
+using PlanesRecetas.domain.Recipe.Evento;
 
 
-public class PublishIngredienteCreated : INotificationHandler<OutboxMessage<IngredienteCreated>>
+public class PublishIngredienteCreated : INotificationHandler<OutboxMessage<EventIngredienteCreated>>
 {
     private readonly IExternalPublisher _publisher;
 
     private readonly string exchangeName = "meal-plans";
+    private readonly string routingKey = "meal-plan.ingredient";
     public PublishIngredienteCreated(IExternalPublisher publisher)
     {
         _publisher = publisher;
     }
 
-    public async Task Handle(OutboxMessage<IngredienteCreated> outboxMessage, CancellationToken cancellationToken)
+    public async Task Handle(OutboxMessage<EventIngredienteCreated> outboxMessage, CancellationToken cancellationToken)
     {
 
+
         //IngredienteCreated is and event
-        IngredienteCreated content = outboxMessage.Content;
+        EventIngredienteCreated content = outboxMessage.Content;
         // ingredientMessage is a message that will be sent to the external system extend IntegrationMessage
         IngredienteMessage message = new()
         {
@@ -31,6 +34,6 @@ public class PublishIngredienteCreated : INotificationHandler<OutboxMessage<Ingr
         };
 
 
-        await _publisher.PublishAsync(message, exchangeName);
+        await _publisher.PublishAsync(message, exchangeName,routingKey);
     }
 }

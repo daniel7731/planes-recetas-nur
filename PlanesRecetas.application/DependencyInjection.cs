@@ -25,6 +25,7 @@ public static class DependencyInjection
             // config.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
             config.RegisterServicesFromAssembly(typeof(PublishPlanCreated).Assembly);
             config.RegisterServicesFromAssembly(typeof(PublishIngredienteCreated).Assembly);
+            config.RegisterServicesFromAssemblies(typeof(PublishRecetaCreated).Assembly);
             config.RegisterServicesFromAssembly(typeof(PacienteCreated).Assembly);
         });
         return services;

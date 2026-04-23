@@ -7,6 +7,7 @@ using PlanesRecetas.application.Recipe.Evento;
 using PlanesRecetas.domain.Care;
 using PlanesRecetas.domain.Metrics;
 using PlanesRecetas.domain.Recipe;
+using PlanesRecetas.domain.Recipe.Evento;
 
 namespace PlanesRecetas.application.Recipe
 {
@@ -63,7 +64,7 @@ namespace PlanesRecetas.application.Recipe
                 UnidadId = ingrediente.UnidadId
             };
             var outboxMessage = new OutboxMessage<DomainEvent>
-                (new IngredienteCreated(ingrediente.Id, ingrediente.Nombre,
+                (new EventIngredienteCreated(ingrediente.Id, ingrediente.Nombre,
                 ingrediente.Calorias, ingrediente.CategoriaId, ingrediente.UnidadId));
 
             await _outboxService.AddAsync(outboxMessage);

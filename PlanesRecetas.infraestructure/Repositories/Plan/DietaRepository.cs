@@ -26,33 +26,41 @@ namespace PlanesRecetas.infraestructure.Repositories.Plan
             throw new NotImplementedException();
         }
 
+
         public List<Dieta> GetDietasPlan(Guid planId)
         {
+            return _dbContext.Dieta.Include(p=> p.DietaRecetas)
+                .ThenInclude(d => d.Receta).
+                 ThenInclude(d => d.Tiempo)
+
+                .Where(d => d.PlanAlimentacionId == planId)
+                .ToList();
+    
             //  return _dbContext.DietaReceta.Join( ).Where(d => d.PlanAlimentacionId == planId).ToList();
 
 
-            var query = from dr in _dbContext.DietaReceta
-                        join d in _dbContext.Dieta on dr.DietaId equals d.Id into dietGroup
-                        from d in dietGroup.DefaultIfEmpty() // This makes it a LEFT JOIN
+            /* var query = from dr in _dbContext.DietaReceta
+                         join d in _dbContext.Dieta on dr.DietaId equals d.Id into dietGroup
+                         from d in dietGroup.DefaultIfEmpty() // This makes it a LEFT JOIN
 
-                        join pl in _dbContext.PlanAlimentacion on d.PlanAlimentacionId equals pl.Id into planGroup
-                        from pl in planGroup.DefaultIfEmpty() // Another LEFT JOIN
+                         join pl in _dbContext.PlanAlimentacion on d.PlanAlimentacionId equals pl.Id into planGroup
+                         from pl in planGroup.DefaultIfEmpty() // Another LEFT JOIN
 
-                        join r in _dbContext.Receta on dr.RecetaId equals r.Id into recetaGroup
-                        from r in recetaGroup.DefaultIfEmpty()
+                         join r in _dbContext.Receta on dr.RecetaId equals r.Id into recetaGroup
+                         from r in recetaGroup.DefaultIfEmpty()
 
-                        join t in _dbContext.Tiempo on dr.TiempoId equals t.Id into tiempoGroup
-                        from t in tiempoGroup.DefaultIfEmpty()
+                         join t in _dbContext.Tiempo on dr.TiempoId equals t.Id into tiempoGroup
+                         from t in tiempoGroup.DefaultIfEmpty()
 
-                        where d.PlanAlimentacionId == planId
-                        select new Dieta(d.Id, d.FechaConsumo, planId)
-                        {
+                         where d.PlanAlimentacionId == planId
+                         select new Dieta(d.Id, d.FechaConsumo, planId)
+                         {
 
 
-                        };
+                         };
 
-            var results = query.ToList();
-            return results;
+             var results = query.ToList();
+             return results;*/
         }
 
         public Task<Dieta?> GetByIdAsync(Guid id, bool readOnly = false)
@@ -110,6 +118,14 @@ namespace PlanesRecetas.infraestructure.Repositories.Plan
 
             List<DietaReceta> dietaRecetas = query.ToList();
             return dietaRecetas;
+        }
+
+        public List<DietaReceta> GetDietaRecetasByPlanId(Guid planId)
+        {
+            return _dbContext.DietaReceta.Include(dr => dr.Dieta)
+                .Include(dr => dr.Receta)   
+                .Where(dr => dr.Dieta.PlanAlimentacionId == planId)
+                .ToList();
         }
     }
 }

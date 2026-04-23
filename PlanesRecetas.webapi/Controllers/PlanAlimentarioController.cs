@@ -61,7 +61,8 @@ namespace PlanesRecetas.webapi.Controllers
                     NutricionistaId = request.NutricionistaId,
                     Dieta = dietas,
                     FechaInicio = request.FechaInicio,
-                    DuracionDias = request.DuracionDias
+                    DuracionDias = request.DuracionDias,
+                    Requerido = request.Requerido
                 };
                 var result = await _mediator.Send(createPlanAlimentario);
                 response = ResponseHelper.CreateResponse(result);
@@ -114,6 +115,21 @@ namespace PlanesRecetas.webapi.Controllers
                 var result = await _mediator.Send(new BuscarPlanAlimentarioByPacienteQuery(paramSearchPlan.PacienteId,
                     paramSearchPlan.DesdeFecha,
                     paramSearchPlan.IgnorarFiltroFecha));
+                response = ResponseHelper.CreateResponse(result);
+            }
+            catch (Exception ex)
+            {
+                response = ResponseHelper.CreateErrorResponse(ex);
+            }
+            return Ok(response);
+        }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllPlans()
+        {
+            ApiResponse response;
+            try
+            {
+                var result = await _mediator.Send(new GetAllPlansQuery());
                 response = ResponseHelper.CreateResponse(result);
             }
             catch (Exception ex)
