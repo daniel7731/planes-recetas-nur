@@ -36,6 +36,7 @@ services:
     ports:
       - "1700:1700"
     environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
       - ASPNETCORE_ENVIRONMENT=Development
       - DataBaseSettings__ConnectionString=${DB_CONNECTION_STRING};
       - Serilog__MinimumLevel__Default=Information
@@ -72,6 +73,7 @@ services:
     image: ikaru773/plans-worker
     container_name: plans-worker
     environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
       - ASPNETCORE_ENVIRONMENT=Development
       - DataBaseSettings__ConnectionString=${DB_CONNECTION_STRING};
       - RabbitMqSettings__Host=${RABBIT_HOST}
@@ -131,6 +133,15 @@ services:
       - ../grafana/provisioning:/etc/grafana/provisioning    
     networks:
       - shared-network  
+  jaeger:
+    image: jaegertracing/all-in-one:latest   
+    ports:
+      - 4317:4317
+      - 4318:4318
+      - 16686:16686
+    networks:
+      - shared-network  
+
 
 volumes:
   grafana_data:
