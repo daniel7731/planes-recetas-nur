@@ -37,7 +37,7 @@ namespace PlanesRecetas.domain.Plan
             Dietas = new List<Dieta>();
             DuracionDias = duracion;
             Requerido = requerido;
-            AddDomainEvent(new PlanCreated(Id, PacienteId, NutricionistaId, FechaInicio, duracion, requerido));
+            AddDomainEvent(new EventPlanCreated(Id, PacienteId, NutricionistaId, FechaInicio, duracion, requerido));
         }
         public void SetFechaInicio(DateTime fechaInicio, int duracion)
         {

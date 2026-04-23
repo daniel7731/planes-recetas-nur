@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Joseco.DDD.Core.Abstractions;
+﻿using Joseco.DDD.Core.Abstractions;
 using PlanesRecetas.domain.Metrics;
-using System.ComponentModel.DataAnnotations.Schema;
 using PlanesRecetas.domain.Care;
-using PlanesRecetas.application.Recipe.Evento;
+using PlanesRecetas.domain.Recipe.Evento;
 
 namespace PlanesRecetas.domain.Recipe
 {
@@ -29,7 +26,7 @@ namespace PlanesRecetas.domain.Recipe
         }
         public void SetDomainEvent()
         {
-            AddDomainEvent(new IngredienteCreated(Id, Nombre, Calorias, CategoriaId, UnidadId));
+            AddDomainEvent(new EventIngredienteCreated(Id, Nombre, Calorias, CategoriaId, UnidadId));
         }
         public Ingrediente(Guid id, decimal calorias, string nombre, Categoria categoria, decimal cantidadValor, UnidadMedida unidad) : base(id)
         {

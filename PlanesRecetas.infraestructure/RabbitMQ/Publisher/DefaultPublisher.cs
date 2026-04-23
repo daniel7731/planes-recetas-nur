@@ -41,7 +41,8 @@ namespace PlanesRecetas.infraestructure.RabbitMQ.Publisher
                 durable: true);
 
             // 2. Serialize the body
-            var messageJson = JsonSerializer.Serialize(messageData);
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var messageJson = JsonSerializer.Serialize(messageData,options);
             var body = Encoding.UTF8.GetBytes(messageJson);
 
             // 3. Set Properties (Persistent ensures message survives broker restart)
@@ -65,9 +66,13 @@ namespace PlanesRecetas.infraestructure.RabbitMQ.Publisher
             string exchange = destination ?? "default_exchange";
             string routingKey = "";
             string name = message.GetType().Name;
-            if (name.Equals("PlanCreated", StringComparison.OrdinalIgnoreCase))
+            if (name.Equals("PlanMessage", StringComparison.OrdinalIgnoreCase))
             {
-                routingKey = "plans.created";
+                routingKey = "meal-plan.plan";
+            }
+            if (name.Equals("IngredienteMessage", StringComparison.OrdinalIgnoreCase))
+            {
+                routingKey = "meal-plan.ingredient";
             }
             await PublishAsync(message, exchange, routingKey);
         }

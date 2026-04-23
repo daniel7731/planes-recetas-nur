@@ -110,8 +110,10 @@ namespace PlanesRecetas.infraestructure.Consumer
                     consumer: consumer,
                     cancellationToken: stoppingToken);
 
+                var HostName = _settings.Host;
+                _logger.LogInformation("Connecting to {HostName}", HostName);
                 _logger.LogInformation(
-                    "RabbitMQ Worker started. Listening on exchange '{Exchange}' with routing '{RoutingKey}'",
+                    "RabbitMQ Worker started. Listening at se on exchange '{Exchange}' with routing '{RoutingKey}'",
                     ExchangeName,
                     RoutingKey);
 
@@ -138,7 +140,7 @@ namespace PlanesRecetas.infraestructure.Consumer
 
             await base.StopAsync(cancellationToken);
         }
-        protected virtual Task HandleMessage(string json)
+        protected virtual async Task HandleMessage(string json)
         {
             try
             {
@@ -159,13 +161,13 @@ namespace PlanesRecetas.infraestructure.Consumer
                 }
 
                 _logger.LogInformation("Successfully deserialized {Type}", typeof(T).Name);
-                mediator.Publish(message);
+                await mediator.Publish(message);
             }
             catch (JsonException ex)
             {
                 _logger.LogError(ex, "Invalid JSON received");
             }
-            return Task.CompletedTask;
+            
         }
     }
 

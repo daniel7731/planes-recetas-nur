@@ -2,7 +2,7 @@
 
 namespace PlanesRecetas.domain.Plan.Events
 {
-    public record PlanCreated : DomainEvent
+    public record EventPlanCreated : DomainEvent
     {
 
         public Guid PacienteId { get; set; }
@@ -12,7 +12,8 @@ namespace PlanesRecetas.domain.Plan.Events
 
         public bool Requerido { get; set; } = false;
 
-        public PlanCreated(Guid Id, Guid pacienteId, Guid nutricionistaId, DateTime fechaInicio, int duracion , bool requerido)
+        public List<EventItemDieta> Dietas { get; set; } = new List<EventItemDieta>();
+        public EventPlanCreated(Guid Id, Guid pacienteId, Guid nutricionistaId, DateTime fechaInicio, int duracion , bool requerido)
         {
             this.Id = Id;
             this.PacienteId = pacienteId;

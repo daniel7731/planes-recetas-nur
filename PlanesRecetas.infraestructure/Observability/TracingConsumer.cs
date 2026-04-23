@@ -1,11 +1,7 @@
 ﻿using Nur.Store2025.Observability.Tracing;
 using PlanesRecetas.application.Messaging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PlanesRecetas.infraestructure.Observability
 {

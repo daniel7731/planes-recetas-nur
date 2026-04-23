@@ -1,9 +1,5 @@
 ﻿using PlanesRecetas.application.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PlanesRecetas.application.Plan.Evento
 {
@@ -14,5 +10,8 @@ namespace PlanesRecetas.application.Plan.Evento
         public Guid NutricionistaId { get; set; }
         public DateTime FechaInicio { get; set; }
         public int Duracion { get; set; }
+        public bool Requerido { get; set; } = false;
+
+        public List<MessageItemDieta> Dietas { get; set; } = new List<MessageItemDieta>();
     }
 }

@@ -52,7 +52,7 @@ services:
       - RabbitMqSettings__Host=rabbitmq
       - RabbitMqSettings__Port=5672
       - RabbitMqSettings__UserName=admin
-      - RabbitMqSettings__Password=StrongPassword123
+      - RabbitMqSettings__Password=admin
       - RabbitMqSettings__QueueName=plan-created
       - RabbitMqSettings__VirtualHost=/
       - ServiceRegistration__ServiceDiscoveryAddress=http://consul:8500
@@ -77,7 +77,7 @@ services:
       - RabbitMqSettings__Host=rabbitmq
       - RabbitMqSettings__Port=5672
       - RabbitMqSettings__UserName=admin
-      - RabbitMqSettings__Password=StrongPassword123
+      - RabbitMqSettings__Password=admin
       - RabbitMqSettings__QueueName=plan-created
       - RabbitMqSettings__VirtualHost=/
     networks:

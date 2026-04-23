@@ -16,6 +16,7 @@ using PlanesRecetas.domain.Recipe;
 using PlanesRecetas.domain.Template;
 using PlanesRecetas.infraestructure.Persistence;
 using PlanesRecetas.infraestructure.Persistence.DomainModel;
+using PlanesRecetas.infraestructure.Persistence.Repositories;
 using PlanesRecetas.infraestructure.Repositories.Care;
 using PlanesRecetas.infraestructure.Repositories.Metrics;
 using PlanesRecetas.infraestructure.Repositories.Persons;
@@ -57,9 +58,10 @@ public static class DatabaseExtensions
             .AddScoped<IPlanAlimentacionRepository, PlanAlimentarioRepository>()
             .AddScoped<IRecetaIngredienteRepository, RecetaIngredienteRepository>()
             .AddScoped<IPlanTemplateRepository,PlanTemplateRepository>()
-            .AddScoped<IOutboxDatabase<DomainEvent>, UnitOfWork>()    // AddScoped<IOutboxDatabase<DomainEvent>, OutboxDatabase>() // or UnitOfWork
+            .AddScoped<IOutboxDatabase<DomainEvent>, UnitOfWork>()    
             .AddOutbox<DomainEvent>();
-    
+            // services.Decorate<IOutboxService<DomainEvent>, OutboxTracingService<DomainEvent>>();
+
 
         return services;
     }
