@@ -1,6 +1,7 @@
 ﻿using Joseco.DDD.Core.Abstractions;
 using Joseco.DDD.Core.Results;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Moq;
 using PlanesRecetas.application.Pacientes;
 using PlanesRecetas.domain.Persons;
@@ -16,6 +17,7 @@ namespace PlanesRecetas.testing.Application.Paciente
     {
         private readonly Mock<IPacienteRepository> _mockPacienteRepository;
         private readonly Mock<IUnitOfWork> _mockUnitOfWork;
+        private readonly Mock<ILogger<CreatePacienteHandler>> _mockLogger;
         private readonly CreatePacienteHandler _handler;
 
         // Setup common to all tests
@@ -23,11 +25,13 @@ namespace PlanesRecetas.testing.Application.Paciente
         {
             _mockPacienteRepository = new Mock<IPacienteRepository>();
             _mockUnitOfWork = new Mock<IUnitOfWork>();
+            _mockLogger = new Mock<ILogger<CreatePacienteHandler>>();   
 
             // Inject the mocked dependencies into the handler
             _handler = new CreatePacienteHandler(
                 _mockPacienteRepository.Object,
-                _mockUnitOfWork.Object
+                _mockUnitOfWork.Object,
+                _mockLogger.Object
             );
         }
 

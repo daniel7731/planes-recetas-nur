@@ -10,6 +10,7 @@
     public class PacienteRepository : IPacienteRepository
     {
         private readonly DomainDbContext _dbContext;
+        
         public PacienteRepository(DomainDbContext dbContext)
         {
             _dbContext = dbContext;

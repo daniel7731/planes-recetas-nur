@@ -14,5 +14,10 @@ namespace PlanesRecetas.application.Pacientes
            "No Pacientes were found in the system.",
            ErrorType.NotFound
        );
+       public static readonly Error PacienteNotCreated = new(
+           "Paciente.NotCreated",
+           "The specified Paciente was not created.",
+           ErrorType.Failure
+       );
     }
 }
