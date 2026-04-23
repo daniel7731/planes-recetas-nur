@@ -18,7 +18,7 @@ public static class DependencyInjection
         string serviceName)
     {
         services.AddSecrets(configuration, environment)
-       // .AddObservability(environment, serviceName)
+       .AddObservability(environment, serviceName)
        .AddDatabase(configuration)
        .AddSecurity(environment)
        .AddRabbitMQ(configuration, environment);
