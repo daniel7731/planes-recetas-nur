@@ -37,22 +37,22 @@ services:
       - "1700:1700"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - DataBaseSettings__ConnectionString=Host=planes-postgres;Port=5432;Database=appservice;Username=postgres;Password=Password12345;
+      - DataBaseSettings__ConnectionString=${DB_CONNECTION_STRING};
       - Serilog__MinimumLevel__Default=Information
       - Serilog__MinimumLevel__Override__Microsoft=Warning
       - Serilog__MinimumLevel__Override__System=Warning
       - UseSecretManager=false
-      - JwtOptions__Lifetime=30
-      - JwtOptions__SecretKey=DiplomadoMicroservicios2025SecretoJTWApiSecurity
-      - JwtOptions__ValidAudience=storeApp
-      - JwtOptions__ValidIssuer=api_security
-      - JwtOptions__ValidateAudience=false
-      - JwtOptions__ValidateIssuer=true
-      - JwtOptions__ValidateLifetime=true
-      - RabbitMqSettings__Host=rabbitmq
+      - JwtOptions__Lifetime=${JWTOPTIONS_LIFETIME}
+      - JwtOptions__SecretKey=${JWTOPTIONS_SECRETKEY}
+      - JwtOptions__Audience=${JWTOPTIONS_AUDIENCE}
+      - JwtOptions__ValidIssuer=${JWTOPTIONS_VALIDISSUER}
+      - JwtOptions__ValidateAudience=${JWTOPTIONS_VALIDATE_AUDIENCE}
+      - JwtOptions__ValidateIssuer=${JWTOPTIONS_VALIDATE_ISSUER}
+      - JwtOptions__ValidateLifetime=${JWTOPTIONS_VALIDATELIFETIME}
+      - RabbitMqSettings__Host=${RABBIT_HOST}
       - RabbitMqSettings__Port=5672
-      - RabbitMqSettings__UserName=admin
-      - RabbitMqSettings__Password=admin
+      - RabbitMqSettings__UserName=${RABBIT_USER}
+      - RabbitMqSettings__Password=${RABBIT_PASSWORD}
       - RabbitMqSettings__QueueName=plan-created
       - RabbitMqSettings__VirtualHost=/
       - ServiceRegistration__ServiceDiscoveryAddress=http://consul:8500
@@ -73,11 +73,11 @@ services:
     container_name: plans-worker
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - DataBaseSettings__ConnectionString=Host=planes-postgres;Port=5432;Database=appservice;Username=postgres;Password=Password12345;
-      - RabbitMqSettings__Host=rabbitmq
+      - DataBaseSettings__ConnectionString=${DB_CONNECTION_STRING};
+      - RabbitMqSettings__Host=${RABBIT_HOST}
       - RabbitMqSettings__Port=5672
-      - RabbitMqSettings__UserName=admin
-      - RabbitMqSettings__Password=admin
+      - RabbitMqSettings__UserName=${RABBIT_USER}
+      - RabbitMqSettings__Password=${RABBIT_PASSWORD}
       - RabbitMqSettings__QueueName=plan-created
       - RabbitMqSettings__VirtualHost=/
     networks:

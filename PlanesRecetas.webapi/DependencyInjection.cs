@@ -14,6 +14,7 @@ namespace PlanesRecetas.webapi
         {
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+            services.AddLogging();
 
             // REMARK: If you want to use Controllers, you'll need this.
             services.AddControllers();
