@@ -63,7 +63,7 @@ namespace PlanesRecetas.infraestructure.Consumer
                 // Declare Queue
                 var queueResult = await _channel.QueueDeclareAsync(
                     durable: false,
-                    exclusive: true,
+                    exclusive: false,
                     autoDelete: true,
                     cancellationToken: stoppingToken);
 
@@ -85,7 +85,7 @@ namespace PlanesRecetas.infraestructure.Consumer
                         var body = ea.Body.ToArray();
                         var json = Encoding.UTF8.GetString(body);
 
-
+                        _logger.LogInformation("Reciving the object {json}",json);
 
                         _logger.LogInformation(
                             "Message received. RoutingKey: {RoutingKey}",
@@ -96,7 +96,7 @@ namespace PlanesRecetas.infraestructure.Consumer
                             await HandleMessage(json);
                         }
 
-                        await Task.Delay(100, stoppingToken);
+                        await Task.Delay(Timeout.Infinite, stoppingToken);
                     }
                     catch (Exception ex)
                     {
