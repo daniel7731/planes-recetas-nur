@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using PlanesRecetas.application;
 using PlanesRecetas.infraestructure;
-using PlanesRecetas.infraestructure.Extensions;
 using PlanesRecetas.webapi;
 using PlanesRecetas.webapi.Extensions;
 using Prometheus;
@@ -11,8 +10,7 @@ using Serilog;
 
 
 var builder = WebApplication.CreateBuilder(args);
-string serviceName = "planesrecetas.api";
-//builder.Host.UseLogging(serviceName, builder.Configuration);
+string serviceName = builder.Configuration.GetValue<string>("ApplicationName", "ms-plan");
 builder.Host.UseSerilog((ctx, services, config)
     => config.ReadFrom.Configuration(ctx.Configuration)
     .ReadFrom.Services(services)

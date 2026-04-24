@@ -43,10 +43,6 @@ services:
       - RabbitMqSettings__Password=${RABBIT_PASSWORD}
       - RabbitMqSettings__QueueName=plan-created
       - RabbitMqSettings__VirtualHost=/
-      - ServiceRegistration__ServiceDiscoveryAddress=http://consul:8500
-      - ServiceRegistration__Host=http://api-plan
-      - ServiceRegistration__Port=8090
-      - ServiceRegistration__ServiceId=catalog
       - Seq__ServerUrl=http://seq:5341
       - JaegerSettings__Host=jaeger
       - JaegerSettings__Port=6831
@@ -54,6 +50,8 @@ services:
       - Consul__ServiceAddress=${CONSUL_SERVICE_ADDRESS}
       - Consul__ServicePort=${CONSUL_PORT}
       - Consul__ServiceName=${MS_NAME}
+      - ApplicationName=${MS_NAME}
+      - Serilog__WriteTo__1__Args__uri=${LOKI_URI}
     networks:
       - shared-network
     depends_on:
