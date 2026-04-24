@@ -63,6 +63,10 @@ services:
       - Seq__ServerUrl=http://seq:5341
       - JaegerSettings__Host=jaeger
       - JaegerSettings__Port=6831
+      - Consul__Host=${CONSUL_HOST}
+      - Consul__ServiceAddress=${CONSUL_SERVICE_ADDRESS}
+      - Consul__ServicePort=${CONSUL_PORT}
+      - Consul__ServiceName=${MS_NAME}
     networks:
       - shared-network
     depends_on:

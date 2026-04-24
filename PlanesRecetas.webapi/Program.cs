@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using PlanesRecetas.application;
 using PlanesRecetas.infraestructure;
+using PlanesRecetas.infraestructure.Extensions;
 using PlanesRecetas.webapi;
 using PlanesRecetas.webapi.Extensions;
 using Prometheus;
@@ -24,7 +25,8 @@ builder.Services.AddHealthChecks()
 
 builder.Services.AddAplication()
 .AddInfrastructure(builder.Configuration, builder.Environment, serviceName)
-.AddPresentation(builder.Configuration, builder.Environment);
+.AddPresentation(builder.Configuration, builder.Environment)
+.AddConsulServiceDiscovery(builder.Configuration, builder.Environment);
 
 
 var app = builder.Build();
