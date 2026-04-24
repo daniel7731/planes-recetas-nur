@@ -9,7 +9,7 @@ using PlanesRecetas.infraestructure.Consumer;
 
 var builder = Host.CreateApplicationBuilder(args);
 
-string serviceName = "planes-recetas.worker-service";
+string serviceName = builder.Configuration.GetValue<string>("ApplicationName", "ms-plan");
 
 Console.WriteLine("Building Host...");
 builder.UseLogging(serviceName, builder.Configuration);
