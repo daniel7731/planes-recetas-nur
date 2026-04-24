@@ -14,7 +14,7 @@ namespace PlanesRecetas.infraestructure.Extensions
         public string ServiceName { get; set; } = string.Empty;
         public string ServiceAddress { get; set; } = "localhost";
         public int ServicePort { get; set; } = 80;
-        public string[] Tags { get; set; } = ["dotnet", "api", "plans", "metrics"];
+        public string[] Tags { get; set; } = ["dotnet", "api", "ms-plans", "metrics"];
         public string HealthCheckEndpoint { get; set; } = "/health/live";
     }
 
