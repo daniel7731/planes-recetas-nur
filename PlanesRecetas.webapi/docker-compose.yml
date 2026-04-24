@@ -17,19 +17,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
-
-  planes-migrate:
-    image: ikaru773/planesrecetaswebapi
-    command: ["dotnet", "PlanesRecetas.WebApi.dll", "--migrate"]
-    depends_on:
-      planes-postgres:
-        condition: service_healthy
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - DataBaseSettings__ConnectionString=Host=planes-postgres;Port=5432;Database=appservice;Username=postgres;Password=Password12345;
-    networks:
-      - shared-network
-
   planes-api:
     image: ikaru773/planesrecetaswebapi
     container_name: planes_receta_api
