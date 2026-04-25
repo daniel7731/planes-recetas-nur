@@ -6,7 +6,7 @@ using PlanesRecetas.webapi.Infrastructure;
 
 namespace PlanesRecetas.webapi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/plans/[controller]")]
     [ApiController]
     public class TiempoController : ControllerBase
     {

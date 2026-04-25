@@ -7,7 +7,7 @@ using PlanesRecetas.webapi.Parameters.Diet;
 
 namespace PlanesRecetas.webapi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/plans/[controller]")]
     [ApiController]
     public class DietaController : ControllerBase
     {
