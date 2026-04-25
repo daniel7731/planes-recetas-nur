@@ -14,22 +14,20 @@ namespace PlanesRecetas.infraestructure.Consumer
 
 
 
-    public class RabbitTopicWorker<T> : BackgroundService
+    public class RabbitTopicWorker<PacienteCreated> : BackgroundService
     {
-        private readonly ILogger<RabbitTopicWorker<T>> _logger;
+        private readonly ILogger<RabbitTopicWorker<PacienteCreated>> _logger;
 
         private IConnection? _connection;
         private IChannel? _channel;
-        private string? _queueName;
-
-
+   
         private const string ExchangeName = "patients";
         private const string RoutingKey = "patient.*";
         private const string QueueName = "ms-meal-plans-queue";
         private RabbitMQSettings _settings;
         private readonly IServiceScopeFactory _scopeFactory;
         public RabbitTopicWorker(
-              IOptions<RabbitMQSettings> options, ILogger<RabbitTopicWorker<T>> logger,
+              IOptions<RabbitMQSettings> options, ILogger<RabbitTopicWorker<PacienteCreated>> logger,
               IServiceScopeFactory scopeFactory)
         {
             _logger = logger;
@@ -57,14 +55,13 @@ namespace PlanesRecetas.infraestructure.Consumer
                     exchange: ExchangeName,
                     type: ExchangeType.Topic,
                     durable: true,
-                    autoDelete: false,
                     cancellationToken: stoppingToken);
 
                 // Declare Queue
                 var queueResult = await _channel.QueueDeclareAsync(
-                    durable: false,
+                    durable: true,
                     exclusive: false,
-                    autoDelete: true,
+                    autoDelete: false,
                     cancellationToken: stoppingToken);
 
 
@@ -96,7 +93,7 @@ namespace PlanesRecetas.infraestructure.Consumer
                             await HandleMessage(json);
                         }
 
-                        await Task.Delay(Timeout.Infinite, stoppingToken);
+                  
                     }
                     catch (Exception ex)
                     {
@@ -116,7 +113,6 @@ namespace PlanesRecetas.infraestructure.Consumer
                     "RabbitMQ Worker started. Listening at se on exchange '{Exchange}' with routing '{RoutingKey}'",
                     ExchangeName,
                     RoutingKey);
-
                 await Task.Delay(Timeout.Infinite, stoppingToken);
 
             }
@@ -144,23 +140,36 @@ namespace PlanesRecetas.infraestructure.Consumer
         {
             try
             {
+                _logger.LogInformation("Raw JSON received: {json}", json);
+                using var doc = JsonDocument.Parse(json);
+                var root = doc.RootElement;
                 var options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 };
+                if (!root.TryGetProperty("PatientId", out _))
+                {
+                    _logger.LogError("JSON missing 'PatientId' property. Check producer schema.");
+                    return;
+                }
+                if (!root.TryGetProperty("FirstName", out _))
+                {
+                    _logger.LogError("JSON missing 'FirstName' property. Check producer schema.");
+                    return;
+                }
                 using var scope = _scopeFactory.CreateScope();
 
                 var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
-                var message = JsonSerializer.Deserialize<T>(json, options);
+                var message = JsonSerializer.Deserialize<PacienteCreated>(json, options);
 
                 if (message == null)
                 {
-                    _logger.LogWarning("Failed to deserialize message to {Type}", typeof(T).Name);
+                    _logger.LogWarning("Failed to deserialize message to {Type}", typeof(PacienteCreated).Name);
 
                 }
 
-                _logger.LogInformation("Successfully deserialized {Type}", typeof(T).Name);
+                _logger.LogInformation("Successfully deserialized {Type}", typeof(PacienteCreated).Name);
                 await mediator.Publish(message);
             }
             catch (JsonException ex)

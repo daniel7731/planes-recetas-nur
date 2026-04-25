@@ -487,3 +487,4 @@ coverage
 grafana/data
 loki/data
 prometheus/data
+appssetings.prop

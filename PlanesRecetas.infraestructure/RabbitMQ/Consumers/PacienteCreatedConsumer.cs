@@ -20,7 +20,7 @@ namespace PlanesRecetas.infraestructure.RabbitMQ.Consumers
         {
             CreatePacienteComand command = new()
             {
-                Guid = notification.Id,
+                Guid = notification.PatientId,
                 Nombre = notification.FirstName,
                 Apellido = notification.MiddleName,
                 FechaNacimiento = notification.DateOfBirth
