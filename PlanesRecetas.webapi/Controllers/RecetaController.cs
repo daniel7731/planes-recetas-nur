@@ -9,7 +9,7 @@ using PlanesRecetas.webapi.Parameters.Recipe;
 
 namespace PlanesRecetas.webapi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/plans/[controller]")]
     [ApiController]
     public class RecetaController : ControllerBase
     {

@@ -11,7 +11,7 @@ using System;
 
 namespace PlanesRecetas.webapi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/plans/[controller]")]
     [ApiController]
     public class PacienteController : ControllerBase
     {

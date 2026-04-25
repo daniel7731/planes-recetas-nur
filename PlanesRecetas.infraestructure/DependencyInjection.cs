@@ -1,11 +1,15 @@
 ﻿using Consul;
 using Inventory.Infrastructure.Extensions;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Nur.Store2025.Observability;
+using PlanesRecetas.application.Pacientes.Evento;
+using PlanesRecetas.infraestructure.Consumer;
 using PlanesRecetas.infraestructure.Extensions;
+using PlanesRecetas.infraestructure.RabbitMQ.Consumers;
 
 
 
@@ -24,7 +28,8 @@ public static class DependencyInjection
        .AddDatabase(configuration)
        .AddSecurity(environment)
        .AddRabbitMQ(configuration, environment);
-
+        services.AddScoped<INotificationHandler<PacienteCreated>, PacienteCreatedConsumer>();
+        services.AddHostedService<RabbitTopicWorker<PacienteCreated>>();
 
         return services;
     }
