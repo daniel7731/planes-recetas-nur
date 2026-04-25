@@ -1,5 +1,4 @@
 ﻿using Consul;
-using Inventory.Infrastructure.Extensions;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +23,7 @@ public static class DependencyInjection
         string serviceName)
     {
         services.AddSecrets(configuration, environment)
-       .AddObservability(environment, serviceName)
+       .AddObservability(environment,configuration, serviceName)
        .AddDatabase(configuration)
        .AddSecurity(environment)
        .AddRabbitMQ(configuration, environment);

@@ -1,37 +1,39 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
-using Nur.Store2025.Observability;
-using Nur.Store2025.Observability.Config;
+using OpenTelemetry;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using Npgsql;
 using PlanesRecetas.infraestructure.Persistence;
 
-namespace Inventory.Infrastructure.Extensions;
+namespace PlanesRecetas.infraestructure.Extensions;
 
 public static class ObservabilityExtensions
 {
 
     public static IServiceCollection AddObservability(this IServiceCollection services,
-        IHostEnvironment environment, string serviceName)
+        IHostEnvironment environment, IConfiguration configuration, string serviceName)
     {
 
+        // This will automatically map Telemetry__ServiceName to ServiceName
+        // This binds the environment variables/JSON to a new instance immediately
+        var telemetrySettings = configuration.GetSection("Telemetry").Get<TelemetrySettings>();
+
+        string otlpEndpoint = telemetrySettings.OtlpEndpoint;
+
         services.AddOpenTelemetry()
-            .ConfigureResource(resource => resource.AddService(serviceName))
-            .WithTracing(tracing =>
-            {
-                tracing
+            .WithTracing(tracing => tracing
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName))
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
-                .AddSqlClientInstrumentation();
-
-                tracing.AddOtlpExporter();
-
-            }
-
-       );
+                .AddOtlpExporter(o => o.Endpoint = new Uri(otlpEndpoint)))
+            .WithMetrics(metrics => metrics
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName))
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddPrometheusExporter())
+            .AddRabbitMqInstrumentation();
 
         return services;
 
@@ -67,5 +69,15 @@ public static class ObservabilityExtensions
         //.AddRabbitMqHealthCheck();
 
         return services;
+    }
+    public static OpenTelemetryBuilder AddRabbitMqInstrumentation(this OpenTelemetryBuilder builder)
+    {
+        return builder.WithTracing(delegate (TracerProviderBuilder tracing)
+        {
+            tracing.AddSource("Joselct.Communication.RabbitMQ");
+        }).WithMetrics(delegate (MeterProviderBuilder metrics)
+        {
+            metrics.AddMeter("Joselct.Communication.RabbitMQ");
+        });
     }
 }

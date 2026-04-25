@@ -64,14 +64,6 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-/*if (ennableSecurty)
-{
-   
-}
-else
-{
-    app.MapControllers();
-}*/
 app.MapControllers().RequireAuthorization();
 
 app.MapMetrics();
