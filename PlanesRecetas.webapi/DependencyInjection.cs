@@ -1,10 +1,7 @@
 ﻿using Consul;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using PlanesRecetas.infraestructure.Extensions;
-using PlanesRecetas.webapi.Infrastructure;
 using System.Text;
 namespace PlanesRecetas.webapi
 {
@@ -37,24 +34,7 @@ namespace PlanesRecetas.webapi
                         Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
                     };
                 });
-            //services.AddExceptionHandler<GlobalExceptionHandler>();
-            //services.AddProblemDetails();
 
-
-            /*if (!environment.IsDevelopment())
-            {
-                services.RegisterServiceToServiceDiscovery(configuration);
-            }*/
-
-            return services;
-        }
-        private static IServiceCollection RegisterServiceToServiceDiscovery(this IServiceCollection services, IConfiguration configuration)
-        {
-
-            string? serviceDiscoveryAddress = configuration.GetValue<string?>("ServiceRegistration:ServiceDiscoveryAddress");
-
-            services.AddSingleton(sp => new ConsulClient(c => c.Address = new Uri(serviceDiscoveryAddress)));
-            services.AddHostedService<ServiceRegistration>();
 
             return services;
         }
