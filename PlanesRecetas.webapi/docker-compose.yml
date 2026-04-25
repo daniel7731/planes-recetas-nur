@@ -24,7 +24,6 @@ services:
       - "1700:1700"
     environment:
       - EnnableSecurity=${ENNABLE_SECURITY}
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
       - ASPNETCORE_ENVIRONMENT=Development
       - DataBaseSettings__ConnectionString=${DB_CONNECTION_STRING};
       - Serilog__MinimumLevel__Default=Information
@@ -47,6 +46,8 @@ services:
       - Seq__ServerUrl=http://seq:5341
       - JaegerSettings__Host=jaeger
       - JaegerSettings__Port=6831
+      - Telemetry__ServiceName=${MS_NAME}
+      - Telemetry__OtlpEndpoint=http://${INFRA_HOST}:4317
       - Consul__Host=${CONSUL_HOST}
       - Consul__ServiceAddress=${CONSUL_SERVICE_ADDRESS}
       - Consul__ServicePort=${CONSUL_PORT}
@@ -63,7 +64,8 @@ services:
     image: ikaru773/plans-worker
     container_name: plans-worker
     environment:
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
+      - Telemetry__ServiceName=${MS_NAME}
+      - Telemetry__OtlpEndpoint=http://${INFRA_HOST}:4317
       - ASPNETCORE_ENVIRONMENT=Development
       - DataBaseSettings__ConnectionString=${DB_CONNECTION_STRING};
       - RabbitMqSettings__Host=${RABBIT_HOST}
@@ -123,14 +125,7 @@ services:
       - ../grafana/provisioning:/etc/grafana/provisioning    
     networks:
       - shared-network  
-  jaeger:
-    image: jaegertracing/all-in-one:latest   
-    ports:
-      - 4317:4317
-      - 4318:4318
-      - 16686:16686
-    networks:
-      - shared-network  
+  
 
 
 volumes:
