@@ -11,6 +11,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 string serviceName = builder.Configuration.GetValue<string>("ApplicationName", "ms-plan");
+bool ennableSecurty = builder.Configuration.GetValue<bool>("EnableSecurity", false);
 builder.Host.UseSerilog((ctx, services, config)
     => config.ReadFrom.Configuration(ctx.Configuration)
     .ReadFrom.Services(services)
@@ -61,7 +62,15 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllers();
+if (ennableSecurty)
+{
+    app.MapControllers().RequireAuthorization();
+}
+else
+{
+    app.MapControllers();
+}
+
 app.MapMetrics();
 
 app.Run();

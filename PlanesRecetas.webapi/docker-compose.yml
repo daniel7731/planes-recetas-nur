@@ -23,6 +23,7 @@ services:
     ports:
       - "1700:1700"
     environment:
+      - EnnableSecurity=${ENNABLE_SECURITY}
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
       - ASPNETCORE_ENVIRONMENT=Development
       - DataBaseSettings__ConnectionString=${DB_CONNECTION_STRING};
